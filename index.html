@@ -574,6 +574,37 @@
     .field input.admissions-passcode { text-align: center; font-size: 24px; letter-spacing: .5em; }
     .admissions-lock-error { min-height: 24px; margin: 0; color: #b42318; font-size: 12px; }
     .admissions-lock-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .today-hub { width: min(100%, 640px); margin: 0 auto 24px; }
+    .today-hub-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+    .today-hub-tab { min-height: 40px; padding: 0 16px; border: 0; border-radius: 20px; color: var(--muted); background: transparent; font-size: 12px; font-weight: 700; }
+    .today-hub-tab[aria-selected="true"] { color: var(--ink); background: #e9ebee; }
+    .today-hub-page { display: none; }
+    .today-hub-page.active { display: block; }
+    .today-hub .daily-song { margin-bottom: 0; }
+    .school-today-card { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: var(--shadow); }
+    .school-today-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
+    .school-today-toolbar[hidden] { display: none; }
+    .school-date-nav { display: flex; align-items: center; gap: 8px; }
+    .school-date-nav input { width: 144px; min-height: 40px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); font: inherit; font-size: 12px; }
+    .school-date-nav button { width: 32px; height: 40px; border: 0; border-radius: 8px; background: #fff; color: var(--muted); font-size: 18px; }
+    .school-date-actions { display: flex; gap: 8px; }
+    .school-today-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .school-today-title { margin: 0; font-size: 16px; letter-spacing: -.03em; }
+    .school-today-subtitle { margin: 8px 0 0; color: var(--muted); font-size: 11px; }
+    .school-source-link { color: var(--muted); font-size: 11px; text-decoration: none; white-space: nowrap; }
+    .school-source-link:hover { text-decoration: underline; }
+    .school-meal-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+    .school-meal { padding: 16px; border-radius: 12px; background: #f7f8fa; }
+    .school-meal h3 { margin: 0 0 16px; font-size: 13px; }
+    .school-meal ul { display: grid; gap: 8px; padding: 0; margin: 0; list-style: none; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+    .school-today-empty { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .school-source-status { margin: 16px 0 0; color: var(--muted); font-size: 10px; line-height: 1.6; }
+    .school-periods { display: grid; grid-template-columns: repeat(auto-fit,minmax(112px,1fr)); gap: 8px; }
+    .school-period { min-width: 0; padding: 16px; border: 1px solid #edf0f2; border-radius: 12px; background: #f8f9fb; }
+    .school-period-meta { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; }
+    .school-period-subject { margin-top: 8px; font-size: 14px; font-weight: 750; overflow-wrap: anywhere; }
+    .school-period-change { margin-top: 8px; font-size: 10px; color: #765314; }
+    .school-period.changed { background: #fffaf0; border-color: #efdfba; }
     @media (max-width: 1100px) {
       .sidebar { width: 224px; flex-basis: 224px; }
       .topbar { padding: 16px 24px; }
@@ -609,6 +640,9 @@
       .score-list { grid-template-columns: 1fr; }
     }
     @media (max-width: 430px) {
+      .school-today-card { padding: 16px; }
+      .school-meal-grid { grid-template-columns: 1fr; }
+      .today-hub-tab { padding: 0 8px; }
       .stats-grid { gap: 8px; }
       .stat-card { min-height: 136px; padding: 16px; }
       .stat-top { font-size: 11px; }
@@ -658,7 +692,13 @@
       <div class="content">
         <section class="screen active" id="screen-home">
           <div class="page-heading"><div><h1 id="page-title">고1 대시보드</h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
-          <div class="daily-song" aria-label="오늘 노래 추천"><span class="daily-song-icon" aria-hidden="true">♫</span><div class="daily-song-copy"><div class="daily-song-label">오노추 · 오늘 노래 추천</div><div class="daily-song-title" id="daily-song-title">YouTube Music에서 노래 찾기</div></div><a class="daily-song-open" id="daily-song-open" href="https://music.youtube.com/" target="_blank" rel="noopener">듣기 ↗</a><button class="daily-song-edit" id="daily-song-edit" aria-label="추천곡 관리">+</button></div>
+          <section class="today-hub" aria-label="오늘의 학교생활">
+            <div class="today-hub-tabs" role="tablist" aria-label="오늘 정보 선택"><button class="today-hub-tab" id="today-tab-music" role="tab" data-today-page="music" aria-selected="true" aria-controls="today-page-music">♫ 오노추</button><button class="today-hub-tab" id="today-tab-meals" role="tab" data-today-page="meals" aria-selected="false" aria-controls="today-page-meals" tabindex="-1">오늘 급식</button><button class="today-hub-tab" id="today-tab-timetable" role="tab" data-today-page="timetable" aria-selected="false" aria-controls="today-page-timetable" tabindex="-1">오늘 시간표</button></div>
+            <div class="school-today-toolbar" id="school-today-toolbar" hidden><div class="school-date-nav"><button type="button" data-school-day="-1" aria-label="이전 날짜">‹</button><input id="school-hub-date" type="date" aria-label="학교 정보 날짜"><button type="button" data-school-day="1" aria-label="다음 날짜">›</button></div><div class="school-date-actions"><button class="small-action" id="school-day-today">오늘</button><button class="small-action" id="school-data-refresh">새로고침</button></div></div>
+            <div class="today-hub-page active" id="today-page-music" role="tabpanel" aria-labelledby="today-tab-music"><div class="daily-song" aria-label="오늘 노래 추천"><span class="daily-song-icon" aria-hidden="true">♫</span><div class="daily-song-copy"><div class="daily-song-label">오노추 · 오늘 노래 추천</div><div class="daily-song-title" id="daily-song-title">YouTube Music에서 노래 찾기</div></div><a class="daily-song-open" id="daily-song-open" href="https://music.youtube.com/" target="_blank" rel="noopener">듣기 ↗</a><button class="daily-song-edit" id="daily-song-edit" aria-label="추천곡 관리">+</button></div></div>
+            <div class="today-hub-page" id="today-page-meals" role="tabpanel" aria-labelledby="today-tab-meals"><div class="school-today-card"><div class="school-today-head"><div><h2 class="school-today-title">오늘의 중식·석식</h2><p class="school-today-subtitle" id="school-meal-date">운호고등학교</p></div><a class="school-source-link" id="school-meal-source" href="https://school.cbe.go.kr/unho-h/M01080301/list" target="_blank" rel="noopener">학교 원문 ↗</a></div><div class="school-meal-grid" id="school-meal-content" aria-live="polite"></div><p class="school-source-status" id="school-meal-status"></p></div></div>
+            <div class="today-hub-page" id="today-page-timetable" role="tabpanel" aria-labelledby="today-tab-timetable"><div class="school-today-card"><div class="school-today-head"><div><h2 class="school-today-title" id="school-timetable-title">오늘의 시간표</h2><p class="school-today-subtitle" id="school-timetable-date">운호고등학교</p></div><button class="small-action" id="school-class-open">학년·반 설정</button></div><div id="school-timetable-content" aria-live="polite"></div><p class="school-source-status" id="school-timetable-status"></p><a class="school-source-link" href="http://comci.net:4082/st" target="_blank" rel="noopener">컴시간 학생용 원문 ↗</a></div></div>
+          </section>
           <div class="stats-grid">
             <article class="stat-card"><div class="stat-top"><span>오늘 공부 시간</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="stat-value" id="today-hours">0분</div><div class="stat-note">집중 타이머 기록</div></article>
             <article class="stat-card"><div class="stat-top"><span>이번 주 공부</span><span class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></svg></span></div><div class="stat-value" id="week-hours">0시간</div><div class="stat-note" id="week-note">이번 주 누적 시간</div></article>
@@ -732,6 +772,7 @@
   <div class="modal-backdrop" id="student-record-modal" role="dialog" aria-modal="true" aria-labelledby="student-record-modal-title"><form class="modal" id="student-record-form"><div class="modal-head"><h2 id="student-record-modal-title">학생부 내용 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="form-row"><div class="field"><label for="student-record-grade">학년</label><select id="student-record-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="student-record-semester">학기</label><select id="student-record-semester" name="semester"></select></div></div><div class="field"><label for="student-record-subject">과목</label><select id="student-record-subject" name="subject"></select></div><div class="field"><label for="student-record-title">기록 제목</label><input id="student-record-title" name="title" maxlength="100" placeholder="예: 탐구 활동과 배운 점" required></div><div class="field"><label for="student-record-content">학생부 내용</label><textarea id="student-record-content" name="content" rows="7" maxlength="8000" placeholder="학생부에 적힌 내용이나 활동 기록을 입력해 주세요." required></textarea></div><div class="field"><label for="student-record-interview">면접 대비 메모 (선택)</label><textarea id="student-record-interview" name="interviewNotes" rows="4" maxlength="3000" placeholder="활동 동기, 내가 맡은 역할, 배운 점과 예상 질문을 적어두세요."></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="student-record-save">학생부 내용 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
   <div class="modal-backdrop" id="admissions-unlock-modal" role="dialog" aria-modal="true" aria-labelledby="admissions-unlock-title" aria-describedby="admissions-unlock-copy"><form class="modal" id="admissions-unlock-form" autocomplete="off"><div class="modal-head"><h2 id="admissions-unlock-title">입시 공간 잠금 해제</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="admissions-lock-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></div><p class="admissions-lock-copy" id="admissions-unlock-copy">교과 성적과 학생부를 보려면 4자리 암호 코드를 입력해 주세요.</p><div class="form-grid"><div class="field"><label for="admissions-passcode">암호 코드</label><input class="admissions-passcode" id="admissions-passcode" name="passcode" type="password" inputmode="numeric" pattern="[0-9]{4}" minlength="4" maxlength="4" autocomplete="off" required aria-describedby="admissions-unlock-error"></div><p class="admissions-lock-error" id="admissions-unlock-error" role="alert"></p><p class="admissions-lock-note">입시 공간을 나가거나 새로고침하면 자동으로 잠겨요.</p><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="admissions-unlock-submit">잠금 해제</button></div></div></form></div>
+  <div class="modal-backdrop" id="school-class-modal" role="dialog" aria-modal="true" aria-labelledby="school-class-modal-title"><form class="modal" id="school-class-form"><div class="modal-head"><h2 id="school-class-modal-title">시간표 학년·반</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><p class="school-today-empty">운호고등학교의 내 학년·반을 선택해 주세요. 학년이 바뀌면 여기에서 수정할 수 있어요.</p><div class="form-row"><div class="field"><label for="school-class-grade">학년</label><select id="school-class-grade" name="grade"><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option></select></div><div class="field"><label for="school-class-room">반</label><select id="school-class-room" name="room"></select></div></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">학년·반 저장</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
@@ -787,6 +828,7 @@
       const admissionScoreId = (grade, semester, subject) => `${grade}|${semester}|${subject}`;
       const normalizeCourseGrades = rows => Array.isArray(rows) ? [...new Map(rows.filter(item => item && admissionTerms.some(term => term.grade === String(item.grade) && term.semester === item.semester && term.subjects.includes(item.subject)) && [1,2,3,4,5].includes(Number(item.score))).map(item => { const row = { id:admissionScoreId(String(item.grade), item.semester, item.subject), grade:String(item.grade), semester:item.semester, subject:item.subject, score:Number(item.score) }; return [row.id, row]; })).values()] : [];
       const normalizeStudentRecords = rows => Array.isArray(rows) ? rows.map(item => ({ ...item, grade:String(item.grade || '1'), semester:item.semester || '1학기', subject:item.subject || '', title:item.title || '', content:item.content || '', interviewNotes:item.interviewNotes || '' })) : [];
+      const normalizeSchoolClass = value => value && ['1','2','3'].includes(String(value.grade)) && Number.isInteger(Number(value.room)) && Number(value.room) >= 1 && Number(value.room) <= 40 ? { grade:String(value.grade), room:String(Number(value.room)) } : null;
       const subjectId = (grade, subject, index) => `g${grade}-${subject.semester === '1학기' ? 's1' : subject.semester === '2학기' ? 's2' : 'all'}-${index + 1}`;
       const makeGradeData = (grade) => ({
         goalMinutes: 120,
@@ -849,7 +891,7 @@
         const songs = Array.isArray(stored?.songs) ? stored.songs.map(item => ({ ...item, artist:item.artist || '' })) : [];
         const courseGrades = normalizeCourseGrades(stored?.courseGrades);
         const studentRecords = normalizeStudentRecords(stored?.studentRecords);
-        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework, songs, courseGrades, studentRecords };
+        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework, songs, courseGrades, studentRecords, schoolClass:normalizeSchoolClass(stored?.schoolClass) };
       }
       let data = loadData();
       let activeGrade = data.activeGrade;
@@ -864,6 +906,13 @@
       let admissionFailedAttempts = 0;
       let admissionRetryAfter = 0;
       let studentRecordEditingId = null;
+      let todayHubPage = 'music';
+      let todayHubDate = schoolTodayDate();
+      let todayHubTracksToday = true;
+      let schoolSnapshot = null;
+      let schoolDataLoading = false;
+      let schoolDataError = false;
+      let schoolDataLastLoaded = 0;
       let taskFilter = 'all';
       let timerSeconds = TIMER_MINUTES * 60;
       let timerRunning = false;
@@ -991,7 +1040,8 @@
           academyHomework:Array.isArray(payload?.academyHomework) ? payload.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : [],
           songs:Array.isArray(payload?.songs) ? payload.songs.map(item => ({ ...item, artist:item.artist || '' })) : [],
           courseGrades:normalizeCourseGrades(payload?.courseGrades),
-          studentRecords:normalizeStudentRecords(payload?.studentRecords)
+          studentRecords:normalizeStudentRecords(payload?.studentRecords),
+          schoolClass:normalizeSchoolClass(payload?.schoolClass)
         };
       }
       function mergeStudyData(remotePayload, localPayload) {
@@ -1018,6 +1068,7 @@
         remote.songs = mergeRows(remote.songs, local.songs);
         remote.courseGrades = mergeRows(remote.courseGrades, local.courseGrades);
         remote.studentRecords = mergeRows(remote.studentRecords, local.studentRecords);
+        remote.schoolClass = remote.schoolClass || local.schoolClass;
         return remote;
       }
       function applyCloudPayload(payload) {
@@ -1464,6 +1515,71 @@
         form.elements.url.value = item?.url || '';
         renderDailySong(); openModal('song-modal');
       }
+      function schoolTodayDate() { return new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Seoul', year:'numeric', month:'2-digit', day:'2-digit' }).format(new Date()); }
+      function schoolSourceStatus(source) {
+        if (schoolDataLoading && !source) return '학교 자료를 불러오고 있어요…';
+        if (!source?.fetchedAt || source.status === 'unavailable') return '자료를 불러오지 못했어요. 원문에서 확인하거나 잠시 후 새로고침해 주세요.';
+        const time = new Date(source.fetchedAt);
+        const stamp = Number.isNaN(time.getTime()) ? '' : new Intl.DateTimeFormat('ko-KR', { timeZone:'Asia/Seoul', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit', hour12:false }).format(time);
+        const stale = source.status === 'stale' || schoolDataError || Date.now() - time.getTime() > 2 * 60 * 60 * 1000;
+        return `${stale ? '이전 자료 · 최신 확인이 필요해요 · ' : ''}${stamp} 수집${source.status === 'partial' ? ' · 일부 기간은 확인 중이에요' : ''}`;
+      }
+      function renderTodayHub() {
+        if (todayHubTracksToday) todayHubDate = schoolTodayDate();
+        $$('[data-today-page]').forEach(button => { const selected = button.dataset.todayPage === todayHubPage; button.setAttribute('aria-selected', String(selected)); button.tabIndex = selected ? 0 : -1; });
+        $$('.today-hub-page').forEach(panel => panel.classList.toggle('active', panel.id === `today-page-${todayHubPage}`));
+        $('#school-today-toolbar').hidden = todayHubPage === 'music';
+        $('#school-hub-date').value = todayHubDate;
+        $('#school-data-refresh').disabled = schoolDataLoading;
+        const dateLabel = new Intl.DateTimeFormat('ko-KR', { timeZone:'Asia/Seoul', month:'long', day:'numeric', weekday:'short' }).format(new Date(`${todayHubDate}T12:00:00+09:00`));
+        const isToday = todayHubDate === schoolTodayDate();
+        $('#today-page-meals .school-today-title').textContent = `${isToday ? '오늘' : '선택한 날'}의 중식·석식`;
+        $('#school-meal-date').textContent = `운호고등학교 · ${dateLabel}`;
+        $('#school-meal-source').href = `https://school.cbe.go.kr/unho-h/M01080301/list?ymd=${todayHubDate.replaceAll('-', '')}`;
+        const meals = schoolSnapshot?.meals;
+        const mealDay = meals?.days?.[todayHubDate];
+        const covered = Array.isArray(meals?.months) && meals.months.includes(todayHubDate.slice(0,7));
+        $('#school-meal-content').innerHTML = [['lunch','중식'], ['dinner','석식']].map(([key,label]) => {
+          const dishes = Array.isArray(mealDay?.[key]) ? mealDay[key].filter(item => typeof item === 'string') : [];
+          const empty = schoolDataLoading && !meals ? '불러오는 중이에요…' : covered ? `학교 홈페이지에 등록된 ${label}이 없어요.` : '선택한 달의 식단을 아직 불러오지 못했어요.';
+          return `<section class="school-meal"><h3>${label}</h3>${dishes.length ? `<ul>${dishes.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : `<p class="school-today-empty">${empty}</p>`}</section>`;
+        }).join('');
+        $('#school-meal-status').textContent = `${schoolSourceStatus(meals)}${mealDay ? ' · 괄호 안 숫자는 학교 원문의 알레르기 표시예요.' : ''}`;
+        const timetable = schoolSnapshot?.timetable;
+        const profile = data.schoolClass;
+        $('#school-timetable-title').textContent = `${isToday ? '오늘' : '선택한 날'}의 시간표`;
+        $('#school-timetable-date').textContent = `운호고등학교${profile ? ` · ${profile.grade}학년 ${profile.room}반` : ''} · ${dateLabel}`;
+        $('#school-class-open').textContent = profile ? `${profile.grade}학년 ${profile.room}반 설정` : '학년·반 설정';
+        const lessons = profile ? timetable?.days?.[todayHubDate]?.[`${profile.grade}-${profile.room}`] : null;
+        const weekday = new Date(`${todayHubDate}T12:00:00+09:00`).getUTCDay();
+        if (Array.isArray(lessons) && lessons.length) {
+          $('#school-timetable-content').innerHTML = `<div class="school-periods">${lessons.map(item => `<div class="school-period ${item.changed ? 'changed' : ''}"><div class="school-period-meta"><span>${escapeHtml(item.period)}교시</span><span>${escapeHtml(item.time || '')}</span></div><div class="school-period-subject">${escapeHtml(item.subject)}</div>${item.changed ? '<div class="school-period-change">변경된 수업</div>' : ''}</div>`).join('')}</div>`;
+        } else {
+          const empty = !profile ? '학년·반을 설정하면 내 시간표가 표시돼요.' : schoolDataLoading && !timetable ? '컴시간 자료를 불러오고 있어요…' : weekday === 0 || weekday === 6 ? '토·일요일은 컴시간 정규 시간표가 없어요.' : Array.isArray(lessons) ? '이 날짜에 등록된 수업이 없어요.' : '컴시간에서 선택한 날짜의 시간표를 아직 제공하지 않아요.';
+          $('#school-timetable-content').innerHTML = `<p class="school-today-empty">${empty}</p>`;
+        }
+        $('#school-timetable-status').textContent = `${schoolSourceStatus(timetable)}${timetable?.modifiedAt ? ` · 원문 수정 ${timetable.modifiedAt}` : ''}`;
+      }
+      async function loadSchoolData() {
+        if (schoolDataLoading) return;
+        schoolDataLoading = true; renderTodayHub();
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        try {
+          const url = new URL('school-data.json', location.href); url.searchParams.set('v', String(Math.floor(Date.now() / 60000)));
+          const response = await fetch(url, { cache:'no-store', signal:controller.signal });
+          if (!response.ok) throw new Error('school data unavailable');
+          const snapshot = await response.json();
+          if (snapshot.schemaVersion !== 1 || snapshot.school !== '운호고등학교' || !snapshot.meals || !snapshot.timetable) throw new Error('invalid school snapshot');
+          schoolSnapshot = snapshot; schoolDataError = false; schoolDataLastLoaded = Date.now();
+        } catch { schoolDataError = true; }
+        finally { clearTimeout(timeout); schoolDataLoading = false; renderTodayHub(); }
+      }
+      function populateSchoolRooms(grade, selected = '1') {
+        const count = Math.min(40, Math.max(1, Number(schoolSnapshot?.timetable?.classCounts?.[Number(grade) - 1]) || 10));
+        $('#school-class-room').innerHTML = Array.from({ length:count }, (_, index) => `<option value="${index + 1}">${index + 1}반</option>`).join('');
+        $('#school-class-room').value = Number(selected) <= count ? String(selected) : '1';
+      }
       function admissionFilterMarkup() {
         return [{ id:'all', label:'전체' }, { id:'1', label:'고1' }, { id:'2', label:'고2' }, { id:'3', label:'고3' }].map(item => `<button class="filter-btn ${admissionGradeFilter === item.id ? 'active' : ''}" data-admission-grade-filter="${item.id}" aria-pressed="${admissionGradeFilter === item.id}">${item.label}</button>`).join('');
       }
@@ -1604,7 +1720,7 @@
         clearTimeout(extrasRefreshTimer);
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        extrasRefreshTimer = setTimeout(() => { renderExtras(); renderAcademy(); renderExamScopes(); renderDailySong(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
+        extrasRefreshTimer = setTimeout(() => { renderExtras(); renderAcademy(); renderExamScopes(); renderDailySong(); renderTodayHub(); loadSchoolData(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
       }
       function renderTasks() {
         const now = localDate(today);
@@ -1675,7 +1791,7 @@
         $('#add-task-top').hidden = admissions;
         $('#admissions-lock-now').hidden = !admissions || !admissionsUnlocked;
       }
-      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderAdmissionGrades(); renderStudentRecords(); updateSpaceHeader(); }
+      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderTodayHub(); renderAdmissionGrades(); renderStudentRecords(); updateSpaceHeader(); }
       function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'student-records') renderStudentRecords(); }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
@@ -1823,6 +1939,20 @@
       $('#add-exam-scope').addEventListener('click', () => openExamScopeModal());
       $('#add-material').addEventListener('click', () => openMaterialModal());
       $('#daily-song-edit').addEventListener('click', () => openSongModal());
+      $$('[data-today-page]').forEach(button => button.addEventListener('click', () => { todayHubPage = button.dataset.todayPage; renderTodayHub(); if (todayHubPage !== 'music' && Date.now() - schoolDataLastLoaded > 5 * 60 * 1000) loadSchoolData(); }));
+      $('.today-hub-tabs').addEventListener('keydown', e => {
+        if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
+        const buttons = $$('[data-today-page]'); const index = buttons.indexOf(document.activeElement); if (index < 0) return;
+        e.preventDefault(); const next = e.key === 'Home' ? 0 : e.key === 'End' ? buttons.length - 1 : (index + (e.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+        buttons[next].click(); buttons[next].focus();
+      });
+      $$('[data-school-day]').forEach(button => button.addEventListener('click', () => { const date = new Date(`${todayHubDate}T12:00:00Z`); date.setUTCDate(date.getUTCDate() + Number(button.dataset.schoolDay)); todayHubDate = date.toISOString().slice(0,10); todayHubTracksToday = false; renderTodayHub(); }));
+      $('#school-hub-date').addEventListener('change', e => { if (!/^\d{4}-\d{2}-\d{2}$/.test(e.target.value) || Number.isNaN(Date.parse(e.target.value))) { renderTodayHub(); return; } todayHubDate = e.target.value; todayHubTracksToday = false; renderTodayHub(); });
+      $('#school-day-today').addEventListener('click', () => { todayHubTracksToday = true; renderTodayHub(); });
+      $('#school-data-refresh').addEventListener('click', () => loadSchoolData());
+      $('#school-class-open').addEventListener('click', () => { const profile = data.schoolClass || { grade:activeGrade, room:'1' }; $('#school-class-grade').value = profile.grade; populateSchoolRooms(profile.grade, profile.room); openModal('school-class-modal'); });
+      $('#school-class-grade').addEventListener('change', e => populateSchoolRooms(e.target.value));
+      $('#school-class-form').addEventListener('submit', e => { e.preventDefault(); const profile = normalizeSchoolClass({ grade:$('#school-class-grade').value, room:$('#school-class-room').value }); if (!profile) return; const previous = data.schoolClass; data.schoolClass = profile; try { save(); } catch { data.schoolClass = previous; showToast('학년·반을 저장하지 못했어요.'); return; } closeModal(e.currentTarget); renderTodayHub(); showToast(`${profile.grade}학년 ${profile.room}반 시간표로 설정했어요`); });
       $('#add-student-record').addEventListener('click', () => openStudentRecordModal(null, admissionGradeFilter === 'all' ? activeGrade : admissionGradeFilter));
       $('#student-record-grade').addEventListener('change', e => populateStudentRecordChoices(e.target.value, '1학기'));
       $('#student-record-semester').addEventListener('change', e => populateStudentRecordChoices($('#student-record-grade').value, e.target.value));
@@ -2067,7 +2197,9 @@
       $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => closeModal(el)); });
       window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
-      render(); scheduleAssessmentExpiry(); scheduleExtrasRefresh();
+      render(); scheduleAssessmentExpiry(); scheduleExtrasRefresh(); loadSchoolData();
+      setInterval(() => { if (document.visibilityState === 'visible' && screen === 'home') loadSchoolData(); }, 10 * 60 * 1000);
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && Date.now() - schoolDataLastLoaded > 5 * 60 * 1000) loadSchoolData(); });
     })();
   </script>
 </body>
