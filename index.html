@@ -67,6 +67,11 @@
     .week-picker { padding: 7px 10px; border: 1px solid var(--line); background: #fff; color: #656b7f; border-radius: 9px; font-size: 11px; }
     .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-bottom: 19px; }
     .stat-card, .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+    .dday-card { min-height: 95px; margin-bottom: 19px; padding: 17px 21px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid #e5e1ff; border-radius: var(--radius); background: linear-gradient(105deg, #f4f2ff, #fff 72%); box-shadow: var(--shadow); }
+    .dday-title { color: #686d7e; font-size: 11px; font-weight: 650; }
+    .dday-name { margin-top: 5px; font-size: 15px; font-weight: 750; letter-spacing: -.3px; }
+    .dday-date { margin-top: 5px; color: #989dad; font-size: 10px; }
+    .dday-count { color: var(--accent); font-size: 30px; line-height: 1; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; white-space: nowrap; }
     .stat-card { min-height: 118px; padding: 17px 18px; }
     .stat-top { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 11px; }
     .stat-icon { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; color: var(--accent); background: var(--accent-soft); }
@@ -272,6 +277,10 @@
             <article class="stat-card"><div class="stat-top"><span>완료한 할 일</span><span class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg></span></div><div class="stat-value" id="done-count">0개</div><div class="stat-note" id="task-note">오늘의 계획</div></article>
             <article class="stat-card"><div class="stat-top"><span>연속 학습</span><span class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.4 0 7-3 7-7 0-3-2-5-3-6-.5 2-1.2 2.5-2 3-1-4-4-7-6-9 0 5-1.5 6.5-2.5 8C4.5 13 5 18 7 20c1.2 1.2 2.8 2 5 2Z"/><path d="M10 17.5c0-1.5 1-2.5 2-3.5 1 1 2 2 2 3.5a2 2 0 0 1-4 0Z"/></svg></span></div><div class="stat-value" id="streak-count">0일</div><div class="stat-note">작은 꾸준함이 큰 실력이 돼요</div></article>
           </div>
+          <section class="dday-card" aria-label="시험 디데이">
+            <div><div class="dday-title">다가오는 시험</div><div class="dday-name">제 2차 정기고사</div><div class="dday-date" id="dday-date">2026년 12월 7일</div></div>
+            <div class="dday-count" id="dday-count">D-37</div>
+          </section>
           <div class="main-grid">
             <div class="column">
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">매일의 집중을 한눈에 확인해요</p></div><button class="link-btn" data-goto="records">기록 보기 →</button></div><div class="week-chart" id="week-chart"></div></section>
@@ -305,6 +314,7 @@
       const LEGACY_STORAGE_KEY = 'ondo-study-v1';
       const ATTACHMENT_DB = 'ondo-study-assessment-files-v1';
       const TIMER_MINUTES = 70;
+      const DDAY_DATE = '2026-12-07';
       const colors = ['#7568ed', '#f0a65b', '#41ad91', '#5b9bdb', '#e57991', '#b175d1'];
       const today = new Date();
       const localDate = (date) => { const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
@@ -618,6 +628,13 @@
         const goalPct = Math.min(100, Math.round(mins / gradeData.goalMinutes * 100)); $('#goal-mini').textContent = `${goalPct}%`; $('#goal-progress').style.width = `${goalPct}%`; $('#goal-caption').textContent = `${fmtDuration(mins)} 공부했어요 · 목표 ${fmtDuration(gradeData.goalMinutes)}`;
         $('#week-note').textContent = `${weekDates().filter(d => minsForDate(d) > 0).length}일 학습 기록`;
       }
+      function renderDday() {
+        const [year, month, day] = DDAY_DATE.split('-').map(Number);
+        const [todayYear, todayMonth, todayDay] = localDate(new Date()).split('-').map(Number);
+        const daysLeft = Math.round((Date.UTC(year, month - 1, day) - Date.UTC(todayYear, todayMonth - 1, todayDay)) / 86400000);
+        $('#dday-date').textContent = `${year}년 ${month}월 ${day}일`;
+        $('#dday-count').textContent = daysLeft === 0 ? 'D-Day' : daysLeft > 0 ? `D-${daysLeft}` : `D+${Math.abs(daysLeft)}`;
+      }
       function renderGradeHeader() {
         const cfg = gradeConfigs[activeGrade];
         $$('.grade-btn').forEach(btn => { const selected = btn.dataset.grade === activeGrade; btn.classList.toggle('active', selected); btn.setAttribute('aria-selected', String(selected)); });
@@ -627,7 +644,7 @@
         $('#subjects-title').textContent = `${cfg.label} 과목`;
         $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
-      function render() { renderGradeHeader(); renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); }
+      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); }
       function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
