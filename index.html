@@ -49,6 +49,11 @@
     .user-sub { margin-top: 3px; color: var(--muted); font-size: 10px; }
     main { min-width: 0; flex: 1; padding: 29px clamp(22px, 4vw, 58px) 50px; }
     .topbar { max-width: 1230px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .top-left { display: flex; align-items: center; gap: 17px; min-width: 0; }
+    .grade-switch { display: flex; align-items: center; gap: 3px; padding: 4px; border: 1px solid var(--line); border-radius: 11px; background: #fff; flex: 0 0 auto; }
+    .grade-btn { min-width: 43px; height: 30px; padding: 0 9px; border: 0; border-radius: 7px; color: #777d8f; background: transparent; font-size: 11px; font-weight: 650; }
+    .grade-btn:hover { color: var(--accent); background: #f7f6ff; }
+    .grade-btn.active { color: #fff; background: var(--accent); box-shadow: 0 3px 9px #6558e82c; }
     .breadcrumb { color: var(--muted); font-size: 12px; }
     .top-actions { display: flex; align-items: center; gap: 10px; }
     .date-chip { padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: white; color: #62687b; font-size: 11px; }
@@ -125,6 +130,10 @@
     .screen.active { display: block; }
     .screen-section { margin-top: 18px; }
     .planner-toolbar { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+    .semester-toolbar { display: flex; align-items: center; gap: 7px; margin: -3px 0 14px; }
+    .semester-toolbar[hidden] { display: none; }
+    .semester-label { margin-right: 3px; color: #989dad; font-size: 10px; }
+    .semester-badge { padding: 4px 7px; border-radius: 6px; color: #6558e8; background: #efedff; font-size: 9px; font-weight: 700; white-space: nowrap; }
     .filter-btn { padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px; color: #72778a; background: white; font-size: 11px; }
     .filter-btn.active { color: var(--accent); background: var(--accent-soft); border-color: #dedbff; }
     .subject-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
@@ -160,7 +169,9 @@
       .nav-btn { height:50px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
       .nav-btn svg { width:17px; height:17px; }
       main { padding:19px 16px 30px; }
-      .topbar { margin-bottom:25px; }
+      .topbar { margin-bottom:25px; align-items:flex-start; }
+      .top-left { flex-direction:column; align-items:flex-start; gap:8px; }
+      .breadcrumb { display:none; }
       .date-chip { display:none; }
       .main-grid { grid-template-columns:1fr; }
       .subject-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
@@ -187,10 +198,10 @@
       </div>
     </aside>
     <main>
-      <header class="topbar"><div class="breadcrumb">나의 학습 공간 <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
+      <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb">나의 학습 공간 <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
       <div class="content">
         <section class="screen active" id="screen-home">
-          <div class="page-heading"><div><h1>좋은 하루예요! <span aria-hidden="true">☀️</span></h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
+          <div class="page-heading"><div><h1 id="page-title">고1 대시보드 <span aria-hidden="true">☀️</span></h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
           <div class="stats-grid">
             <article class="stat-card"><div class="stat-top"><span>오늘 공부 시간</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="stat-value" id="today-hours">0분</div><div class="stat-note">집중 타이머 기록</div></article>
             <article class="stat-card"><div class="stat-top"><span>이번 주 공부</span><span class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></svg></span></div><div class="stat-value" id="week-hours">0시간</div><div class="stat-note" id="week-note">이번 주 누적 시간</div></article>
@@ -208,86 +219,186 @@
             </div>
           </div>
         </section>
-        <section class="screen" id="screen-planner"><div class="page-heading"><div><h1>학습 계획</h1><p class="subtitle">해야 할 일을 정리하고 하나씩 끝내봐요.</p></div></div><div class="panel"><div class="planner-toolbar"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="today">오늘</button><button class="filter-btn" data-filter="upcoming">예정</button><button class="filter-btn" data-filter="done">완료</button></div><div class="task-list" id="all-tasks"></div></div></section>
-        <section class="screen" id="screen-subjects"><div class="page-heading"><div><h1>과목 관리</h1><p class="subtitle">과목별 목표와 학습 시간을 살펴봐요.</p></div><button class="primary-btn" id="add-subject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>과목 추가</button></div><div class="subject-grid" id="subject-grid"></div></section>
+        <section class="screen" id="screen-planner"><div class="page-heading"><div><h1 id="planner-title">고1 학습 계획</h1><p class="subtitle">해야 할 일을 정리하고 하나씩 끝내봐요.</p></div></div><div class="panel"><div class="planner-toolbar"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="today">오늘</button><button class="filter-btn" data-filter="upcoming">예정</button><button class="filter-btn" data-filter="done">완료</button></div><div class="semester-toolbar" id="planner-semesters" hidden></div><div class="task-list" id="all-tasks"></div></div></section>
+        <section class="screen" id="screen-subjects"><div class="page-heading"><div><h1 id="subjects-title">고1 과목</h1><p class="subtitle">학년과 학기별 과목을 관리해요.</p></div><button class="primary-btn" id="add-subject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>과목 추가</button></div><div class="semester-toolbar" id="subjects-semesters" hidden></div><div class="subject-grid" id="subject-grid"></div></section>
         <section class="screen" id="screen-records"><div class="page-heading"><div><h1>학습 기록</h1><p class="subtitle">꾸준히 쌓인 시간을 확인해봐요.</p></div></div><section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">이번 주의 집중 시간</p></div></div><div class="week-chart" id="records-chart"></div></section><section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">이번 주 과목별 시간</h2><p class="panel-subtitle">타이머로 기록한 학습량</p></div></div><div class="subject-list" id="record-subjects"></div></section></section>
       </div>
     </main>
   </div>
   <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
-  <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
+  <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field" id="subject-semester-field"><label for="subject-semester-input">학기</label><select id="subject-semester-input" name="semester"></select></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script>
     (() => {
-      const STORAGE_KEY = 'ondo-study-v1';
+      const STORAGE_KEY = 'ondo-study-v2';
+      const LEGACY_STORAGE_KEY = 'ondo-study-v1';
       const colors = ['#7568ed', '#f0a65b', '#41ad91', '#5b9bdb', '#e57991', '#b175d1'];
       const today = new Date();
       const localDate = (date) => { const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
       const shiftDate = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return localDate(d); };
       const uid = () => Math.random().toString(36).slice(2, 10);
-      const initialData = () => ({ goalMinutes: 120, subjects: [
-        { id: 'math', name: '수학', goal: 5, color: colors[0] },
-        { id: 'english', name: '영어', goal: 3, color: colors[1] },
-        { id: 'reading', name: '독서', goal: 2, color: colors[2] }
-      ], tasks: [
-        { id: uid(), title: '수학 개념 복습하기', subject: 'math', date: shiftDate(0), minutes: 45, done: false },
-        { id: uid(), title: '영어 단어 20개 외우기', subject: 'english', date: shiftDate(0), minutes: 25, done: false },
-        { id: uid(), title: '독서 30분', subject: 'reading', date: shiftDate(1), minutes: 30, done: false }
-      ], sessions: [] });
-      let data;
-      try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || initialData(); } catch { data = initialData(); }
-      if (!data.subjects || !data.tasks || !data.sessions) data = initialData();
+      const gradeConfigs = {
+        '1': { label: '고1', period: '학년 과정', subjects: [
+          { name: '공통국어2', semester: '학년 과정' }, { name: '공통수학2', semester: '학년 과정' },
+          { name: '한국사2', semester: '학년 과정' }, { name: '공통영어2', semester: '학년 과정' },
+          { name: '통합사회2', semester: '학년 과정' }, { name: '통합과학2', semester: '학년 과정' },
+          { name: '한문', semester: '학년 과정' }
+        ] },
+        '2': { label: '고2', period: '1·2학기', subjects: [
+          { name: '문학', semester: '1학기' }, { name: '대수', semester: '1학기' }, { name: '영어1', semester: '1학기' },
+          { name: '현대사회와윤리', semester: '1학기' }, { name: '경제', semester: '1학기' },
+          { name: '도시의 미래 탐구', semester: '1학기' }, { name: '일본어', semester: '1학기' },
+          { name: '화법과 언어', semester: '2학기' }, { name: '미적분1', semester: '2학기' }, { name: '영어2', semester: '2학기' },
+          { name: '세계시민과 지리', semester: '2학기' }, { name: '사회와 문화', semester: '2학기' },
+          { name: '동아시아 역사 기행', semester: '2학기' }, { name: '일본어 회화', semester: '2학기' }
+        ] },
+        '3': { label: '고3', period: '1학기', subjects: [
+          { name: '독서와 작문', semester: '1학기' }, { name: '확률과 통계', semester: '1학기' },
+          { name: '영어 독해와 작문', semester: '1학기' }, { name: '한국지리 탐구', semester: '1학기' },
+          { name: '정치', semester: '1학기' }, { name: '법과 사회', semester: '1학기' },
+          { name: '윤리와 사상', semester: '1학기' }, { name: '역사로 탐구하는 현대세계', semester: '1학기' }
+        ] }
+      };
+      const subjectId = (grade, subject, index) => `g${grade}-${subject.semester === '1학기' ? 's1' : subject.semester === '2학기' ? 's2' : 'all'}-${index + 1}`;
+      const makeGradeData = (grade) => ({
+        goalMinutes: 120,
+        subjects: gradeConfigs[grade].subjects.map((subject, index) => ({ id: subjectId(grade, subject, index), name: subject.name, semester: subject.semester, goal: 3, color: colors[index % colors.length] })),
+        tasks: [], sessions: []
+      });
+      const normalizeGradeData = (grade, saved) => {
+        const base = makeGradeData(grade);
+        if (!saved || typeof saved !== 'object') return base;
+        const savedSubjects = Array.isArray(saved.subjects) ? saved.subjects : [];
+        const subjects = base.subjects.map(subject => {
+          const previous = savedSubjects.find(item => item.id === subject.id);
+          return previous ? { ...subject, goal: Number(previous.goal) || subject.goal, color: previous.color || subject.color } : subject;
+        });
+        savedSubjects.filter(item => !base.subjects.some(subject => subject.id === item.id)).forEach(item => subjects.push({ ...item, semester: item.semester || gradeConfigs[grade].period }));
+        return { goalMinutes: Number(saved.goalMinutes) || 120, subjects, tasks: Array.isArray(saved.tasks) ? saved.tasks : [], sessions: Array.isArray(saved.sessions) ? saved.sessions : [] };
+      };
+      const migrateLegacyData = (legacy, grades) => {
+        if (!legacy || !Array.isArray(legacy.subjects)) return;
+        const g1 = grades['1'];
+        const legacyMap = { math: '공통수학2', english: '공통영어2', reading: '공통국어2' };
+        const ids = {};
+        legacy.subjects.forEach(old => {
+          let target = g1.subjects.find(subject => subject.name === (legacyMap[old.id] || old.name));
+          if (!target) {
+            target = { id: `g1-legacy-${old.id || uid()}`, name: old.name || '기타', semester: '학년 과정', goal: Number(old.goal) || 3, color: old.color || colors[g1.subjects.length % colors.length] };
+            g1.subjects.push(target);
+          } else {
+            target.goal = Number(old.goal) || target.goal;
+            target.color = old.color || target.color;
+          }
+          ids[old.id] = target.id;
+        });
+        g1.goalMinutes = Number(legacy.goalMinutes) || 120;
+        g1.tasks = (Array.isArray(legacy.tasks) ? legacy.tasks : []).map(task => ({ ...task, subject: ids[task.subject] || g1.subjects[0].id }));
+        g1.sessions = (Array.isArray(legacy.sessions) ? legacy.sessions : []).map(session => ({ ...session, subject: ids[session.subject] || g1.subjects[0].id }));
+      };
+      function loadData() {
+        let stored = null;
+        try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch {}
+        const grades = { '1': makeGradeData('1'), '2': makeGradeData('2'), '3': makeGradeData('3') };
+        let activeGrade = '1';
+        if (stored && stored.grades) {
+          Object.keys(grades).forEach(grade => { grades[grade] = normalizeGradeData(grade, stored.grades[grade]); });
+          activeGrade = ['1', '2', '3'].includes(String(stored.activeGrade)) ? String(stored.activeGrade) : '1';
+        } else {
+          let legacy = null;
+          try { legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY)); } catch {}
+          migrateLegacyData(legacy, grades);
+        }
+        const hashGrade = /^#g([1-3])$/.exec(location.hash)?.[1];
+        if (hashGrade) activeGrade = hashGrade;
+        return { activeGrade, grades };
+      }
+      let data = loadData();
+      let activeGrade = data.activeGrade;
+      let gradeData = data.grades[activeGrade];
+      let activeSemester = 'all';
       let screen = 'home';
       let taskFilter = 'all';
       let timerSeconds = 25 * 60;
       let timerRunning = false;
       let timerInterval = null;
       let timerSubject = null;
+      let timerGrade = null;
+      let timerSessionSubject = null;
       let toastTimeout;
       const $ = (q, root = document) => root.querySelector(q);
       const $$ = (q, root = document) => [...root.querySelectorAll(q)];
-      const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      const subjectById = (id) => data.subjects.find(s => s.id === id);
+      const save = () => { data.activeGrade = activeGrade; localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); };
+      const subjectById = (id) => gradeData.subjects.find(s => s.id === id);
       const subjectName = (id) => subjectById(id)?.name || '기타';
       const subjectColor = (id) => subjectById(id)?.color || '#a5a8b4';
+      const subjectSemester = (id) => subjectById(id)?.semester || '';
+      const semesterOptions = () => [...new Set(gradeData.subjects.map(s => s.semester).filter(Boolean))];
+      const semesterText = (semester) => semester === '학년 과정' ? '학년' : semester;
+      const semesterSubjectLabel = (subject) => subject.semester && subject.semester !== '학년 과정' ? `${subject.semester} · ${subject.name}` : subject.name;
       const fmtDate = (s, opt = { month: 'long', day: 'numeric', weekday: 'long' }) => new Intl.DateTimeFormat('ko-KR', opt).format(new Date(s + 'T12:00:00'));
-      const minsForDate = (date) => data.sessions.filter(s => s.date === date).reduce((n, s) => n + s.minutes, 0);
+      const minsForDate = (date) => gradeData.sessions.filter(s => s.date === date).reduce((n, s) => n + s.minutes, 0);
       const weekDates = () => { const now = new Date(); const mon = new Date(now); const day = (now.getDay() + 6) % 7; mon.setDate(now.getDate() - day); return Array.from({ length: 7 }, (_, i) => { const d = new Date(mon); d.setDate(mon.getDate() + i); return localDate(d); }); };
-      const weekMins = (dateList = weekDates()) => data.sessions.filter(s => dateList.includes(s.date)).reduce((n, s) => n + s.minutes, 0);
+      const weekMins = (dateList = weekDates()) => gradeData.sessions.filter(s => dateList.includes(s.date)).reduce((n, s) => n + s.minutes, 0);
       const fmtDuration = (mins) => mins >= 60 ? `${Math.floor(mins / 60)}시간${mins % 60 ? ` ${mins % 60}분` : ''}` : `${mins}분`;
       const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>';
-      function taskMarkup(task) { return `<div class="task-item ${task.done ? 'completed' : ''}"><button class="check-btn ${task.done ? 'done' : ''}" data-task-toggle="${task.id}" aria-label="${task.done ? '완료 취소' : '완료 표시'}">${checkIcon}</button><div class="task-copy"><div class="task-name">${escapeHtml(task.title)}</div><div class="task-meta"><span class="subject-dot" style="background:${subjectColor(task.subject)}"></span>${escapeHtml(subjectName(task.subject))}<span>·</span>${fmtDate(task.date, { month:'numeric', day:'numeric' })}</div></div><span class="task-duration">${task.minutes}분</span></div>`; }
+      function taskMarkup(task) { const semester = subjectSemester(task.subject); const course = semester && semester !== '학년 과정' ? `${semester} · ` : ''; return `<div class="task-item ${task.done ? 'completed' : ''}"><button class="check-btn ${task.done ? 'done' : ''}" data-task-toggle="${task.id}" aria-label="${task.done ? '완료 취소' : '완료 표시'}">${checkIcon}</button><div class="task-copy"><div class="task-name">${escapeHtml(task.title)}</div><div class="task-meta"><span class="subject-dot" style="background:${subjectColor(task.subject)}"></span>${escapeHtml(course + subjectName(task.subject))}<span>·</span>${fmtDate(task.date, { month:'numeric', day:'numeric' })}</div></div><span class="task-duration">${task.minutes}분</span></div>`; }
       function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
       function renderChart(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); const values = dates.map(minsForDate); const max = Math.max(120, ...values); target.innerHTML = dates.map((d, i) => { const isToday = d === localDate(today); const h = Math.max(values[i] ? 8 : 4, values[i] / max * 100); return `<div class="day-column"><div class="bar-wrap"><div class="bar ${isToday ? 'today' : ''}" style="height:${h}%" data-hours="${(values[i] / 60).toFixed(1)}"></div></div><span class="day-label ${isToday ? 'today' : ''}">${new Intl.DateTimeFormat('ko-KR', { weekday:'short' }).format(new Date(d + 'T12:00:00'))}</span></div>`; }).join(''); }
-      function renderSubjectList(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); target.innerHTML = data.subjects.length ? data.subjects.map(s => { const m = data.sessions.filter(x => x.subject === s.id && dates.includes(x.date)).reduce((a, x) => a + x.minutes, 0); const percent = Math.min(100, m / (s.goal * 60) * 100); return `<div class="subject-row"><span class="subject-color" style="background:${s.color}"></span><div class="subject-info"><div style="display:flex;justify-content:space-between;gap:10px"><span class="subject-name">${escapeHtml(s.name)}</span><span class="subject-hours">${fmtDuration(m)} / 주 ${s.goal}시간</span></div><div class="subject-progress"><span style="width:${percent}%;background:${s.color}"></span></div></div></div>`; }).join('') : emptyMarkup('아직 등록된 과목이 없어요', '과목을 추가하고 학습 시간을 모아보세요.'); }
+      function renderSubjectList(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); target.innerHTML = gradeData.subjects.length ? gradeData.subjects.map(s => { const m = gradeData.sessions.filter(x => x.subject === s.id && dates.includes(x.date)).reduce((a, x) => a + x.minutes, 0); const percent = Math.min(100, m / (s.goal * 60) * 100); return `<div class="subject-row"><span class="subject-color" style="background:${s.color}"></span><div class="subject-info"><div style="display:flex;justify-content:space-between;gap:10px"><span class="subject-name">${escapeHtml(s.name)}</span><span class="subject-hours">${fmtDuration(m)} / 주 ${s.goal}시간</span></div><div class="subject-progress"><span style="width:${percent}%;background:${s.color}"></span></div></div></div>`; }).join('') : emptyMarkup('아직 등록된 과목이 없어요', '과목을 추가하고 학습 시간을 모아보세요.'); }
       function emptyMarkup(title, desc) { return `<div class="empty-state"><div class="empty-icon">✦</div><strong>${escapeHtml(title)}</strong><br>${escapeHtml(desc)}</div>`; }
       function renderTasks() {
         const now = localDate(today);
-        const todayTasks = data.tasks.filter(t => t.date === now).sort((a, b) => Number(a.done) - Number(b.done));
+        const todayTasks = gradeData.tasks.filter(t => t.date === now).sort((a, b) => Number(a.done) - Number(b.done));
         $('#today-tasks').innerHTML = todayTasks.length ? todayTasks.map(taskMarkup).join('') : emptyMarkup('오늘 계획이 비어 있어요', '할 일을 추가해 오늘의 공부를 시작해봐요.');
         $('#today-task-subtitle').textContent = todayTasks.length ? `${todayTasks.filter(t => t.done).length} / ${todayTasks.length}개 완료` : '오늘 할 일을 하나씩 완료해봐요';
-        let filtered = [...data.tasks].sort((a, b) => a.date.localeCompare(b.date));
+        let filtered = [...gradeData.tasks].sort((a, b) => a.date.localeCompare(b.date));
+        if (activeSemester !== 'all') filtered = filtered.filter(t => subjectSemester(t.subject) === activeSemester);
         if (taskFilter === 'today') filtered = filtered.filter(t => t.date === now);
         if (taskFilter === 'upcoming') filtered = filtered.filter(t => t.date > now && !t.done);
         if (taskFilter === 'done') filtered = filtered.filter(t => t.done);
         $('#all-tasks').innerHTML = filtered.length ? filtered.map(taskMarkup).join('') : emptyMarkup('표시할 계획이 없어요', '새 학습 계획을 추가해보세요.');
       }
-      function renderSubjects() {
-        $('#subject-grid').innerHTML = data.subjects.length ? data.subjects.map(s => { const m = data.sessions.filter(x => x.subject === s.id && weekDates().includes(x.date)).reduce((a, x) => a + x.minutes, 0); const pct = Math.min(100, m / (s.goal * 60) * 100); const taskCount = data.tasks.filter(t => t.subject === s.id && !t.done).length; return `<article class="subject-card" style="--subject-color:${s.color}"><div class="subject-card-top"><span class="subject-color" style="background:${s.color}"></span><h3>${escapeHtml(s.name)}</h3></div><p>이번 주 ${fmtDuration(m)} 학습 · 목표 ${s.goal}시간</p><div class="progress-track"><span style="width:${pct}%"></span></div><p style="margin-bottom:0">남은 계획 ${taskCount}개</p></article>`; }).join('') : emptyMarkup('과목을 추가해보세요', '과목별로 학습 시간을 관리할 수 있어요.');
-        $('#task-subject').innerHTML = data.subjects.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('') || '<option value="">기타</option>';
-        const selectedTimerSubject = timerSubject || data.subjects[0]?.id || '';
-        $('#timer-subject').innerHTML = data.subjects.map(s => `<option value="${s.id}" ${s.id === selectedTimerSubject ? 'selected' : ''}>${escapeHtml(s.name)} 집중</option>`).join('') || '<option value="">기타</option>';
-        timerSubject = selectedTimerSubject || null;
+      function renderSemesterControls() {
+        const semesters = semesterOptions();
+        const showSemesterFilters = semesters.length > 1;
+        ['#planner-semesters', '#subjects-semesters'].forEach(selector => {
+          const target = $(selector);
+          target.hidden = !showSemesterFilters;
+          target.innerHTML = showSemesterFilters ? `<span class="semester-label">학기</span><button class="filter-btn ${activeSemester === 'all' ? 'active' : ''}" data-semester="all">전체</button>${semesters.map(semester => `<button class="filter-btn ${activeSemester === semester ? 'active' : ''}" data-semester="${escapeHtml(semester)}">${escapeHtml(semester)}</button>`).join('')}` : '';
+        });
       }
-      function streak() { const studied = new Set(data.sessions.map(s => s.date)); let d = new Date(); let count = 0; if (!studied.has(localDate(d))) d.setDate(d.getDate() - 1); while (studied.has(localDate(d)) && count < 366) { count++; d.setDate(d.getDate() - 1); } return count; }
+      function renderSubjects() {
+        const subjects = gradeData.subjects.filter(s => activeSemester === 'all' || s.semester === activeSemester);
+        $('#subject-grid').innerHTML = subjects.length ? subjects.map(s => { const m = gradeData.sessions.filter(x => x.subject === s.id && weekDates().includes(x.date)).reduce((a, x) => a + x.minutes, 0); const pct = Math.min(100, m / (s.goal * 60) * 100); const taskCount = gradeData.tasks.filter(t => t.subject === s.id && !t.done).length; const badge = s.semester ? `<span class="semester-badge">${escapeHtml(semesterText(s.semester))}</span>` : ''; return `<article class="subject-card" style="--subject-color:${s.color}"><div class="subject-card-top"><span class="subject-color" style="background:${s.color}"></span><h3 style="flex:1">${escapeHtml(s.name)}</h3>${badge}</div><p>이번 주 ${fmtDuration(m)} 학습 · 목표 ${s.goal}시간</p><div class="progress-track"><span style="width:${pct}%"></span></div><p style="margin-bottom:0">남은 계획 ${taskCount}개</p></article>`; }).join('') : emptyMarkup('과목을 추가해보세요', '과목별로 학습 시간을 관리할 수 있어요.');
+        $('#task-subject').innerHTML = gradeData.subjects.map(s => `<option value="${s.id}">${escapeHtml(semesterSubjectLabel(s))}</option>`).join('') || '<option value="">기타</option>';
+        const selectedTimerSubject = gradeData.subjects.some(s => s.id === timerSubject) ? timerSubject : (gradeData.subjects[0]?.id || '');
+        $('#timer-subject').innerHTML = gradeData.subjects.map(s => `<option value="${s.id}" ${s.id === selectedTimerSubject ? 'selected' : ''}>${escapeHtml(semesterSubjectLabel(s))} 집중</option>`).join('') || '<option value="">기타</option>';
+        timerSubject = selectedTimerSubject || null;
+        const semesters = semesterOptions();
+        $('#subject-semester-field').hidden = semesters.length < 2;
+        $('#subject-semester-input').innerHTML = semesters.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(semesterText(s))}</option>`).join('');
+        if (semesters.includes(activeSemester)) $('#subject-semester-input').value = activeSemester;
+        renderSemesterControls();
+      }
+      function streak() { const studied = new Set(gradeData.sessions.map(s => s.date)); let d = new Date(); let count = 0; if (!studied.has(localDate(d))) d.setDate(d.getDate() - 1); while (studied.has(localDate(d)) && count < 366) { count++; d.setDate(d.getDate() - 1); } return count; }
       function renderStats() {
-        const now = localDate(today); const todays = data.tasks.filter(t => t.date === now); const done = todays.filter(t => t.done).length; const mins = minsForDate(now); const weeklyMins = weekMins();
+        const now = localDate(today); const todays = gradeData.tasks.filter(t => t.date === now); const done = todays.filter(t => t.done).length; const mins = minsForDate(now); const weeklyMins = weekMins();
         $('#today-hours').textContent = fmtDuration(mins); $('#week-hours').textContent = weeklyMins >= 60 ? `${(weeklyMins / 60).toFixed(1)}시간` : `${weeklyMins}분`;
         $('#done-count').textContent = `${done}개`; $('#task-note').textContent = todays.length ? `오늘 ${todays.length}개 중 ${done}개 완료` : '오늘의 계획'; $('#streak-count').textContent = `${streak()}일`;
-        const goalPct = Math.min(100, Math.round(mins / data.goalMinutes * 100)); $('#goal-mini').textContent = `${goalPct}%`; $('#goal-progress').style.width = `${goalPct}%`; $('#goal-caption').textContent = `${fmtDuration(mins)} 공부했어요 · 목표 ${fmtDuration(data.goalMinutes)}`;
+        const goalPct = Math.min(100, Math.round(mins / gradeData.goalMinutes * 100)); $('#goal-mini').textContent = `${goalPct}%`; $('#goal-progress').style.width = `${goalPct}%`; $('#goal-caption').textContent = `${fmtDuration(mins)} 공부했어요 · 목표 ${fmtDuration(gradeData.goalMinutes)}`;
         $('#week-note').textContent = `${weekDates().filter(d => minsForDate(d) > 0).length}일 학습 기록`;
       }
-      function render() { renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); }
+      function renderGradeHeader() {
+        const cfg = gradeConfigs[activeGrade];
+        $$('.grade-btn').forEach(btn => { const selected = btn.dataset.grade === activeGrade; btn.classList.toggle('active', selected); btn.setAttribute('aria-selected', String(selected)); });
+        $('#crumb-grade').textContent = cfg.label;
+        $('#page-title').innerHTML = `${cfg.label} 대시보드 <span aria-hidden="true">☀️</span>`;
+        $('#planner-title').textContent = `${cfg.label} 학습 계획`;
+        $('#subjects-title').textContent = `${cfg.label} 과목`;
+        $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.label} ${cfg.period}을 차근차근 채워봐요.`;
+      }
+      function render() { renderGradeHeader(); renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); }
       function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
@@ -295,24 +406,38 @@
       function updateTimerDisplay() { const m = Math.floor(timerSeconds / 60); const s = timerSeconds % 60; $('#timer-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
       function toggleTimer() {
         if (timerRunning) { clearInterval(timerInterval); timerRunning = false; $('#timer-state').textContent = '일시 정지됨'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 시작'); return; }
-        if (!timerSubject && data.subjects.length) { timerSubject = data.subjects[0].id; }
+        if (!timerSubject && gradeData.subjects.length) { timerSubject = gradeData.subjects[0].id; }
+        timerGrade = activeGrade; timerSessionSubject = timerSubject;
         timerRunning = true; $('#timer-state').textContent = `집중 중 · ${subjectName(timerSubject || '')}`; $('#timer-icon').innerHTML = '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 일시 정지');
-        timerInterval = setInterval(() => { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false; const mins = 25; const now = localDate(new Date()); data.sessions.push({ id: uid(), date: now, minutes: mins, subject: timerSubject }); save(); timerSeconds = 25 * 60; updateTimerDisplay(); $('#timer-state').textContent = '25분 집중 완료!'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; render(); showToast('집중 시간 25분을 기록했어요 🎉'); } }, 1000);
+        timerInterval = setInterval(() => { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false; const mins = 25; const now = localDate(new Date()); data.grades[timerGrade].sessions.push({ id: uid(), date: now, minutes: mins, subject: timerSessionSubject }); save(); timerSeconds = 25 * 60; updateTimerDisplay(); $('#timer-state').textContent = '25분 집중 완료!'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; render(); showToast('집중 시간 25분을 기록했어요 🎉'); } }, 1000);
+      }
+      function setGrade(grade, updateHash = true) {
+        if (!['1', '2', '3'].includes(String(grade)) || String(grade) === activeGrade) return;
+        activeGrade = String(grade); gradeData = data.grades[activeGrade]; activeSemester = 'all'; timerSubject = null;
+        save(); render();
+        if (updateHash && location.hash !== `#g${activeGrade}`) location.hash = `g${activeGrade}`;
       }
       $('#today-date').textContent = fmtDate(localDate(today)); $('#greeting-date').textContent = `${fmtDate(localDate(today))} · 오늘도 한 걸음씩 채워볼까요?`;
       $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.screen)));
       $$('[data-goto]').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.goto)));
       $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
-      $('#add-subject').addEventListener('click', () => openModal('subject-modal'));
+      $('#add-subject').addEventListener('click', () => { renderSubjects(); openModal('subject-modal'); });
       $$('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn)));
       $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); }));
-      $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; data.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
-      $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; data.subjects.push({ id: uid(), name, goal: Number(f.get('goal')), color: colors[data.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
-      document.addEventListener('click', e => { const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = data.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요'); });
+      $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; gradeData.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
+      $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; const semester = String(f.get('semester') || gradeConfigs[activeGrade].period); gradeData.subjects.push({ id: uid(), name, semester, goal: Number(f.get('goal')), color: colors[gradeData.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
+      document.addEventListener('click', e => {
+        const gradeBtn = e.target.closest('[data-grade]');
+        if (gradeBtn) { setGrade(gradeBtn.dataset.grade); return; }
+        const semesterBtn = e.target.closest('[data-semester]');
+        if (semesterBtn) { activeSemester = semesterBtn.dataset.semester; renderSemesterControls(); renderTasks(); renderSubjects(); return; }
+        const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = gradeData.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요');
+      });
       $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
       $('#timer-toggle').addEventListener('click', toggleTimer);
       $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => el.classList.remove('open')); });
+      window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
       render();
     })();
   </script>
