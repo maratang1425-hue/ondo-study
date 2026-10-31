@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6fa">
+  <title>온도 — 나의 학습 관리</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f6fa;
+      --paper: #fff;
+      --ink: #202333;
+      --muted: #81879a;
+      --line: #eceef4;
+      --accent: #6558e8;
+      --accent-soft: #efedff;
+      --mint: #dff6ee;
+      --green: #278368;
+      --orange: #ffb573;
+      --shadow: 0 10px 35px rgba(33, 37, 63, .045);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif; font-size: 14px; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .app { display: flex; min-height: 100vh; }
+    .sidebar { width: 240px; flex: 0 0 240px; padding: 27px 16px 20px; background: #fff; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+    .brand { display: flex; align-items: center; gap: 10px; margin: 1px 9px 35px; font-weight: 800; letter-spacing: -.4px; font-size: 18px; }
+    .brand-mark { width: 31px; height: 31px; border-radius: 11px; display: grid; place-items: center; color: white; background: var(--accent); box-shadow: 0 5px 12px #6558e844; }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .nav-label { margin: 0 10px 10px; color: #a0a5b3; font-size: 10px; font-weight: 750; letter-spacing: 1.1px; }
+    .nav { display: grid; gap: 5px; }
+    .nav-btn { height: 42px; width: 100%; padding: 0 11px; display: flex; align-items: center; gap: 11px; color: #777d8f; background: transparent; border: 0; border-radius: 10px; text-align: left; font-weight: 600; transition: .15s; }
+    .nav-btn svg { width: 18px; height: 18px; stroke-width: 1.8; }
+    .nav-btn:hover { background: #f8f8fc; color: var(--ink); }
+    .nav-btn.active { color: var(--accent); background: var(--accent-soft); }
+    .sidebar-bottom { margin-top: auto; }
+    .goal-box { padding: 15px; border-radius: 14px; background: #f8f7ff; }
+    .goal-title { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; }
+    .goal-title span:last-child { color: var(--accent); }
+    .goal-box p { margin: 8px 0 13px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .progress-track { height: 6px; overflow: hidden; border-radius: 8px; background: #e9e7f8; }
+    .progress-track > span { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width .25s; }
+    .user { display: flex; align-items: center; gap: 10px; padding: 20px 8px 0; }
+    .avatar { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 50%; color: #5749d3; background: #eae7ff; font-weight: 750; }
+    .user-name { font-size: 12px; font-weight: 700; }
+    .user-sub { margin-top: 3px; color: var(--muted); font-size: 10px; }
+    main { min-width: 0; flex: 1; padding: 29px clamp(22px, 4vw, 58px) 50px; }
+    .topbar { max-width: 1230px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .breadcrumb { color: var(--muted); font-size: 12px; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .date-chip { padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: white; color: #62687b; font-size: 11px; }
+    .primary-btn { min-height: 39px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #fff; background: var(--accent); border: 0; border-radius: 10px; font-size: 12px; font-weight: 700; box-shadow: 0 5px 13px #6558e82c; transition: .15s; }
+    .primary-btn:hover { background: #5648dc; transform: translateY(-1px); }
+    .primary-btn svg { width: 15px; height: 15px; }
+    .content { max-width: 1230px; margin: 0 auto; }
+    .page-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 24px; }
+    h1 { margin: 0; font-size: clamp(24px, 3vw, 29px); line-height: 1.3; letter-spacing: -1px; }
+    .subtitle { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .week-picker { padding: 7px 10px; border: 1px solid var(--line); background: #fff; color: #656b7f; border-radius: 9px; font-size: 11px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-bottom: 19px; }
+    .stat-card, .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+    .stat-card { min-height: 118px; padding: 17px 18px; }
+    .stat-top { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 11px; }
+    .stat-icon { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; color: var(--accent); background: var(--accent-soft); }
+    .stat-icon.mint { color: var(--green); background: var(--mint); }
+    .stat-icon.orange { color: #d47b35; background: #fff0e0; }
+    .stat-icon.blue { color: #3884c7; background: #e8f3ff; }
+    .stat-icon svg { width: 16px; height: 16px; }
+    .stat-value { margin-top: 12px; font-size: 24px; line-height: 1; letter-spacing: -.7px; font-weight: 750; }
+    .stat-note { margin-top: 7px; color: #a0a4b1; font-size: 10px; }
+    .stat-note strong { color: var(--green); font-weight: 650; }
+    .main-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .85fr); gap: 18px; align-items: start; }
+    .column { display: grid; gap: 18px; min-width: 0; }
+    .panel { padding: 20px; }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 17px; }
+    .panel-title { margin: 0; font-size: 14px; font-weight: 750; letter-spacing: -.2px; }
+    .panel-subtitle { margin: 5px 0 0; color: #9a9eac; font-size: 10px; }
+    .link-btn { border: 0; padding: 4px; background: transparent; color: var(--accent); font-size: 11px; font-weight: 650; }
+    .week-chart { height: 154px; padding: 4px 6px 0; display: flex; align-items: stretch; justify-content: space-between; gap: 12px; }
+    .day-column { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: end; gap: 9px; min-width: 0; }
+    .bar-wrap { width: min(31px, 78%); height: 110px; display: flex; align-items: end; }
+    .bar { width: 100%; min-height: 4px; border-radius: 7px 7px 3px 3px; background: #e8e6fb; transition: height .3s; position: relative; }
+    .bar.today { background: var(--accent); }
+    .bar:hover::after { content: attr(data-hours) '시간'; position: absolute; top: -26px; left: 50%; transform: translateX(-50%); padding: 4px 7px; background: #292a39; color: #fff; border-radius: 5px; font-size: 9px; white-space: nowrap; }
+    .day-label { color: #9297a7; font-size: 10px; }
+    .day-label.today { color: var(--accent); font-weight: 700; }
+    .task-list { display: grid; gap: 9px; }
+    .task-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #f0f1f5; border-radius: 12px; transition: .15s; }
+    .task-item:hover { border-color: #dedbf9; background: #fdfcff; }
+    .check-btn { width: 18px; height: 18px; padding: 0; flex: 0 0 auto; display: grid; place-items: center; border: 1.5px solid #d5d7e0; border-radius: 6px; background: white; color: white; }
+    .check-btn svg { width: 12px; height: 12px; opacity: 0; }
+    .check-btn.done { border-color: var(--green); background: var(--green); }
+    .check-btn.done svg { opacity: 1; }
+    .task-copy { min-width: 0; flex: 1; }
+    .task-name { overflow: hidden; color: #343849; font-size: 12px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .task-item.completed .task-name { color: #9da1ad; text-decoration: line-through; }
+    .task-meta { margin-top: 5px; display: flex; align-items: center; gap: 7px; color: #a1a5b1; font-size: 10px; }
+    .subject-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+    .task-duration { color: #82879a; font-size: 10px; white-space: nowrap; }
+    .empty-state { padding: 28px 15px; border: 1px dashed #e2e3eb; border-radius: 12px; color: #969bad; text-align: center; font-size: 11px; line-height: 1.65; }
+    .empty-state .empty-icon { width: 36px; height: 36px; margin: 0 auto 10px; display: grid; place-items: center; border-radius: 12px; color: var(--accent); background: var(--accent-soft); }
+    .subject-list { display: grid; gap: 15px; }
+    .subject-row { display: flex; align-items: center; gap: 10px; }
+    .subject-color { width: 9px; height: 9px; border-radius: 4px; flex: 0 0 auto; }
+    .subject-info { min-width: 0; flex: 1; }
+    .subject-name { color: #45495b; font-size: 11px; font-weight: 650; }
+    .subject-hours { color: #999eae; font-size: 10px; white-space: nowrap; }
+    .subject-progress { height: 4px; margin-top: 7px; overflow: hidden; border-radius: 4px; background: #f0f1f5; }
+    .subject-progress span { display: block; height: 100%; border-radius: inherit; }
+    .timer-panel { padding: 19px 20px; color: #fff; background: #28283a; border-color: #28283a; overflow: hidden; position: relative; }
+    .timer-panel::after { content: ''; position: absolute; width: 170px; height: 170px; border-radius: 50%; right: -70px; top: -90px; background: #5d50dc55; }
+    .timer-panel .panel-title { color: #fff; position: relative; z-index: 1; }
+    .timer-panel .panel-subtitle { color: #a6a5ba; position: relative; z-index: 1; }
+    .timer-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; position: relative; z-index: 1; }
+    .timer-display { font-size: 30px; line-height: 1; font-weight: 700; letter-spacing: 1px; font-variant-numeric: tabular-nums; }
+    .timer-state { margin-top: 7px; color: #b4b2c6; font-size: 10px; }
+    .timer-subject { margin-top: 11px; padding: 6px 8px; max-width: 150px; border: 1px solid #ffffff25; border-radius: 7px; background: #ffffff0d; color: #e1e0ec; font-size: 10px; }
+    .timer-subject:focus { outline: 1px solid #9188ff; }
+    .timer-btn { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border: 0; border-radius: 50%; background: #7468f2; color: white; }
+    .timer-btn svg { width: 18px; height: 18px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .screen-section { margin-top: 18px; }
+    .planner-toolbar { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+    .filter-btn { padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px; color: #72778a; background: white; font-size: 11px; }
+    .filter-btn.active { color: var(--accent); background: var(--accent-soft); border-color: #dedbff; }
+    .subject-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .subject-card { padding: 17px; border: 1px solid var(--line); border-radius: 15px; background: white; box-shadow: var(--shadow); }
+    .subject-card-top { display:flex; align-items:center; gap:10px; }
+    .subject-card .subject-color { width: 11px; height: 11px; }
+    .subject-card h3 { margin: 0; font-size: 13px; }
+    .subject-card p { margin: 15px 0 9px; color: var(--muted); font-size: 10px; }
+    .subject-card .progress-track { background: #f0f1f5; }
+    .subject-card .progress-track > span { background: var(--subject-color, var(--accent)); }
+    .stats-empty { margin-top: 18px; }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 10; padding: 18px; display: none; place-items: center; background: #1d20334d; backdrop-filter: blur(3px); }
+    .modal-backdrop.open { display: grid; }
+    .modal { width: min(100%, 440px); padding: 23px; border-radius: 18px; background: white; box-shadow: 0 24px 70px #14152d36; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 18px; }
+    .modal-head h2 { margin:0; font-size:17px; letter-spacing:-.4px; }
+    .close-btn { width: 30px; height: 30px; border:0; border-radius:8px; background:#f4f5f8; color:#717789; font-size:19px; }
+    .form-grid { display:grid; gap:13px; }
+    .field label { display:block; margin-bottom:6px; color:#656a7b; font-size:11px; font-weight:650; }
+    .field input, .field select { width:100%; height:40px; padding:0 11px; outline:none; border:1px solid #e4e6ed; border-radius:9px; background:white; color:#303447; font-size:12px; }
+    .field input:focus, .field select:focus { border-color:#9a91f5; box-shadow:0 0 0 3px #6558e817; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+    .form-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:5px; }
+    .secondary-btn { padding:0 13px; min-height:39px; border:1px solid var(--line); border-radius:9px; color:#6c7182; background:white; font-size:11px; font-weight:650; }
+    .toast { position:fixed; left:50%; bottom:24px; z-index:20; transform:translate(-50%, 15px); padding:10px 15px; color:white; background:#292a39; border-radius:9px; font-size:11px; opacity:0; pointer-events:none; transition:.2s; }
+    .toast.show { opacity:1; transform:translate(-50%, 0); }
+    @media (max-width: 1000px) { .sidebar { width:205px; flex-basis:205px; } main { padding-left:25px; padding-right:25px; } .stats-grid { grid-template-columns:repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 740px) {
+      .app { display:block; padding-bottom:65px; }
+      .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:block; }
+      .brand, .nav-label, .sidebar-bottom { display:none; }
+      .nav { height:100%; grid-template-columns:repeat(4,1fr); gap:2px; }
+      .nav-btn { height:50px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
+      .nav-btn svg { width:17px; height:17px; }
+      main { padding:19px 16px 30px; }
+      .topbar { margin-bottom:25px; }
+      .date-chip { display:none; }
+      .main-grid { grid-template-columns:1fr; }
+      .subject-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
+      .page-heading { align-items:flex-start; }
+      .week-picker { font-size:10px; }
+    }
+    @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8c2.5 0 4 1.3 7 4 3-2.7 4.5-4 7-4M5 16c2.5 0 4-1.3 7-4 3 2.7 4.5 4 7 4"/></svg></span>온도</div>
+      <div class="nav-label">학습 공간</div>
+      <nav class="nav" aria-label="주 메뉴">
+        <button class="nav-btn active" data-screen="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg><span>대시보드</span></button>
+        <button class="nav-btn" data-screen="planner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></svg><span>학습 계획</span></button>
+        <button class="nav-btn" data-screen="subjects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h7M8 10h5"/></svg><span>과목 관리</span></button>
+        <button class="nav-btn" data-screen="records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 3 6-7"/></svg><span>학습 기록</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="goal-box"><div class="goal-title"><span>오늘의 목표</span><span id="goal-mini">0%</span></div><p id="goal-caption">목표 시간을 채우고 있어요</p><div class="progress-track"><span id="goal-progress" style="width:0%"></span></div></div>
+        <div class="user"><div class="avatar">온</div><div><div class="user-name">나의 학습 공간</div><div class="user-sub">차근차근, 꾸준하게</div></div></div>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar"><div class="breadcrumb">나의 학습 공간 <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
+      <div class="content">
+        <section class="screen active" id="screen-home">
+          <div class="page-heading"><div><h1>좋은 하루예요! <span aria-hidden="true">☀️</span></h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>오늘 공부 시간</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="stat-value" id="today-hours">0분</div><div class="stat-note">집중 타이머 기록</div></article>
+            <article class="stat-card"><div class="stat-top"><span>이번 주 공부</span><span class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></svg></span></div><div class="stat-value" id="week-hours">0시간</div><div class="stat-note" id="week-note">이번 주 누적 시간</div></article>
+            <article class="stat-card"><div class="stat-top"><span>완료한 할 일</span><span class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg></span></div><div class="stat-value" id="done-count">0개</div><div class="stat-note" id="task-note">오늘의 계획</div></article>
+            <article class="stat-card"><div class="stat-top"><span>연속 학습</span><span class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.4 0 7-3 7-7 0-3-2-5-3-6-.5 2-1.2 2.5-2 3-1-4-4-7-6-9 0 5-1.5 6.5-2.5 8C4.5 13 5 18 7 20c1.2 1.2 2.8 2 5 2Z"/><path d="M10 17.5c0-1.5 1-2.5 2-3.5 1 1 2 2 2 3.5a2 2 0 0 1-4 0Z"/></svg></span></div><div class="stat-value" id="streak-count">0일</div><div class="stat-note">작은 꾸준함이 큰 실력이 돼요</div></article>
+          </div>
+          <div class="main-grid">
+            <div class="column">
+              <section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">매일의 집중을 한눈에 확인해요</p></div><button class="link-btn" data-goto="records">기록 보기 →</button></div><div class="week-chart" id="week-chart"></div></section>
+              <section class="panel"><div class="panel-head"><div><h2 class="panel-title">오늘의 학습 계획</h2><p class="panel-subtitle" id="today-task-subtitle">오늘 할 일을 하나씩 완료해봐요</p></div><button class="link-btn" data-goto="planner">전체 계획 →</button></div><div class="task-list" id="today-tasks"></div></section>
+            </div>
+            <div class="column">
+              <section class="panel timer-panel"><div class="panel-head"><div><h2 class="panel-title">집중 타이머</h2><p class="panel-subtitle">짧게 몰입하고, 기록으로 남겨요</p></div></div><div class="timer-inner"><div><div class="timer-display" id="timer-display">25:00</div><div class="timer-state" id="timer-state">포모도로 · 25분</div><select class="timer-subject" id="timer-subject" aria-label="집중 과목"></select></div><button class="timer-btn" id="timer-toggle" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></div></section>
+              <section class="panel"><div class="panel-head"><div><h2 class="panel-title">과목별 학습</h2><p class="panel-subtitle">이번 주 공부 시간</p></div><button class="link-btn" data-goto="subjects">관리 →</button></div><div class="subject-list" id="subject-summary"></div></section>
+            </div>
+          </div>
+        </section>
+        <section class="screen" id="screen-planner"><div class="page-heading"><div><h1>학습 계획</h1><p class="subtitle">해야 할 일을 정리하고 하나씩 끝내봐요.</p></div></div><div class="panel"><div class="planner-toolbar"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="today">오늘</button><button class="filter-btn" data-filter="upcoming">예정</button><button class="filter-btn" data-filter="done">완료</button></div><div class="task-list" id="all-tasks"></div></div></section>
+        <section class="screen" id="screen-subjects"><div class="page-heading"><div><h1>과목 관리</h1><p class="subtitle">과목별 목표와 학습 시간을 살펴봐요.</p></div><button class="primary-btn" id="add-subject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>과목 추가</button></div><div class="subject-grid" id="subject-grid"></div></section>
+        <section class="screen" id="screen-records"><div class="page-heading"><div><h1>학습 기록</h1><p class="subtitle">꾸준히 쌓인 시간을 확인해봐요.</p></div></div><section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">이번 주의 집중 시간</p></div></div><div class="week-chart" id="records-chart"></div></section><section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">이번 주 과목별 시간</h2><p class="panel-subtitle">타이머로 기록한 학습량</p></div></div><div class="subject-list" id="record-subjects"></div></section></section>
+      </div>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    (() => {
+      const STORAGE_KEY = 'ondo-study-v1';
+      const colors = ['#7568ed', '#f0a65b', '#41ad91', '#5b9bdb', '#e57991', '#b175d1'];
+      const today = new Date();
+      const localDate = (date) => { const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+      const shiftDate = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return localDate(d); };
+      const uid = () => Math.random().toString(36).slice(2, 10);
+      const initialData = () => ({ goalMinutes: 120, subjects: [
+        { id: 'math', name: '수학', goal: 5, color: colors[0] },
+        { id: 'english', name: '영어', goal: 3, color: colors[1] },
+        { id: 'reading', name: '독서', goal: 2, color: colors[2] }
+      ], tasks: [
+        { id: uid(), title: '수학 개념 복습하기', subject: 'math', date: shiftDate(0), minutes: 45, done: false },
+        { id: uid(), title: '영어 단어 20개 외우기', subject: 'english', date: shiftDate(0), minutes: 25, done: false },
+        { id: uid(), title: '독서 30분', subject: 'reading', date: shiftDate(1), minutes: 30, done: false }
+      ], sessions: [] });
+      let data;
+      try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || initialData(); } catch { data = initialData(); }
+      if (!data.subjects || !data.tasks || !data.sessions) data = initialData();
+      let screen = 'home';
+      let taskFilter = 'all';
+      let timerSeconds = 25 * 60;
+      let timerRunning = false;
+      let timerInterval = null;
+      let timerSubject = null;
+      let toastTimeout;
+      const $ = (q, root = document) => root.querySelector(q);
+      const $$ = (q, root = document) => [...root.querySelectorAll(q)];
+      const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const subjectById = (id) => data.subjects.find(s => s.id === id);
+      const subjectName = (id) => subjectById(id)?.name || '기타';
+      const subjectColor = (id) => subjectById(id)?.color || '#a5a8b4';
+      const fmtDate = (s, opt = { month: 'long', day: 'numeric', weekday: 'long' }) => new Intl.DateTimeFormat('ko-KR', opt).format(new Date(s + 'T12:00:00'));
+      const minsForDate = (date) => data.sessions.filter(s => s.date === date).reduce((n, s) => n + s.minutes, 0);
+      const weekDates = () => { const now = new Date(); const mon = new Date(now); const day = (now.getDay() + 6) % 7; mon.setDate(now.getDate() - day); return Array.from({ length: 7 }, (_, i) => { const d = new Date(mon); d.setDate(mon.getDate() + i); return localDate(d); }); };
+      const weekMins = (dateList = weekDates()) => data.sessions.filter(s => dateList.includes(s.date)).reduce((n, s) => n + s.minutes, 0);
+      const fmtDuration = (mins) => mins >= 60 ? `${Math.floor(mins / 60)}시간${mins % 60 ? ` ${mins % 60}분` : ''}` : `${mins}분`;
+      const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>';
+      function taskMarkup(task) { return `<div class="task-item ${task.done ? 'completed' : ''}"><button class="check-btn ${task.done ? 'done' : ''}" data-task-toggle="${task.id}" aria-label="${task.done ? '완료 취소' : '완료 표시'}">${checkIcon}</button><div class="task-copy"><div class="task-name">${escapeHtml(task.title)}</div><div class="task-meta"><span class="subject-dot" style="background:${subjectColor(task.subject)}"></span>${escapeHtml(subjectName(task.subject))}<span>·</span>${fmtDate(task.date, { month:'numeric', day:'numeric' })}</div></div><span class="task-duration">${task.minutes}분</span></div>`; }
+      function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+      function renderChart(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); const values = dates.map(minsForDate); const max = Math.max(120, ...values); target.innerHTML = dates.map((d, i) => { const isToday = d === localDate(today); const h = Math.max(values[i] ? 8 : 4, values[i] / max * 100); return `<div class="day-column"><div class="bar-wrap"><div class="bar ${isToday ? 'today' : ''}" style="height:${h}%" data-hours="${(values[i] / 60).toFixed(1)}"></div></div><span class="day-label ${isToday ? 'today' : ''}">${new Intl.DateTimeFormat('ko-KR', { weekday:'short' }).format(new Date(d + 'T12:00:00'))}</span></div>`; }).join(''); }
+      function renderSubjectList(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); target.innerHTML = data.subjects.length ? data.subjects.map(s => { const m = data.sessions.filter(x => x.subject === s.id && dates.includes(x.date)).reduce((a, x) => a + x.minutes, 0); const percent = Math.min(100, m / (s.goal * 60) * 100); return `<div class="subject-row"><span class="subject-color" style="background:${s.color}"></span><div class="subject-info"><div style="display:flex;justify-content:space-between;gap:10px"><span class="subject-name">${escapeHtml(s.name)}</span><span class="subject-hours">${fmtDuration(m)} / 주 ${s.goal}시간</span></div><div class="subject-progress"><span style="width:${percent}%;background:${s.color}"></span></div></div></div>`; }).join('') : emptyMarkup('아직 등록된 과목이 없어요', '과목을 추가하고 학습 시간을 모아보세요.'); }
+      function emptyMarkup(title, desc) { return `<div class="empty-state"><div class="empty-icon">✦</div><strong>${escapeHtml(title)}</strong><br>${escapeHtml(desc)}</div>`; }
+      function renderTasks() {
+        const now = localDate(today);
+        const todayTasks = data.tasks.filter(t => t.date === now).sort((a, b) => Number(a.done) - Number(b.done));
+        $('#today-tasks').innerHTML = todayTasks.length ? todayTasks.map(taskMarkup).join('') : emptyMarkup('오늘 계획이 비어 있어요', '할 일을 추가해 오늘의 공부를 시작해봐요.');
+        $('#today-task-subtitle').textContent = todayTasks.length ? `${todayTasks.filter(t => t.done).length} / ${todayTasks.length}개 완료` : '오늘 할 일을 하나씩 완료해봐요';
+        let filtered = [...data.tasks].sort((a, b) => a.date.localeCompare(b.date));
+        if (taskFilter === 'today') filtered = filtered.filter(t => t.date === now);
+        if (taskFilter === 'upcoming') filtered = filtered.filter(t => t.date > now && !t.done);
+        if (taskFilter === 'done') filtered = filtered.filter(t => t.done);
+        $('#all-tasks').innerHTML = filtered.length ? filtered.map(taskMarkup).join('') : emptyMarkup('표시할 계획이 없어요', '새 학습 계획을 추가해보세요.');
+      }
+      function renderSubjects() {
+        $('#subject-grid').innerHTML = data.subjects.length ? data.subjects.map(s => { const m = data.sessions.filter(x => x.subject === s.id && weekDates().includes(x.date)).reduce((a, x) => a + x.minutes, 0); const pct = Math.min(100, m / (s.goal * 60) * 100); const taskCount = data.tasks.filter(t => t.subject === s.id && !t.done).length; return `<article class="subject-card" style="--subject-color:${s.color}"><div class="subject-card-top"><span class="subject-color" style="background:${s.color}"></span><h3>${escapeHtml(s.name)}</h3></div><p>이번 주 ${fmtDuration(m)} 학습 · 목표 ${s.goal}시간</p><div class="progress-track"><span style="width:${pct}%"></span></div><p style="margin-bottom:0">남은 계획 ${taskCount}개</p></article>`; }).join('') : emptyMarkup('과목을 추가해보세요', '과목별로 학습 시간을 관리할 수 있어요.');
+        $('#task-subject').innerHTML = data.subjects.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('') || '<option value="">기타</option>';
+        const selectedTimerSubject = timerSubject || data.subjects[0]?.id || '';
+        $('#timer-subject').innerHTML = data.subjects.map(s => `<option value="${s.id}" ${s.id === selectedTimerSubject ? 'selected' : ''}>${escapeHtml(s.name)} 집중</option>`).join('') || '<option value="">기타</option>';
+        timerSubject = selectedTimerSubject || null;
+      }
+      function streak() { const studied = new Set(data.sessions.map(s => s.date)); let d = new Date(); let count = 0; if (!studied.has(localDate(d))) d.setDate(d.getDate() - 1); while (studied.has(localDate(d)) && count < 366) { count++; d.setDate(d.getDate() - 1); } return count; }
+      function renderStats() {
+        const now = localDate(today); const todays = data.tasks.filter(t => t.date === now); const done = todays.filter(t => t.done).length; const mins = minsForDate(now); const weeklyMins = weekMins();
+        $('#today-hours').textContent = fmtDuration(mins); $('#week-hours').textContent = weeklyMins >= 60 ? `${(weeklyMins / 60).toFixed(1)}시간` : `${weeklyMins}분`;
+        $('#done-count').textContent = `${done}개`; $('#task-note').textContent = todays.length ? `오늘 ${todays.length}개 중 ${done}개 완료` : '오늘의 계획'; $('#streak-count').textContent = `${streak()}일`;
+        const goalPct = Math.min(100, Math.round(mins / data.goalMinutes * 100)); $('#goal-mini').textContent = `${goalPct}%`; $('#goal-progress').style.width = `${goalPct}%`; $('#goal-caption').textContent = `${fmtDuration(mins)} 공부했어요 · 목표 ${fmtDuration(data.goalMinutes)}`;
+        $('#week-note').textContent = `${weekDates().filter(d => minsForDate(d) > 0).length}일 학습 기록`;
+      }
+      function render() { renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); }
+      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
+      function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
+      function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
+      function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
+      function updateTimerDisplay() { const m = Math.floor(timerSeconds / 60); const s = timerSeconds % 60; $('#timer-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+      function toggleTimer() {
+        if (timerRunning) { clearInterval(timerInterval); timerRunning = false; $('#timer-state').textContent = '일시 정지됨'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 시작'); return; }
+        if (!timerSubject && data.subjects.length) { timerSubject = data.subjects[0].id; }
+        timerRunning = true; $('#timer-state').textContent = `집중 중 · ${subjectName(timerSubject || '')}`; $('#timer-icon').innerHTML = '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 일시 정지');
+        timerInterval = setInterval(() => { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false; const mins = 25; const now = localDate(new Date()); data.sessions.push({ id: uid(), date: now, minutes: mins, subject: timerSubject }); save(); timerSeconds = 25 * 60; updateTimerDisplay(); $('#timer-state').textContent = '25분 집중 완료!'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; render(); showToast('집중 시간 25분을 기록했어요 🎉'); } }, 1000);
+      }
+      $('#today-date').textContent = fmtDate(localDate(today)); $('#greeting-date').textContent = `${fmtDate(localDate(today))} · 오늘도 한 걸음씩 채워볼까요?`;
+      $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.screen)));
+      $$('[data-goto]').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.goto)));
+      $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
+      $('#add-subject').addEventListener('click', () => openModal('subject-modal'));
+      $$('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn)));
+      $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); }));
+      $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; data.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
+      $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; data.subjects.push({ id: uid(), name, goal: Number(f.get('goal')), color: colors[data.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
+      document.addEventListener('click', e => { const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = data.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요'); });
+      $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
+      $('#timer-toggle').addEventListener('click', toggleTimer);
+      $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => el.classList.remove('open')); });
+      render();
+    })();
+  </script>
+</body>
+</html>
