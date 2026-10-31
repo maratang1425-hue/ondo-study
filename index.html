@@ -571,6 +571,8 @@
       .sidebar { width: 224px; flex-basis: 224px; }
       .topbar { padding: 16px 24px; }
       .breadcrumb { display: none; }
+      .topbar.admissions-mode .breadcrumb { display: block; font-weight: 700; }
+      .topbar.admissions-mode .breadcrumb > span:not(#crumb-space), .topbar.admissions-mode .breadcrumb > strong { display: none; }
       .content { padding: 32px 24px; }
       .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .main-grid { grid-template-columns: 1fr; }
@@ -1618,6 +1620,7 @@
       }
       function updateSpaceHeader() {
         const admissions = screen === 'admission-grades' || screen === 'student-records';
+        $('.topbar').classList.toggle('admissions-mode', admissions);
         $('.grade-switch').hidden = admissions;
         $('#crumb-space').textContent = admissions ? '입시 공간' : '나의 학습 공간';
         $('#crumb-grade').textContent = admissions ? '고1~고3' : gradeConfigs[activeGrade].label;
