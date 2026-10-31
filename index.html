@@ -761,13 +761,13 @@
   </div>
   <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field" id="subject-semester-field"><label for="subject-semester-input">학기</label><select id="subject-semester-input" name="semester"></select></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
-  <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea><div class="assessment-file-list" id="assessment-file-drafts"></div></div><div class="field"><label for="assessment-files">파일 첨부 (선택)</label><input id="assessment-files" type="file" multiple><small class="assessment-file-hint">계정 연결 후 다른 기기에서도 파일을 열 수 있어요. 파일 하나당 최대 20MB예요.</small></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea><div class="assessment-file-list" id="assessment-file-drafts"></div></div><div class="field"><label for="assessment-files">파일 첨부 (선택)</label><input id="assessment-files" type="file" multiple><small class="assessment-file-hint">계정 연결 후 다른 기기에서도 파일을 열 수 있어요. 파일 하나당 최대 200MB예요.</small></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title"><form class="modal" id="report-form"><div class="modal-head"><h2 id="report-modal-title">보고서 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="report-title">보고서 이름</label><input id="report-title" name="title" placeholder="예: 도시 문제 탐구 보고서" required maxlength="100"></div><div class="field"><label for="report-kind">보고서 분류</label><select id="report-kind" name="kind"><option value="subject">과목 보고서</option><option value="career">진로 보고서</option></select></div><div class="report-course-fields" id="report-course-fields"><div class="form-row"><div class="field"><label for="report-grade">학년</label><select id="report-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="report-semester">학기</label><select id="report-semester" name="semester"></select></div></div><div class="field"><label for="report-subject">과목</label><select id="report-subject" name="subject"></select></div></div><div class="field"><label for="report-deadline">마감일</label><input id="report-deadline" name="deadline" type="date"><small class="assessment-file-hint">마감일을 입력하면 목록에 D-day가 표시돼요.</small></div><div class="field"><label for="report-details">작성할 내용</label><textarea id="report-details" name="details" rows="5" placeholder="무슨 내용을 조사하고 작성해야 하는지, 제출 형식과 준비할 일을 적어두세요." maxlength="3000"></textarea></div><div class="field"><label for="report-memo">참고자료·메모</label><textarea id="report-memo" name="memo" rows="3" placeholder="참고할 링크, 교과서 쪽수, 선생님 안내 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="report-save-btn">보고서 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="club-modal" role="dialog" aria-modal="true" aria-labelledby="club-modal-title"><form class="modal" id="club-form"><div class="modal-head"><h2 id="club-modal-title">방송부 활동 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="club-category">활동 카테고리</label><select id="club-category" name="category"></select></div><div class="field"><label for="club-title">할 일·활동 이름</label><input id="club-title" name="title" placeholder="예: 점심 방송 오프닝 대본 작성" required maxlength="100"></div><div class="form-row"><div class="field"><label for="club-date">활동 날짜</label><input id="club-date" name="date" type="date" required></div><div class="field"><label for="club-deadline">마감일 (선택)</label><input id="club-deadline" name="deadline" type="date"></div></div><div class="field"><label for="club-description">메모</label><textarea id="club-description" name="description" rows="4" placeholder="담당 역할, 대본 내용, 송출 순서, 준비물이나 장비 점검 내용을 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="club-save-btn">활동 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="academy-test-modal" role="dialog" aria-modal="true" aria-labelledby="academy-test-modal-title"><form class="modal" id="academy-test-form"><div class="modal-head"><h2 id="academy-test-modal-title">학원 시험 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="academy-test-title">시험 이름</label><input id="academy-test-title" name="title" placeholder="예: 단어 시험, 문법 테스트" maxlength="100" required></div><div class="field"><label for="academy-test-date">시험 날짜</label><input id="academy-test-date" name="date" type="date" required><small class="assessment-file-hint">토요일 또는 일요일 날짜를 선택해 주세요.</small></div><div class="field"><label for="academy-test-scope">시험 범위</label><textarea id="academy-test-scope" name="scope" rows="3" placeholder="예: 단어장 5~8과, 문법 교재 3단원" maxlength="1200"></textarea></div><div class="field"><label for="academy-test-notes">준비할 것·메모</label><textarea id="academy-test-notes" name="notes" rows="3" placeholder="준비물이나 선생님 안내를 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="academy-test-save">시험 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="academy-homework-modal" role="dialog" aria-modal="true" aria-labelledby="academy-homework-modal-title"><form class="modal" id="academy-homework-form"><div class="modal-head"><h2 id="academy-homework-modal-title">학원 숙제 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="academy-homework-title">숙제 이름</label><input id="academy-homework-title" name="title" placeholder="예: 영어 단어 외우기" maxlength="100" required></div><div class="field"><label for="academy-homework-due">마감일</label><input id="academy-homework-due" name="due" type="date" required></div><div class="field"><label for="academy-homework-details">숙제 내용</label><textarea id="academy-homework-details" name="details" rows="4" placeholder="교재와 페이지, 풀어야 할 문제를 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="academy-homework-save">숙제 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="exam-scope-modal" role="dialog" aria-modal="true" aria-labelledby="exam-scope-modal-title"><form class="modal" id="exam-scope-form"><div class="modal-head"><h2 id="exam-scope-modal-title">시험범위 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="exam-scope-subject">과목</label><select id="exam-scope-subject" name="subject"></select></div><div class="field"><label for="exam-scope-name">시험 이름</label><input id="exam-scope-name" name="exam" placeholder="예: 제2차 정기고사" maxlength="100" required></div><div class="field"><label for="exam-scope-date">시험 날짜</label><input id="exam-scope-date" name="date" type="date" required></div><div class="field"><label for="exam-scope-range">시험 범위</label><textarea id="exam-scope-range" name="range" rows="5" placeholder="예: 교과서 50~85쪽, 프린트 2~4장" maxlength="3000" required></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="exam-scope-save">범위 저장</button></div></div></form></div>
-  <div class="modal-backdrop" id="material-modal" role="dialog" aria-modal="true" aria-labelledby="material-modal-title"><form class="modal" id="material-form"><div class="modal-head"><h2 id="material-modal-title">교재 및 학습 자료 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="material-subject">과목</label><select id="material-subject" name="subject"></select></div><div class="field"><label for="material-title">교재·자료 이름</label><input id="material-title" name="title" placeholder="예: 수학 교과서, 단원 정리 PDF" maxlength="100" required></div><div class="field"><label for="material-file">파일 첨부</label><input id="material-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.ppt,.pptx,.hwp,.hwpx"><small class="assessment-file-hint" id="material-file-hint">PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 20MB예요.</small></div><div class="field"><label for="material-url">링크 (선택)</label><input id="material-url" name="url" type="url" placeholder="https://..."></div><div class="field"><label for="material-memo">메모 (선택)</label><textarea id="material-memo" name="memo" rows="3" placeholder="교재 쪽수, 공부 방법 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="material-save">자료 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="material-modal" role="dialog" aria-modal="true" aria-labelledby="material-modal-title"><form class="modal" id="material-form"><div class="modal-head"><h2 id="material-modal-title">교재 및 학습 자료 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="material-subject">과목</label><select id="material-subject" name="subject"></select></div><div class="field"><label for="material-title">교재·자료 이름</label><input id="material-title" name="title" placeholder="예: 수학 교과서, 단원 정리 PDF" maxlength="100" required></div><div class="field"><label for="material-file">파일 첨부</label><input id="material-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.ppt,.pptx,.hwp,.hwpx"><small class="assessment-file-hint" id="material-file-hint">PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 200MB예요.</small></div><div class="field"><label for="material-url">링크 (선택)</label><input id="material-url" name="url" type="url" placeholder="https://..."></div><div class="field"><label for="material-memo">메모 (선택)</label><textarea id="material-memo" name="memo" rows="3" placeholder="교재 쪽수, 공부 방법 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="material-save">자료 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="song-modal" role="dialog" aria-modal="true" aria-labelledby="song-modal-title"><form class="modal" id="song-form"><div class="modal-head"><h2 id="song-modal-title">오노추에 노래 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">소녀시대, 블랙핑크, 로제, 제니, 지수, 태연, 태티서 노래만 추천해요. 등록한 노래가 있으면 그중에서 날짜별로 한 곡씩 표시돼요.</div><div class="field"><label for="song-title">노래 제목</label><input id="song-title" name="title" maxlength="100" required></div><div class="field"><label for="song-artist">가수</label><select id="song-artist" name="artist"><option>소녀시대</option><option>블랙핑크</option><option>로제</option><option>제니</option><option>지수</option><option>태연</option><option>태티서</option></select></div><div class="field"><label for="song-url">YouTube Music 공유 링크</label><input id="song-url" name="url" type="url" placeholder="https://music.youtube.com/watch?v=..." required></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="song-save">노래 저장</button></div><div class="assessment-file-list" id="song-list"></div></div></form></div>
   <div class="modal-backdrop" id="student-record-modal" role="dialog" aria-modal="true" aria-labelledby="student-record-modal-title"><form class="modal" id="student-record-form"><div class="modal-head"><h2 id="student-record-modal-title">학생부 내용 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="form-row"><div class="field"><label for="student-record-grade">학년</label><select id="student-record-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="student-record-semester">학기</label><select id="student-record-semester" name="semester"></select></div></div><div class="field"><label for="student-record-subject">과목</label><select id="student-record-subject" name="subject"></select></div><div class="field"><label for="student-record-title">기록 제목</label><input id="student-record-title" name="title" maxlength="100" placeholder="예: 탐구 활동과 배운 점" required></div><div class="field"><label for="student-record-content">학생부 내용</label><textarea id="student-record-content" name="content" rows="7" maxlength="8000" placeholder="학생부에 적힌 내용이나 활동 기록을 입력해 주세요." required></textarea></div><div class="field"><label for="student-record-interview">면접 대비 메모 (선택)</label><textarea id="student-record-interview" name="interviewNotes" rows="4" maxlength="3000" placeholder="활동 동기, 내가 맡은 역할, 배운 점과 예상 질문을 적어두세요."></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="student-record-save">학생부 내용 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
@@ -775,12 +775,14 @@
   <div class="modal-backdrop" id="school-class-modal" role="dialog" aria-modal="true" aria-labelledby="school-class-modal-title"><form class="modal" id="school-class-form"><div class="modal-head"><h2 id="school-class-modal-title">시간표 학년·반</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><p class="school-today-empty">운호고등학교의 내 학년·반을 선택해 주세요. 학년이 바뀌면 여기에서 수정할 수 있어요.</p><div class="form-row"><div class="field"><label for="school-class-grade">학년</label><select id="school-class-grade" name="grade"><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option></select></div><div class="field"><label for="school-class-room">반</label><select id="school-class-room" name="room"></select></div></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">학년·반 저장</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="attachment-transfer.js"></script>
   <script>
     (() => {
       const STORAGE_KEY = 'ondo-study-v2';
       const LEGACY_STORAGE_KEY = 'ondo-study-v1';
       const ATTACHMENT_DB = 'ondo-study-assessment-files-v1';
       const TIMER_MINUTES = 70;
+      const MAX_ATTACHMENT_BYTES = 200 * 1024 * 1024;
       const ADMISSIONS_PASSCODE_DIGEST = '091943436a6273fb665375735e716ba2d5c12fac19c232df2e27e5e023735a81';
       const DDAY_DATE = '2026-12-07';
       const colors = ['#404040', '#5c5c5c', '#747474', '#8e8e8e', '#a5a5a5', '#bdbdbd'];
@@ -1096,9 +1098,9 @@
           const { data: saved, error } = await cloudClient.from('ondo_user_data').upsert({ user_id:userId, payload, updated_at:new Date().toISOString() }, { onConflict:'user_id' }).select('updated_at').single();
           if (error) throw error;
           cloudLastUpdatedAt = saved?.updated_at || new Date().toISOString();
-          cloudPendingLocalChanges = false;
+          cloudPendingLocalChanges = attachmentWarnings > 0;
           localStorage.setItem(`ondo-cloud-linked:${userId}`, '1');
-          setSyncStatus(attachmentWarnings ? `기록 동기화됨 · 첨부파일 ${attachmentWarnings}개는 업로드되지 않았어요` : `동기화됨 · ${formatSyncTime(cloudLastUpdatedAt)}`, attachmentWarnings ? 'error' : 'connected');
+          setSyncStatus(attachmentWarnings ? `기록 동기화됨 · 첨부파일 ${attachmentWarnings}개 업로드 대기 · 지금 동기화로 이어 올릴 수 있어요` : `동기화됨 · ${formatSyncTime(cloudLastUpdatedAt)}`, attachmentWarnings ? 'error' : 'connected');
           if (initial) renderSyncControls();
           return true;
         } catch (error) {
@@ -1107,22 +1109,33 @@
           return false;
         } finally {
           cloudBusy = false;
+          $('#sync-button-label').textContent = cloudConfig ? '동기화' : '동기화 설정';
           if (cloudSyncAgain) { cloudSyncAgain = false; scheduleCloudPush(); }
         }
       }
+      function attachmentReferences() { return Object.values(data.grades).flatMap(grade => [...grade.assessments.flatMap(item => item.attachments || []), ...grade.materials.map(item => item.file).filter(Boolean)]); }
+      function uploadProgressKey(owner, id) { return `ondo-file-upload-v1:${owner}:${id}`; }
+      function readUploadProgress(owner, id) { try { return JSON.parse(localStorage.getItem(uploadProgressKey(owner, id))); } catch { return null; } }
+      function saveUploadProgress(owner, id, progress) { try { localStorage.setItem(uploadProgressKey(owner, id), JSON.stringify(progress)); } catch { /* Upload still works when resume metadata cannot be saved. */ } }
+      function forgetUploadProgress(owner, id) { try { localStorage.removeItem(uploadProgressKey(owner, id)); } catch {} }
+      function applyAttachmentLayout(id, layout) { attachmentReferences().filter(file => file.id === id).forEach(file => { if (layout) file.cloudChunks = layout; else delete file.cloudChunks; }); }
+      function showAttachmentProgress(label, name, loaded, total) { const percent = total ? Math.floor(loaded / total * 100) : 100; $('#sync-button-label').textContent = `${label} ${percent}%`; setSyncStatus(`${name} · ${label} ${percent}% (${formatFileSize(loaded)} / ${formatFileSize(total)})`); }
       async function uploadCloudAttachments(userId) {
-        const hasAttachments = Object.values(data.grades).some(grade => grade.assessments.some(item => item.attachments?.length) || grade.materials.some(item => item.file?.id));
-        if (!hasAttachments) return 0;
-        const records = await readAssessmentFileRecords();
+        const files = [...new Map(attachmentReferences().map(file => [file.id, file])).values()];
         let failed = 0;
-        const updates = [];
-        for (const record of records) {
-          if (!record.blob || (record.cloudOwnerId === userId && record.cloudSyncedAt)) continue;
-          const { error } = await cloudClient.storage.from('ondo-attachments').upload(`${userId}/${record.id}`, record.blob, { upsert:true, contentType:record.type || record.blob.type || 'application/octet-stream' });
-          if (error) { failed++; continue; }
-          updates.push({ ...record, cloudOwnerId:userId, cloudSyncedAt:new Date().toISOString() });
+        for (const file of files) {
+          const record = (await readAssessmentFileRecords([file.id]))[0];
+          if (!record?.blob) continue;
+          if (record.cloudOwnerId === userId && record.cloudSyncedAt) { applyAttachmentLayout(record.id, record.cloudChunks); continue; }
+          try {
+            if (!globalThis.OndoAttachmentTransfer) throw new Error('파일 전송 모듈을 불러오지 못했어요. 새로고침해 주세요.');
+            const layout = await OndoAttachmentTransfer.upload(cloudClient, userId, record, { resume:readUploadProgress(userId, record.id), saveResume:progress => saveUploadProgress(userId, record.id, progress), shouldContinue:() => attachmentReferences().some(item => item.id === record.id), onProgress:(loaded,total) => showAttachmentProgress('업로드', record.name, loaded, total) });
+            await saveAssessmentFileRecords([{ ...record, cloudChunks:layout || null, cloudOwnerId:userId, cloudSyncedAt:new Date().toISOString() }]);
+            applyAttachmentLayout(record.id, layout);
+            forgetUploadProgress(userId, record.id);
+          } catch (error) { if (!attachmentReferences().some(item => item.id === record.id)) { if (globalThis.OndoAttachmentTransfer) await cloudClient.storage.from('ondo-attachments').remove(OndoAttachmentTransfer.paths(userId, record)); forgetUploadProgress(userId, record.id); } else { failed++; console.warn('첨부파일 업로드 실패', error); } }
         }
-        if (updates.length) await saveAssessmentFileRecords(updates);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...data, activeGrade }));
         return failed;
       }
       async function pullCloudData() {
@@ -1139,11 +1152,13 @@
       }
       async function downloadCloudAttachment(file) {
         if (!cloudClient || !cloudSession?.user) return null;
-        const { data: blob, error } = await cloudClient.storage.from('ondo-attachments').download(`${cloudSession.user.id}/${file.id}`);
-        if (error || !blob) return null;
-        const record = { id:file.id, grade:activeGrade, assessmentId:selectedAssessmentId || '', name:file.name, type:file.type || blob.type || 'application/octet-stream', size:file.size || blob.size, blob, addedAt:file.addedAt || new Date().toISOString(), cloudOwnerId:cloudSession.user.id, cloudSyncedAt:new Date().toISOString() };
-        await saveAssessmentFileRecords([record]);
-        return record;
+        try {
+          if (!globalThis.OndoAttachmentTransfer) throw new Error('파일 전송 모듈을 불러오지 못했어요. 새로고침해 주세요.');
+          const blob = await OndoAttachmentTransfer.download(cloudClient, cloudSession.user.id, file, (loaded,total) => showAttachmentProgress('불러오기', file.name, loaded, total));
+          const record = { id:file.id, grade:activeGrade, assessmentId:selectedAssessmentId || '', name:file.name, type:file.type || blob.type || 'application/octet-stream', size:file.size || blob.size, cloudChunks:file.cloudChunks || null, blob, addedAt:file.addedAt || new Date().toISOString(), cloudOwnerId:cloudSession.user.id, cloudSyncedAt:new Date().toISOString() };
+          await saveAssessmentFileRecords([record]);
+          return record;
+        } finally { $('#sync-button-label').textContent = cloudConfig ? '동기화' : '동기화 설정'; }
       }
       function openAssessmentFileDb() {
         if (!window.indexedDB) return Promise.reject(new Error('이 브라우저는 파일 저장을 지원하지 않아요.'));
@@ -1169,18 +1184,28 @@
         });
       }
       async function readAssessmentFileRecords(ids = null) {
+        if (Array.isArray(ids) && !ids.length) return [];
         const db = await openAssessmentFileDb();
         return new Promise((resolve, reject) => {
           const transaction = db.transaction('files', 'readonly');
-          const request = transaction.objectStore('files').getAll();
-          request.onsuccess = () => { const records = request.result || []; resolve(ids ? records.filter(record => ids.includes(record.id)) : records); };
-          request.onerror = () => reject(request.error || new Error('첨부파일 목록을 읽지 못했어요.'));
+          const store = transaction.objectStore('files');
+          const records = [];
+          if (ids) [...new Set(ids)].forEach(id => { const request = store.get(id); request.onsuccess = () => { if (request.result) records.push(request.result); }; });
+          else { const request = store.openCursor(); request.onsuccess = () => { const cursor = request.result; if (!cursor) return; const { blob, ...metadata } = cursor.value; records.push(metadata); cursor.continue(); }; }
+          transaction.oncomplete = () => resolve(records);
+          transaction.onerror = () => reject(transaction.error || new Error('첨부파일 목록을 읽지 못했어요.'));
+          transaction.onabort = () => reject(transaction.error || new Error('첨부파일 읽기가 중단됐어요.'));
         });
       }
-      async function deleteAssessmentFileRecords(ids) {
+      async function deleteAssessmentFileRecords(ids, descriptors = []) {
         if (!ids.length) return;
         if (cloudClient && cloudSession?.user) {
-          cloudClient.storage.from('ondo-attachments').remove(ids.map(id => `${cloudSession.user.id}/${id}`)).then(({ error }) => { if (error) setSyncStatus(`첨부파일 클라우드 삭제 실패: ${error.message}`, 'error'); }).catch(error => setSyncStatus(`첨부파일 클라우드 삭제 실패: ${error.message}`, 'error'));
+          const owner = cloudSession.user.id;
+          const local = await readAssessmentFileRecords(ids);
+          const files = [...attachmentReferences(), ...descriptors, ...local];
+          const paths = ids.flatMap(id => { const file = files.find(item => item.id === id && Number(item.size) > 0) || { id, size:readUploadProgress(owner, id)?.size || 0 }; return globalThis.OndoAttachmentTransfer ? OndoAttachmentTransfer.paths(owner, file) : [`${owner}/${id}`]; });
+          cloudClient.storage.from('ondo-attachments').remove([...new Set(paths)]).then(({ error }) => { if (error) setSyncStatus(`첨부파일 클라우드 삭제 실패: ${error.message}`, 'error'); }).catch(error => setSyncStatus(`첨부파일 클라우드 삭제 실패: ${error.message}`, 'error'));
+          ids.forEach(id => forgetUploadProgress(owner, id));
         }
         const db = await openAssessmentFileDb();
         return new Promise((resolve, reject) => {
@@ -1192,10 +1217,10 @@
           transaction.onabort = () => reject(transaction.error || new Error('첨부파일 삭제가 취소됐어요.'));
         });
       }
-      async function deleteAssessmentFilesFor(grade, assessmentId, attachmentIds = []) {
+      async function deleteAssessmentFilesFor(grade, assessmentId, attachmentIds = [], descriptors = []) {
         const records = await readAssessmentFileRecords();
         const localIds = records.filter(record => record.grade === grade && record.assessmentId === assessmentId).map(record => record.id);
-        await deleteAssessmentFileRecords([...new Set([...localIds, ...attachmentIds])]);
+        await deleteAssessmentFileRecords([...new Set([...localIds, ...attachmentIds])], descriptors);
       }
       function formatFileSize(bytes) {
         if (!bytes) return '0 KB';
@@ -1467,7 +1492,7 @@
         form.elements.title.value = item?.title || '';
         form.elements.url.value = item?.url || '';
         form.elements.memo.value = item?.memo || '';
-        $('#material-file-hint').textContent = item?.file ? `현재 파일: ${item.file.name} · 새 파일을 선택하면 교체돼요.` : 'PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 20MB예요.';
+        $('#material-file-hint').textContent = item?.file ? `현재 파일: ${item.file.name} · 새 파일을 선택하면 교체돼요.` : 'PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 200MB예요.';
         openModal('material-modal');
       }
       async function openMaterialFile(item) {
@@ -2056,7 +2081,9 @@
         if (!title) return;
         if (inputUrl && !url) { showToast('http 또는 https 링크를 입력해 주세요.'); return; }
         const upload = $('#material-file').files[0];
-        if (upload && upload.size > 20 * 1024 * 1024) { showToast('파일 하나는 20MB 이하여야 해요.'); return; }
+        if (upload && upload.size > MAX_ATTACHMENT_BYTES) { showToast('파일 하나는 200MB 이하여야 해요.'); return; }
+        const saveButton = $('#material-save'); if (saveButton.disabled) return; const saveLabel = saveButton.textContent; saveButton.disabled = true; saveButton.textContent = '파일 저장 중…';
+        try {
         const id = materialEditingId || uid(); const index = gradeData.materials.findIndex(item => item.id === id); const previous = index >= 0 ? gradeData.materials[index] : null;
         const fileId = upload ? uid() : null;
         if (upload) {
@@ -2066,8 +2093,9 @@
         const item = { id, subject:String(fields.get('subject') || ''), title, url, memo:String(fields.get('memo') || '').trim(), file:upload ? { id:fileId, name:upload.name, type:upload.type || 'application/octet-stream', size:upload.size } : previous?.file || null };
         if (index >= 0) gradeData.materials[index] = item; else gradeData.materials.push(item);
         try { save(); } catch { if (index >= 0) gradeData.materials[index] = previous; else gradeData.materials = gradeData.materials.filter(row => row.id !== id); if (fileId) deleteAssessmentFileRecords([fileId]).catch(() => {}); showToast('자료를 저장하지 못했어요.'); return; }
-        if (upload && previous?.file?.id) deleteAssessmentFileRecords([previous.file.id]).catch(() => {});
+        if (upload && previous?.file?.id) deleteAssessmentFileRecords([previous.file.id], [previous.file]).catch(() => {});
         materialEditingId = null; renderMaterials(); form.reset(); closeModal(form); showToast(index >= 0 ? '자료를 수정했어요' : '자료를 추가했어요');
+        } finally { saveButton.disabled = false; saveButton.textContent = saveLabel; }
       });
       $('#song-form').addEventListener('submit', e => {
         e.preventDefault(); const form = e.currentTarget; const fields = new FormData(form);
@@ -2098,6 +2126,7 @@
         const form = e.currentTarget;
         const f = new FormData(form); const title = String(f.get('title')).trim(); const date = String(f.get('date'));
         if (!title || !date) return;
+        if (assessmentDraftFiles.some(entry => entry.file.size > MAX_ATTACHMENT_BYTES)) { showToast('첨부파일 하나는 200MB 이하여야 해요.'); return; }
         const wasEditing = Boolean(assessmentEditingId);
         const itemId = assessmentEditingId || uid();
         const keptAttachments = assessmentExistingFiles.filter(file => !assessmentRemovedFileIds.has(file.id));
@@ -2115,7 +2144,7 @@
           showToast('수행 평가를 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.');
           return;
         }
-        deleteAssessmentFileRecords([...assessmentRemovedFileIds]).catch(() => showToast('수행 평가는 저장했지만 일부 첨부파일을 삭제하지 못했어요.'));
+        deleteAssessmentFileRecords([...assessmentRemovedFileIds], assessmentExistingFiles.filter(file => assessmentRemovedFileIds.has(file.id))).catch(() => showToast('수행 평가는 저장했지만 일부 첨부파일을 삭제하지 못했어요.'));
         selectedAssessmentId = item.id; selectedAssessmentDate = item.date; assessmentMonth = new Date(`${item.date}T12:00:00`); assessmentMonth.setDate(1);
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
@@ -2134,7 +2163,7 @@
         const materialEdit = e.target.closest('[data-material-edit]');
         if (materialEdit) { const item = gradeData.materials.find(row => row.id === materialEdit.dataset.materialEdit); if (item) openMaterialModal(item); return; }
         const materialDelete = e.target.closest('[data-material-delete]');
-        if (materialDelete) { const item = gradeData.materials.find(row => row.id === materialDelete.dataset.materialDelete); gradeData.materials = gradeData.materials.filter(row => row.id !== materialDelete.dataset.materialDelete); save(); renderMaterials(); if (item?.file?.id) deleteAssessmentFileRecords([item.file.id]).catch(() => showToast('자료는 삭제됐지만 파일을 지우지 못했어요.')); showToast('자료를 삭제했어요'); return; }
+        if (materialDelete) { const item = gradeData.materials.find(row => row.id === materialDelete.dataset.materialDelete); gradeData.materials = gradeData.materials.filter(row => row.id !== materialDelete.dataset.materialDelete); save(); renderMaterials(); if (item?.file?.id) deleteAssessmentFileRecords([item.file.id], [item.file]).catch(() => showToast('자료는 삭제됐지만 파일을 지우지 못했어요.')); showToast('자료를 삭제했어요'); return; }
         const materialOpen = e.target.closest('[data-material-open-file]');
         if (materialOpen) { const item = gradeData.materials.find(row => row.id === materialOpen.dataset.materialOpenFile); if (item?.file) openMaterialFile(item); return; }
         const scopeEdit = e.target.closest('[data-exam-scope-edit]');
@@ -2187,7 +2216,7 @@
         const editBtn = e.target.closest('[data-assessment-edit]');
         if (editBtn) { const item = gradeData.assessments.find(assessment => assessment.id === editBtn.dataset.assessmentEdit); if (item) openAssessmentModal(item); return; }
         const deleteBtn = e.target.closest('[data-assessment-delete]');
-        if (deleteBtn) { const removedId = deleteBtn.dataset.assessmentDelete; const removedItem = gradeData.assessments.find(assessment => assessment.id === removedId); const attachmentIds = removedItem?.attachments?.map(file => file.id) || []; gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== removedId); selectedAssessmentId = null; save(); renderAssessments(); deleteAssessmentFilesFor(activeGrade, removedId, attachmentIds).catch(() => {}); showToast('수행 평가를 삭제했어요'); return; }
+        if (deleteBtn) { const removedId = deleteBtn.dataset.assessmentDelete; const removedItem = gradeData.assessments.find(assessment => assessment.id === removedId); const attachmentIds = removedItem?.attachments?.map(file => file.id) || []; gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== removedId); selectedAssessmentId = null; save(); renderAssessments(); deleteAssessmentFilesFor(activeGrade, removedId, attachmentIds, removedItem?.attachments || []).catch(() => {}); showToast('수행 평가를 삭제했어요'); return; }
         const assessmentBtn = e.target.closest('[data-assessment-open]');
         if (assessmentBtn) { const item = gradeData.assessments.find(assessment => assessment.id === assessmentBtn.dataset.assessmentOpen); if (item) { selectedAssessmentId = item.id; selectedAssessmentDate = item.date; renderAssessments(); } return; }
         const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = gradeData.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요');
