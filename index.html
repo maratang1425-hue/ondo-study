@@ -243,6 +243,20 @@
     .club-item-actions { display:flex; gap:6px; flex:0 0 auto; }
     .small-action { min-height:32px; padding:0 10px; border:1px solid var(--line); border-radius:8px; color:#6c7182; background:#fff; font-size:10px; font-weight:650; }
     .small-action.danger { color:#b35b65; }
+    .academy-schedule { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }
+    .academy-day { padding:16px; border:1px solid #e8e5ff; border-radius:13px; background:#f8f7ff; }
+    .academy-day strong { display:block; color:#5348c3; font-size:13px; }
+    .academy-day span { display:block; margin-top:7px; color:#777c90; font-size:11px; }
+    .academy-list { display:grid; gap:9px; }
+    .academy-item { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:13px 14px; border:1px solid #eff0f5; border-radius:11px; background:#fff; }
+    .academy-item.past, .academy-item.completed { background:#f6f7f9; }
+    .academy-item-main { display:flex; align-items:flex-start; gap:10px; min-width:0; flex:1; }
+    .academy-item-copy { min-width:0; flex:1; }
+    .academy-item-title { font-size:12px; font-weight:700; overflow-wrap:anywhere; }
+    .academy-item-meta { margin-top:5px; color:#969bad; font-size:10px; }
+    .academy-item-notes { margin-top:8px; color:#626779; font-size:11px; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .academy-actions { display:flex; gap:6px; flex:0 0 auto; }
+    .academy-empty { margin-top:3px; }
     .stats-empty { margin-top: 18px; }
     .modal-backdrop { position: fixed; inset: 0; z-index: 10; padding: 18px; display: none; place-items: center; background: #1d20334d; backdrop-filter: blur(3px); }
     .modal-backdrop.open { display: grid; }
@@ -276,7 +290,7 @@
       .app { display:block; padding-bottom:65px; }
       .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:block; }
       .brand, .nav-label, .sidebar-bottom { display:none; }
-      .nav { height:100%; grid-template-columns:repeat(6,minmax(0,1fr)); gap:2px; }
+      .nav { height:100%; grid-template-columns:repeat(7,minmax(0,1fr)); gap:2px; }
       .nav-btn { height:50px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
       .nav-btn svg { width:17px; height:17px; }
       main { padding:19px 16px 30px; }
@@ -302,6 +316,8 @@
       .report-detail-head { flex-direction:column; }
       .club-item-head { gap:8px; }
       .club-item-actions { gap:4px; }
+      .academy-item { flex-direction:column; }
+      .academy-actions { align-self:flex-end; }
     }
     @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } .calendar-day { min-height:67px; padding:4px 2px; } .calendar-date { width:22px; height:22px; font-size:10px; } .assessment-chip { font-size:7px; } .agenda-item { gap:8px; padding:10px 8px; } .agenda-date { min-width:46px; font-size:10px; } .assessment-status { font-size:8px; padding:4px 5px; } }
   </style>
@@ -318,6 +334,7 @@
         <button class="nav-btn" data-screen="assessments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M4 9h16M8 14l2 2 5-5"/></svg><span>수행 평가</span></button>
         <button class="nav-btn" data-screen="records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 3 6-7"/></svg><span>학습 기록</span></button>
         <button class="nav-btn" data-screen="extras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/><path d="m15 16 2 2 4-4"/></svg><span>부가 활동</span></button>
+        <button class="nav-btn" data-screen="academy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V6l8-3 8 3v14M2 20h20M9 20v-5h6v5M8 9h.01M12 9h.01M16 9h.01M8 12h.01M12 12h.01M16 12h.01"/></svg><span>영어 학원</span></button>
       </nav>
       <div class="sidebar-bottom">
         <div class="goal-box"><div class="goal-title"><span>오늘의 목표</span><span id="goal-mini">0%</span></div><p id="goal-caption">목표 시간을 채우고 있어요</p><div class="progress-track"><span id="goal-progress" style="width:0%"></span></div></div>
@@ -376,6 +393,12 @@
             <section class="panel"><div class="panel-head"><div><h3 class="panel-title">방송부 활동 보드</h3><p class="panel-subtitle">방송 준비와 활동을 기록하고 완료 여부를 체크해요.</p></div></div><div class="club-filters" id="club-filters"></div><div class="club-list" id="club-list"></div></section>
           </section>
         </section>
+        <section class="screen" id="screen-academy">
+          <div class="page-heading"><div><h1>영어 학원</h1><p class="subtitle">주말 등원, 시험 일정, 숙제를 한곳에서 관리해요.</p></div></div>
+          <section class="panel"><div class="panel-head"><div><h2 class="panel-title">주 2회 등원</h2><p class="panel-subtitle">매주 토요일과 일요일에 영어 학원에 가요.</p></div></div><div class="academy-schedule"><div class="academy-day"><strong>토요일 · 영어 학원</strong><span id="academy-next-saturday"></span></div><div class="academy-day"><strong>일요일 · 영어 학원</strong><span id="academy-next-sunday"></span></div></div></section>
+          <section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">시험 일정</h2><p class="panel-subtitle">토·일 시험 날짜와 범위, 준비 내용을 적어두세요.</p></div><button class="primary-btn" id="add-academy-test">시험 추가</button></div><div class="academy-list" id="academy-test-list"></div></section>
+          <section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">숙제</h2><p class="panel-subtitle">마감일과 할 일을 기록하고 완료 표시해요.</p></div><button class="primary-btn" id="add-academy-homework">숙제 추가</button></div><div class="academy-list" id="academy-homework-list"></div></section>
+        </section>
       </div>
     </main>
   </div>
@@ -384,6 +407,8 @@
   <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea><div class="assessment-file-list" id="assessment-file-drafts"></div></div><div class="field"><label for="assessment-files">파일 첨부 (선택)</label><input id="assessment-files" type="file" multiple><small class="assessment-file-hint">계정 연결 후 다른 기기에서도 파일을 열 수 있어요. 파일 하나당 최대 20MB예요.</small></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title"><form class="modal" id="report-form"><div class="modal-head"><h2 id="report-modal-title">보고서 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="report-title">보고서 이름</label><input id="report-title" name="title" placeholder="예: 도시 문제 탐구 보고서" required maxlength="100"></div><div class="field"><label for="report-kind">보고서 분류</label><select id="report-kind" name="kind"><option value="subject">과목 보고서</option><option value="career">진로 보고서</option></select></div><div class="report-course-fields" id="report-course-fields"><div class="form-row"><div class="field"><label for="report-grade">학년</label><select id="report-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="report-semester">학기</label><select id="report-semester" name="semester"></select></div></div><div class="field"><label for="report-subject">과목</label><select id="report-subject" name="subject"></select></div></div><div class="field"><label for="report-deadline">마감일</label><input id="report-deadline" name="deadline" type="date"><small class="assessment-file-hint">마감일을 입력하면 목록에 D-day가 표시돼요.</small></div><div class="field"><label for="report-details">작성할 내용</label><textarea id="report-details" name="details" rows="5" placeholder="무슨 내용을 조사하고 작성해야 하는지, 제출 형식과 준비할 일을 적어두세요." maxlength="3000"></textarea></div><div class="field"><label for="report-memo">참고자료·메모</label><textarea id="report-memo" name="memo" rows="3" placeholder="참고할 링크, 교과서 쪽수, 선생님 안내 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="report-save-btn">보고서 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="club-modal" role="dialog" aria-modal="true" aria-labelledby="club-modal-title"><form class="modal" id="club-form"><div class="modal-head"><h2 id="club-modal-title">방송부 활동 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="club-category">활동 카테고리</label><select id="club-category" name="category"></select></div><div class="field"><label for="club-title">할 일·활동 이름</label><input id="club-title" name="title" placeholder="예: 점심 방송 오프닝 대본 작성" required maxlength="100"></div><div class="form-row"><div class="field"><label for="club-date">활동 날짜</label><input id="club-date" name="date" type="date" required></div><div class="field"><label for="club-deadline">마감일 (선택)</label><input id="club-deadline" name="deadline" type="date"></div></div><div class="field"><label for="club-description">메모</label><textarea id="club-description" name="description" rows="4" placeholder="담당 역할, 대본 내용, 송출 순서, 준비물이나 장비 점검 내용을 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="club-save-btn">활동 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="academy-test-modal" role="dialog" aria-modal="true" aria-labelledby="academy-test-modal-title"><form class="modal" id="academy-test-form"><div class="modal-head"><h2 id="academy-test-modal-title">학원 시험 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="academy-test-title">시험 이름</label><input id="academy-test-title" name="title" placeholder="예: 단어 시험, 문법 테스트" maxlength="100" required></div><div class="field"><label for="academy-test-date">시험 날짜</label><input id="academy-test-date" name="date" type="date" required><small class="assessment-file-hint">토요일 또는 일요일 날짜를 선택해 주세요.</small></div><div class="field"><label for="academy-test-scope">시험 범위</label><textarea id="academy-test-scope" name="scope" rows="3" placeholder="예: 단어장 5~8과, 문법 교재 3단원" maxlength="1200"></textarea></div><div class="field"><label for="academy-test-notes">준비할 것·메모</label><textarea id="academy-test-notes" name="notes" rows="3" placeholder="준비물이나 선생님 안내를 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="academy-test-save">시험 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="academy-homework-modal" role="dialog" aria-modal="true" aria-labelledby="academy-homework-modal-title"><form class="modal" id="academy-homework-form"><div class="modal-head"><h2 id="academy-homework-modal-title">학원 숙제 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="academy-homework-title">숙제 이름</label><input id="academy-homework-title" name="title" placeholder="예: 영어 단어 외우기" maxlength="100" required></div><div class="field"><label for="academy-homework-due">마감일</label><input id="academy-homework-due" name="due" type="date" required></div><div class="field"><label for="academy-homework-details">숙제 내용</label><textarea id="academy-homework-details" name="details" rows="4" placeholder="교재와 페이지, 풀어야 할 문제를 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="academy-homework-save">숙제 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -483,7 +508,9 @@
         if (hashGrade) activeGrade = hashGrade;
         const reports = Array.isArray(stored?.reports) ? stored.reports.map(item => ({ ...item, kind:item.kind === 'career' ? 'career' : 'subject', grade:String(item.grade || '1'), semester:item.semester || '', subject:item.subject || '', deadline:item.deadline || '', details:item.details || '', memo:item.memo || '' })) : [];
         const clubEntries = Array.isArray(stored?.clubEntries) ? stored.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : [];
-        return { activeGrade, grades, reports, clubEntries };
+        const academyTests = Array.isArray(stored?.academyTests) ? stored.academyTests.map(item => ({ ...item, scope:item.scope || '', notes:item.notes || '' })) : [];
+        const academyHomework = Array.isArray(stored?.academyHomework) ? stored.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : [];
+        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework };
       }
       let data = loadData();
       let activeGrade = data.activeGrade;
@@ -509,6 +536,8 @@
       let reportEditingId = null;
       let clubFilter = 'all';
       let clubEditingId = null;
+      let academyTestEditingId = null;
+      let academyHomeworkEditingId = null;
       let assessmentDbPromise = null;
       let assessmentDraftFiles = [];
       let assessmentExistingFiles = [];
@@ -607,7 +636,9 @@
           activeGrade:['1','2','3'].includes(String(payload?.activeGrade)) ? String(payload.activeGrade) : '1',
           grades,
           reports:Array.isArray(payload?.reports) ? payload.reports.map(item => ({ ...item, kind:item.kind === 'career' ? 'career' : 'subject', grade:String(item.grade || '1'), semester:item.semester || '', subject:item.subject || '', deadline:item.deadline || '', details:item.details || '', memo:item.memo || '' })) : [],
-          clubEntries:Array.isArray(payload?.clubEntries) ? payload.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : []
+          clubEntries:Array.isArray(payload?.clubEntries) ? payload.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : [],
+          academyTests:Array.isArray(payload?.academyTests) ? payload.academyTests.map(item => ({ ...item, scope:item.scope || '', notes:item.notes || '' })) : [],
+          academyHomework:Array.isArray(payload?.academyHomework) ? payload.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : []
         };
       }
       function mergeStudyData(remotePayload, localPayload) {
@@ -627,6 +658,8 @@
         }
         remote.reports = mergeRows(remote.reports, local.reports);
         remote.clubEntries = mergeRows(remote.clubEntries, local.clubEntries);
+        remote.academyTests = mergeRows(remote.academyTests, local.academyTests);
+        remote.academyHomework = mergeRows(remote.academyHomework, local.academyHomework);
         return remote;
       }
       function applyCloudPayload(payload) {
@@ -953,6 +986,44 @@
           return `<article class="club-item ${entry.done ? 'completed' : ''}"><div class="club-item-head"><div class="club-item-main"><button class="club-check ${entry.done ? 'done' : ''}" data-club-toggle="${escapeHtml(entry.id)}" aria-label="${entry.done ? '완료 취소' : '완료 표시'}">${entry.done ? checkIcon : ''}</button><div class="club-copy"><div class="club-title">${escapeHtml(entry.title)}</div><div class="club-meta">${escapeHtml(clubCategoryName(entry.category))} · ${fmtDate(entry.date, { month:'numeric', day:'numeric' })}${entry.deadline ? ` · 마감 ${ddayLabel(entry.deadline)}` : ''}${entry.done ? ' · 완료' : ''}</div>${entry.description ? `<div class="club-description">${escapeHtml(entry.description)}</div>` : ''}</div></div><div class="club-item-actions"><button class="small-action" data-club-edit="${escapeHtml(entry.id)}">수정</button><button class="small-action danger" data-club-delete="${escapeHtml(entry.id)}">삭제</button></div></div></article>`;
         }).join('') : emptyMarkup('등록된 방송부 활동이 없어요', '대본, 촬영, 행사 방송, 장비 점검이나 회의 내용을 추가해보세요.');
       }
+      function nextAcademyDate(weekday) {
+        const date = new Date();
+        date.setDate(date.getDate() + (weekday - date.getDay() + 7) % 7);
+        return localDate(date);
+      }
+      function renderAcademy() {
+        $('#academy-next-saturday').textContent = `다음 등원 · ${fmtDate(nextAcademyDate(6), { month:'long', day:'numeric', weekday:'long' })}`;
+        $('#academy-next-sunday').textContent = `다음 등원 · ${fmtDate(nextAcademyDate(0), { month:'long', day:'numeric', weekday:'long' })}`;
+        const tests = [...data.academyTests].sort((a, b) => a.date.localeCompare(b.date));
+        $('#academy-test-list').innerHTML = tests.length ? tests.map(item => {
+          const past = dayDifference(item.date) < 0;
+          return `<article class="academy-item ${past ? 'past' : ''}"><div class="academy-item-copy"><div class="academy-item-title">${escapeHtml(item.title)}</div><div class="academy-item-meta">${fmtDate(item.date, { year:'numeric', month:'long', day:'numeric', weekday:'long' })} · ${past ? '지난 시험' : ddayLabel(item.date)}</div>${item.scope ? `<div class="academy-item-notes"><strong>시험 범위</strong> · ${escapeHtml(item.scope)}</div>` : ''}${item.notes ? `<div class="academy-item-notes"><strong>메모</strong> · ${escapeHtml(item.notes)}</div>` : ''}</div><div class="academy-actions"><button class="small-action" data-academy-test-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-academy-test-delete="${escapeHtml(item.id)}">삭제</button></div></article>`;
+        }).join('') : emptyMarkup('등록된 시험이 없어요', '토·일 시험 날짜와 범위를 추가해보세요.');
+        const homework = [...data.academyHomework].sort((a, b) => Number(a.done) - Number(b.done) || a.due.localeCompare(b.due));
+        $('#academy-homework-list').innerHTML = homework.length ? homework.map(item => {
+          const overdue = dayDifference(item.due) < 0 && !item.done;
+          return `<article class="academy-item ${item.done ? 'completed' : overdue ? 'past' : ''}"><div class="academy-item-main"><button class="club-check ${item.done ? 'done' : ''}" data-academy-homework-toggle="${escapeHtml(item.id)}" aria-label="${item.done ? '숙제 완료 취소' : '숙제 완료 표시'}">${item.done ? checkIcon : ''}</button><div class="academy-item-copy"><div class="academy-item-title">${escapeHtml(item.title)}</div><div class="academy-item-meta">마감 ${fmtDate(item.due, { year:'numeric', month:'long', day:'numeric', weekday:'long' })} · ${item.done ? '완료' : overdue ? '기한 지남' : ddayLabel(item.due)}</div>${item.details ? `<div class="academy-item-notes">${escapeHtml(item.details)}</div>` : ''}</div></div><div class="academy-actions"><button class="small-action" data-academy-homework-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-academy-homework-delete="${escapeHtml(item.id)}">삭제</button></div></article>`;
+        }).join('') : emptyMarkup('등록된 숙제가 없어요', '숙제와 마감일을 추가해보세요.');
+      }
+      function openAcademyTestModal(item = null) {
+        const form = $('#academy-test-form'); form.reset(); academyTestEditingId = item?.id || null;
+        $('#academy-test-modal-title').textContent = item ? '학원 시험 수정' : '학원 시험 추가';
+        $('#academy-test-save').textContent = item ? '수정 내용 저장' : '시험 저장';
+        form.elements.title.value = item?.title || '';
+        form.elements.date.value = item?.date || nextAcademyDate(6);
+        form.elements.scope.value = item?.scope || '';
+        form.elements.notes.value = item?.notes || '';
+        openModal('academy-test-modal');
+      }
+      function openAcademyHomeworkModal(item = null) {
+        const form = $('#academy-homework-form'); form.reset(); academyHomeworkEditingId = item?.id || null;
+        $('#academy-homework-modal-title').textContent = item ? '학원 숙제 수정' : '학원 숙제 추가';
+        $('#academy-homework-save').textContent = item ? '수정 내용 저장' : '숙제 저장';
+        form.elements.title.value = item?.title || '';
+        form.elements.due.value = item?.due || nextAcademyDate(6);
+        form.elements.details.value = item?.details || '';
+        openModal('academy-homework-modal');
+      }
       function renderExtras() { renderReports(); renderClub(); }
       function setExtraPage(page) {
         extraPage = page;
@@ -1007,7 +1078,7 @@
         clearTimeout(extrasRefreshTimer);
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        extrasRefreshTimer = setTimeout(() => { renderExtras(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
+        extrasRefreshTimer = setTimeout(() => { renderExtras(); renderAcademy(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
       }
       function renderTasks() {
         const now = localDate(today);
@@ -1067,8 +1138,8 @@
         $('#subjects-title').textContent = `${cfg.label} 과목`;
         $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
-      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); }
-      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동' }; $('#crumb-current').textContent = names[id]; if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } }
+      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); }
+      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원' }; $('#crumb-current').textContent = names[id]; if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
       function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
@@ -1168,6 +1239,8 @@
       $('#add-assessment').addEventListener('click', () => openAssessmentModal());
       $('#add-report').addEventListener('click', () => openReportModal());
       $('#add-club-entry').addEventListener('click', () => openClubModal());
+      $('#add-academy-test').addEventListener('click', () => openAcademyTestModal());
+      $('#add-academy-homework').addEventListener('click', () => openAcademyHomeworkModal());
       $$('.extra-tab').forEach(button => button.addEventListener('click', () => setExtraPage(button.dataset.extraPage)));
       $('#report-filter-grade').addEventListener('change', e => { reportFilter.grade = e.target.value; reportFilter.semester = 'all'; reportFilter.subject = 'all'; renderReports(); });
       $('#report-filter-semester').addEventListener('change', e => { reportFilter.semester = e.target.value; reportFilter.subject = 'all'; renderReports(); });
@@ -1213,6 +1286,32 @@
         }
         clubEditingId = null; clubFilter = 'all'; renderClub(); form.reset(); closeModal(form); showToast(index >= 0 ? '방송부 활동을 수정했어요' : '방송부 활동을 추가했어요');
       });
+      $('#academy-test-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const form = e.currentTarget; const fields = new FormData(form);
+        const title = String(fields.get('title') || '').trim(); const date = String(fields.get('date') || '');
+        if (!title || !date) return;
+        const id = academyTestEditingId || uid();
+        const item = { id, title, date, scope:String(fields.get('scope') || '').trim(), notes:String(fields.get('notes') || '').trim() };
+        const index = data.academyTests.findIndex(row => row.id === id);
+        const previous = index >= 0 ? data.academyTests[index] : null;
+        if (index >= 0) data.academyTests[index] = item; else data.academyTests.push(item);
+        try { save(); } catch { if (index >= 0) data.academyTests[index] = previous; else data.academyTests = data.academyTests.filter(row => row.id !== id); showToast('시험을 저장하지 못했어요. 저장 공간을 확인해 주세요.'); return; }
+        academyTestEditingId = null; renderAcademy(); form.reset(); closeModal(form); showToast(index >= 0 ? '시험 일정을 수정했어요' : '시험 일정을 추가했어요');
+      });
+      $('#academy-homework-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const form = e.currentTarget; const fields = new FormData(form);
+        const title = String(fields.get('title') || '').trim(); const due = String(fields.get('due') || '');
+        if (!title || !due) return;
+        const id = academyHomeworkEditingId || uid();
+        const index = data.academyHomework.findIndex(row => row.id === id);
+        const previous = index >= 0 ? data.academyHomework[index] : null;
+        const item = { id, title, due, details:String(fields.get('details') || '').trim(), done:Boolean(previous?.done) };
+        if (index >= 0) data.academyHomework[index] = item; else data.academyHomework.push(item);
+        try { save(); } catch { if (index >= 0) data.academyHomework[index] = previous; else data.academyHomework = data.academyHomework.filter(row => row.id !== id); showToast('숙제를 저장하지 못했어요. 저장 공간을 확인해 주세요.'); return; }
+        academyHomeworkEditingId = null; renderAcademy(); form.reset(); closeModal(form); showToast(index >= 0 ? '숙제를 수정했어요' : '숙제를 추가했어요');
+      });
       $('#assessment-form').addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -1240,6 +1339,16 @@
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        const academyTestEdit = e.target.closest('[data-academy-test-edit]');
+        if (academyTestEdit) { const item = data.academyTests.find(row => row.id === academyTestEdit.dataset.academyTestEdit); if (item) openAcademyTestModal(item); return; }
+        const academyTestDelete = e.target.closest('[data-academy-test-delete]');
+        if (academyTestDelete) { data.academyTests = data.academyTests.filter(row => row.id !== academyTestDelete.dataset.academyTestDelete); save(); renderAcademy(); showToast('시험 일정을 삭제했어요'); return; }
+        const academyHomeworkEdit = e.target.closest('[data-academy-homework-edit]');
+        if (academyHomeworkEdit) { const item = data.academyHomework.find(row => row.id === academyHomeworkEdit.dataset.academyHomeworkEdit); if (item) openAcademyHomeworkModal(item); return; }
+        const academyHomeworkDelete = e.target.closest('[data-academy-homework-delete]');
+        if (academyHomeworkDelete) { data.academyHomework = data.academyHomework.filter(row => row.id !== academyHomeworkDelete.dataset.academyHomeworkDelete); save(); renderAcademy(); showToast('숙제를 삭제했어요'); return; }
+        const academyHomeworkToggle = e.target.closest('[data-academy-homework-toggle]');
+        if (academyHomeworkToggle) { const item = data.academyHomework.find(row => row.id === academyHomeworkToggle.dataset.academyHomeworkToggle); if (item) { item.done = !item.done; save(); renderAcademy(); } return; }
         const reportOpenBtn = e.target.closest('[data-report-open]');
         if (reportOpenBtn) { selectedReportId = reportOpenBtn.dataset.reportOpen; renderReportList(); renderReportDetail(); return; }
         const reportEditBtn = e.target.closest('[data-report-edit]');
