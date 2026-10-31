@@ -258,6 +258,25 @@
     .academy-item-notes { margin-top:8px; color:#676767; font-size:11px; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
     .academy-actions { display:flex; gap:6px; flex:0 0 auto; }
     .academy-empty { margin-top:3px; }
+    .daily-song { width:min(100%,480px); min-height:58px; margin:-7px auto 18px; padding:7px 8px 7px 18px; display:flex; align-items:center; gap:11px; border-radius:32px; color:#fff; background:#262626; box-shadow:0 12px 25px #0002; }
+    .daily-song-icon { width:28px; height:28px; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:#ffffff26; font-size:15px; }
+    .daily-song-copy { min-width:0; flex:1; }
+    .daily-song-label { color:#bcbcbc; font-size:9px; font-weight:700; letter-spacing:.3px; }
+    .daily-song-title { margin-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:700; }
+    .daily-song-open, .daily-song-edit { height:35px; padding:0 11px; flex:0 0 auto; border:0; border-radius:20px; color:#fff; background:#ffffff26; font-size:11px; font-weight:700; text-decoration:none; display:grid; place-items:center; }
+    .daily-song-open:hover, .daily-song-edit:hover { background:#ffffff40; }
+    .daily-song-edit { width:35px; padding:0; font-size:18px; }
+    .scope-list, .material-list { display:grid; gap:10px; }
+    .study-entry { padding:15px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .study-entry-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .study-entry-title { margin:0; font-size:13px; font-weight:750; }
+    .study-entry-meta { margin:6px 0 0; color:var(--muted); font-size:10px; }
+    .study-entry-body { margin:11px 0 0; color:#555; font-size:11px; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .study-entry-actions { display:flex; gap:6px; flex:0 0 auto; }
+    .study-entry-footer { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px; }
+    .material-subject { margin:22px 0 9px; font-size:12px; color:#626262; }
+    .material-subject:first-child { margin-top:0; }
+    .material-open { display:inline-flex; align-items:center; gap:5px; color:#333; font-size:11px; font-weight:700; text-decoration:underline; background:none; border:0; padding:0; }
     .stats-empty { margin-top: 18px; }
     .modal-backdrop { position: fixed; inset: 0; z-index: 10; padding: 18px; display: none; place-items: center; background: #2121214d; backdrop-filter: blur(3px); }
     .modal-backdrop.open { display: grid; }
@@ -291,8 +310,9 @@
       .app { display:block; padding-bottom:65px; }
       .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:block; }
       .brand, .nav-label, .sidebar-bottom { display:none; }
-      .nav { height:100%; grid-template-columns:repeat(7,minmax(0,1fr)); gap:2px; }
-      .nav-btn { height:50px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
+      .nav { height:100%; display:flex; overflow-x:auto; scrollbar-width:none; gap:2px; }
+      .nav::-webkit-scrollbar { display:none; }
+      .nav-btn { height:50px; min-width:64px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
       .nav-btn svg { width:17px; height:17px; }
       main { padding:19px 16px 30px; }
       .topbar { margin-bottom:25px; align-items:flex-start; }
@@ -319,6 +339,8 @@
       .club-item-actions { gap:4px; }
       .academy-item { flex-direction:column; }
       .academy-actions { align-self:flex-end; }
+      .study-entry-head { flex-direction:column; }
+      .study-entry-actions { align-self:flex-end; }
     }
     @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } .calendar-day { min-height:67px; padding:4px 2px; } .calendar-date { width:22px; height:22px; font-size:10px; } .assessment-chip { font-size:7px; } .agenda-item { gap:8px; padding:10px 8px; } .agenda-date { min-width:46px; font-size:10px; } .assessment-status { font-size:8px; padding:4px 5px; } }
   </style>
@@ -336,6 +358,8 @@
         <button class="nav-btn" data-screen="records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 3 6-7"/></svg><span>학습 기록</span></button>
         <button class="nav-btn" data-screen="extras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/><path d="m15 16 2 2 4-4"/></svg><span>부가 활동</span></button>
         <button class="nav-btn" data-screen="academy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V6l8-3 8 3v14M2 20h20M9 20v-5h6v5M8 9h.01M12 9h.01M16 9h.01M8 12h.01M12 12h.01M16 12h.01"/></svg><span>영어 학원</span></button>
+        <button class="nav-btn" data-screen="exam-scopes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5zM8 8h8M8 12h8M8 16h5"/></svg><span>시험범위</span></button>
+        <button class="nav-btn" data-screen="materials"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h12l4 4v14H4zM16 3v5h4M8 12h8M8 16h8"/></svg><span>교재·자료</span></button>
       </nav>
       <div class="sidebar-bottom">
         <div class="goal-box"><div class="goal-title"><span>오늘의 목표</span><span id="goal-mini">0%</span></div><p id="goal-caption">목표 시간을 채우고 있어요</p><div class="progress-track"><span id="goal-progress" style="width:0%"></span></div></div>
@@ -346,7 +370,8 @@
       <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb">나의 학습 공간 <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="secondary-btn" id="sync-open"><span id="sync-button-label">동기화</span></button><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
       <div class="content">
         <section class="screen active" id="screen-home">
-          <div class="page-heading"><div><h1 id="page-title">고1 대시보드 <span aria-hidden="true">☀️</span></h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
+          <div class="page-heading"><div><h1 id="page-title">고1 대시보드</h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
+          <div class="daily-song" aria-label="오늘 노래 추천"><span class="daily-song-icon" aria-hidden="true">♫</span><div class="daily-song-copy"><div class="daily-song-label">오노추 · 오늘 노래 추천</div><div class="daily-song-title" id="daily-song-title">YouTube Music에서 노래 찾기</div></div><a class="daily-song-open" id="daily-song-open" href="https://music.youtube.com/" target="_blank" rel="noopener">듣기 ↗</a><button class="daily-song-edit" id="daily-song-edit" aria-label="추천곡 관리">+</button></div>
           <div class="stats-grid">
             <article class="stat-card"><div class="stat-top"><span>오늘 공부 시간</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="stat-value" id="today-hours">0분</div><div class="stat-note">집중 타이머 기록</div></article>
             <article class="stat-card"><div class="stat-top"><span>이번 주 공부</span><span class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></svg></span></div><div class="stat-value" id="week-hours">0시간</div><div class="stat-note" id="week-note">이번 주 누적 시간</div></article>
@@ -400,6 +425,8 @@
           <section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">시험 일정</h2><p class="panel-subtitle">토·일 시험 날짜와 범위, 준비 내용을 적어두세요.</p></div><button class="primary-btn" id="add-academy-test">시험 추가</button></div><div class="academy-list" id="academy-test-list"></div></section>
           <section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">숙제</h2><p class="panel-subtitle">마감일과 할 일을 기록하고 완료 표시해요.</p></div><button class="primary-btn" id="add-academy-homework">숙제 추가</button></div><div class="academy-list" id="academy-homework-list"></div></section>
         </section>
+        <section class="screen" id="screen-exam-scopes"><div class="page-heading"><div><h1 id="exam-scopes-title">고1 시험범위</h1><p class="subtitle">과목별 시험 범위를 기록하고 공부 완료를 표시해요.</p></div><button class="primary-btn" id="add-exam-scope">범위 추가</button></div><section class="panel"><div class="scope-list" id="exam-scope-list"></div></section></section>
+        <section class="screen" id="screen-materials"><div class="page-heading"><div><h1 id="materials-title">교재 및 학습 자료</h1><p class="subtitle">학년·학기·과목별로 교재, PDF와 학습 자료를 모아둬요.</p></div><button class="primary-btn" id="add-material">자료 추가</button></div><section class="panel"><div class="material-list" id="material-list"></div></section></section>
       </div>
     </main>
   </div>
@@ -410,6 +437,9 @@
   <div class="modal-backdrop" id="club-modal" role="dialog" aria-modal="true" aria-labelledby="club-modal-title"><form class="modal" id="club-form"><div class="modal-head"><h2 id="club-modal-title">방송부 활동 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="club-category">활동 카테고리</label><select id="club-category" name="category"></select></div><div class="field"><label for="club-title">할 일·활동 이름</label><input id="club-title" name="title" placeholder="예: 점심 방송 오프닝 대본 작성" required maxlength="100"></div><div class="form-row"><div class="field"><label for="club-date">활동 날짜</label><input id="club-date" name="date" type="date" required></div><div class="field"><label for="club-deadline">마감일 (선택)</label><input id="club-deadline" name="deadline" type="date"></div></div><div class="field"><label for="club-description">메모</label><textarea id="club-description" name="description" rows="4" placeholder="담당 역할, 대본 내용, 송출 순서, 준비물이나 장비 점검 내용을 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="club-save-btn">활동 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="academy-test-modal" role="dialog" aria-modal="true" aria-labelledby="academy-test-modal-title"><form class="modal" id="academy-test-form"><div class="modal-head"><h2 id="academy-test-modal-title">학원 시험 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="academy-test-title">시험 이름</label><input id="academy-test-title" name="title" placeholder="예: 단어 시험, 문법 테스트" maxlength="100" required></div><div class="field"><label for="academy-test-date">시험 날짜</label><input id="academy-test-date" name="date" type="date" required><small class="assessment-file-hint">토요일 또는 일요일 날짜를 선택해 주세요.</small></div><div class="field"><label for="academy-test-scope">시험 범위</label><textarea id="academy-test-scope" name="scope" rows="3" placeholder="예: 단어장 5~8과, 문법 교재 3단원" maxlength="1200"></textarea></div><div class="field"><label for="academy-test-notes">준비할 것·메모</label><textarea id="academy-test-notes" name="notes" rows="3" placeholder="준비물이나 선생님 안내를 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="academy-test-save">시험 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="academy-homework-modal" role="dialog" aria-modal="true" aria-labelledby="academy-homework-modal-title"><form class="modal" id="academy-homework-form"><div class="modal-head"><h2 id="academy-homework-modal-title">학원 숙제 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="academy-homework-title">숙제 이름</label><input id="academy-homework-title" name="title" placeholder="예: 영어 단어 외우기" maxlength="100" required></div><div class="field"><label for="academy-homework-due">마감일</label><input id="academy-homework-due" name="due" type="date" required></div><div class="field"><label for="academy-homework-details">숙제 내용</label><textarea id="academy-homework-details" name="details" rows="4" placeholder="교재와 페이지, 풀어야 할 문제를 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="academy-homework-save">숙제 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="exam-scope-modal" role="dialog" aria-modal="true" aria-labelledby="exam-scope-modal-title"><form class="modal" id="exam-scope-form"><div class="modal-head"><h2 id="exam-scope-modal-title">시험범위 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="exam-scope-subject">과목</label><select id="exam-scope-subject" name="subject"></select></div><div class="field"><label for="exam-scope-name">시험 이름</label><input id="exam-scope-name" name="exam" placeholder="예: 제2차 정기고사" maxlength="100" required></div><div class="field"><label for="exam-scope-date">시험 날짜</label><input id="exam-scope-date" name="date" type="date" required></div><div class="field"><label for="exam-scope-range">시험 범위</label><textarea id="exam-scope-range" name="range" rows="5" placeholder="예: 교과서 50~85쪽, 프린트 2~4장" maxlength="3000" required></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="exam-scope-save">범위 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="material-modal" role="dialog" aria-modal="true" aria-labelledby="material-modal-title"><form class="modal" id="material-form"><div class="modal-head"><h2 id="material-modal-title">교재 및 학습 자료 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="material-subject">과목</label><select id="material-subject" name="subject"></select></div><div class="field"><label for="material-title">교재·자료 이름</label><input id="material-title" name="title" placeholder="예: 수학 교과서, 단원 정리 PDF" maxlength="100" required></div><div class="field"><label for="material-file">파일 첨부</label><input id="material-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.ppt,.pptx,.hwp,.hwpx"><small class="assessment-file-hint" id="material-file-hint">PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 20MB예요.</small></div><div class="field"><label for="material-url">링크 (선택)</label><input id="material-url" name="url" type="url" placeholder="https://..."></div><div class="field"><label for="material-memo">메모 (선택)</label><textarea id="material-memo" name="memo" rows="3" placeholder="교재 쪽수, 공부 방법 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="material-save">자료 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="song-modal" role="dialog" aria-modal="true" aria-labelledby="song-modal-title"><form class="modal" id="song-form"><div class="modal-head"><h2 id="song-modal-title">오노추에 노래 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">등록한 노래가 날짜별로 한 곡씩 표시돼요. 듣기를 누르면 YouTube Music에서 열려요.</div><div class="field"><label for="song-title">노래 제목</label><input id="song-title" name="title" maxlength="100" required></div><div class="field"><label for="song-artist">가수</label><input id="song-artist" name="artist" maxlength="100"></div><div class="field"><label for="song-url">YouTube Music 공유 링크</label><input id="song-url" name="url" type="url" placeholder="https://music.youtube.com/watch?v=..." required></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="song-save">노래 저장</button></div><div class="assessment-file-list" id="song-list"></div></div></form></div>
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -458,7 +488,7 @@
       const makeGradeData = (grade) => ({
         goalMinutes: 120,
         subjects: gradeConfigs[grade].subjects.map((subject, index) => ({ id: subjectId(grade, subject, index), name: subject.name, semester: subject.semester, goal: 3, color: colors[index % colors.length] })),
-        tasks: [], sessions: [], assessments: []
+        tasks: [], sessions: [], assessments: [], examScopes: [], materials: []
       });
       const normalizeGradeData = (grade, saved) => {
         const base = makeGradeData(grade);
@@ -470,7 +500,9 @@
         });
         savedSubjects.filter(item => !base.subjects.some(subject => subject.id === item.id)).forEach(item => subjects.push({ ...item, semester: item.semester || gradeConfigs[grade].period, color:colors[subjects.length % colors.length] }));
         const assessments = Array.isArray(saved.assessments) ? saved.assessments.map(item => ({ ...item, time: item.time || '', topic: item.topic || '', references: item.references || '', cautions: item.cautions || '', attachments: Array.isArray(item.attachments) ? item.attachments : [] })) : [];
-        return { goalMinutes: Number(saved.goalMinutes) || 120, subjects, tasks: Array.isArray(saved.tasks) ? saved.tasks : [], sessions: Array.isArray(saved.sessions) ? saved.sessions : [], assessments };
+        return { goalMinutes: Number(saved.goalMinutes) || 120, subjects, tasks: Array.isArray(saved.tasks) ? saved.tasks : [], sessions: Array.isArray(saved.sessions) ? saved.sessions : [], assessments,
+          examScopes:Array.isArray(saved.examScopes) ? saved.examScopes.map(item => ({ ...item, done:Boolean(item.done) })) : [],
+          materials:Array.isArray(saved.materials) ? saved.materials.map(item => ({ ...item, url:item.url || '', memo:item.memo || '', file:item.file || null })) : [] };
       };
       const migrateLegacyData = (legacy, grades) => {
         if (!legacy || !Array.isArray(legacy.subjects)) return;
@@ -511,7 +543,8 @@
         const clubEntries = Array.isArray(stored?.clubEntries) ? stored.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : [];
         const academyTests = Array.isArray(stored?.academyTests) ? stored.academyTests.map(item => ({ ...item, scope:item.scope || '', notes:item.notes || '' })) : [];
         const academyHomework = Array.isArray(stored?.academyHomework) ? stored.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : [];
-        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework };
+        const songs = Array.isArray(stored?.songs) ? stored.songs.map(item => ({ ...item, artist:item.artist || '' })) : [];
+        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework, songs };
       }
       let data = loadData();
       let activeGrade = data.activeGrade;
@@ -539,6 +572,9 @@
       let clubEditingId = null;
       let academyTestEditingId = null;
       let academyHomeworkEditingId = null;
+      let examScopeEditingId = null;
+      let materialEditingId = null;
+      let songEditingId = null;
       let assessmentDbPromise = null;
       let assessmentDraftFiles = [];
       let assessmentExistingFiles = [];
@@ -639,7 +675,8 @@
           reports:Array.isArray(payload?.reports) ? payload.reports.map(item => ({ ...item, kind:item.kind === 'career' ? 'career' : 'subject', grade:String(item.grade || '1'), semester:item.semester || '', subject:item.subject || '', deadline:item.deadline || '', details:item.details || '', memo:item.memo || '' })) : [],
           clubEntries:Array.isArray(payload?.clubEntries) ? payload.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : [],
           academyTests:Array.isArray(payload?.academyTests) ? payload.academyTests.map(item => ({ ...item, scope:item.scope || '', notes:item.notes || '' })) : [],
-          academyHomework:Array.isArray(payload?.academyHomework) ? payload.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : []
+          academyHomework:Array.isArray(payload?.academyHomework) ? payload.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : [],
+          songs:Array.isArray(payload?.songs) ? payload.songs.map(item => ({ ...item, artist:item.artist || '' })) : []
         };
       }
       function mergeStudyData(remotePayload, localPayload) {
@@ -655,12 +692,15 @@
           remote.grades[grade].tasks = mergeRows(remote.grades[grade].tasks, local.grades[grade].tasks);
           remote.grades[grade].sessions = mergeRows(remote.grades[grade].sessions, local.grades[grade].sessions);
           remote.grades[grade].assessments = mergeRows(remote.grades[grade].assessments, local.grades[grade].assessments);
+          remote.grades[grade].examScopes = mergeRows(remote.grades[grade].examScopes, local.grades[grade].examScopes);
+          remote.grades[grade].materials = mergeRows(remote.grades[grade].materials, local.grades[grade].materials);
           if (!remotePayload?.grades?.[grade]) remote.grades[grade].goalMinutes = local.grades[grade].goalMinutes;
         }
         remote.reports = mergeRows(remote.reports, local.reports);
         remote.clubEntries = mergeRows(remote.clubEntries, local.clubEntries);
         remote.academyTests = mergeRows(remote.academyTests, local.academyTests);
         remote.academyHomework = mergeRows(remote.academyHomework, local.academyHomework);
+        remote.songs = mergeRows(remote.songs, local.songs);
         return remote;
       }
       function applyCloudPayload(payload) {
@@ -703,7 +743,7 @@
         }
       }
       async function uploadCloudAttachments(userId) {
-        const hasAttachments = Object.values(data.grades).some(grade => grade.assessments.some(item => item.attachments?.length));
+        const hasAttachments = Object.values(data.grades).some(grade => grade.assessments.some(item => item.attachments?.length) || grade.materials.some(item => item.file?.id));
         if (!hasAttachments) return 0;
         const records = await readAssessmentFileRecords();
         let failed = 0;
@@ -1025,6 +1065,83 @@
         form.elements.details.value = item?.details || '';
         openModal('academy-homework-modal');
       }
+      function renderExamScopes() {
+        const items = [...gradeData.examScopes].sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.exam).localeCompare(String(b.exam)));
+        $('#exam-scope-list').innerHTML = items.length ? items.map(item => {
+          const subject = gradeData.subjects.find(row => row.id === item.subject);
+          const date = item.date ? `${fmtDate(item.date, { year:'numeric', month:'long', day:'numeric' })} · ${ddayLabel(item.date)}` : '날짜 미정';
+          return `<article class="study-entry"><div class="study-entry-head"><div><h3 class="study-entry-title">${escapeHtml(item.exam || '시험')} · ${escapeHtml(subject?.name || '과목 미지정')}</h3><p class="study-entry-meta">${escapeHtml(subject?.semester || '')} · ${escapeHtml(date)}${item.done ? ' · 공부 완료' : ''}</p></div><div class="study-entry-actions"><button class="small-action" data-exam-scope-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-exam-scope-delete="${escapeHtml(item.id)}">삭제</button></div></div><p class="study-entry-body">${escapeHtml(item.range || '')}</p><div class="study-entry-footer"><span class="assessment-file-meta">${item.done ? '이 범위를 공부했어요' : '범위를 공부한 뒤 완료 표시해요'}</span><button class="small-action" data-exam-scope-toggle="${escapeHtml(item.id)}">${item.done ? '완료 취소' : '공부 완료'}</button></div></article>`;
+        }).join('') : emptyMarkup('등록된 시험범위가 없어요', '시험 날짜와 과목별 범위를 추가해보세요.');
+      }
+      function openExamScopeModal(item = null) {
+        const form = $('#exam-scope-form'); form.reset(); examScopeEditingId = item?.id || null;
+        $('#exam-scope-modal-title').textContent = item ? '시험범위 수정' : '시험범위 추가';
+        $('#exam-scope-save').textContent = item ? '수정 내용 저장' : '범위 저장';
+        $('#exam-scope-subject').innerHTML = gradeData.subjects.map(subject => `<option value="${escapeHtml(subject.id)}">${escapeHtml(semesterSubjectLabel(subject))}</option>`).join('');
+        form.elements.subject.value = item?.subject || gradeData.subjects[0]?.id || '';
+        form.elements.exam.value = item?.exam || (activeGrade === '1' ? '제 2차 정기고사' : '');
+        form.elements.date.value = item?.date || (activeGrade === '1' ? DDAY_DATE : '');
+        form.elements.range.value = item?.range || '';
+        openModal('exam-scope-modal');
+      }
+      function renderMaterials() {
+        $('#material-list').innerHTML = gradeData.subjects.map(subject => {
+          const items = gradeData.materials.filter(item => item.subject === subject.id).sort((a, b) => a.title.localeCompare(b.title));
+          return `<section class="material-subject-group"><div class="panel-head"><div><h2 class="panel-title">${escapeHtml(subject.name)} <span class="semester-badge">${escapeHtml(semesterText(subject.semester || ''))}</span></h2><p class="panel-subtitle">자료 ${items.length}개</p></div><button class="small-action" data-material-add-subject="${escapeHtml(subject.id)}">자료 추가</button></div><div class="material-list">${items.length ? items.map(item => `<article class="study-entry"><div class="study-entry-head"><div><h3 class="study-entry-title">${escapeHtml(item.title)}</h3><p class="study-entry-meta">${item.file ? `파일 · ${escapeHtml(item.file.name)} · ${formatFileSize(item.file.size || 0)}` : item.url ? '링크 자료' : '교재·메모'}</p></div><div class="study-entry-actions"><button class="small-action" data-material-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-material-delete="${escapeHtml(item.id)}">삭제</button></div></div>${item.memo ? `<p class="study-entry-body">${escapeHtml(item.memo)}</p>` : ''}<div class="study-entry-footer"><span></span><span>${item.file ? `<button class="material-open" data-material-open-file="${escapeHtml(item.id)}">파일 열기 ↗</button>` : ''}${safeWebUrl(item.url) ? `<a class="material-open" href="${escapeHtml(safeWebUrl(item.url))}" target="_blank" rel="noopener">링크 열기 ↗</a>` : ''}</span></div></article>`).join('') : '<div class="assessment-file-empty">아직 등록된 자료가 없어요.</div>'}</div></section>`;
+        }).join('') || emptyMarkup('등록된 과목이 없어요', '먼저 과목을 추가해 주세요.');
+      }
+      function openMaterialModal(item = null, subjectId = null) {
+        const form = $('#material-form'); form.reset(); materialEditingId = item?.id || null;
+        $('#material-modal-title').textContent = item ? '교재 및 학습 자료 수정' : '교재 및 학습 자료 추가';
+        $('#material-save').textContent = item ? '수정 내용 저장' : '자료 저장';
+        $('#material-subject').innerHTML = gradeData.subjects.map(subject => `<option value="${escapeHtml(subject.id)}">${escapeHtml(semesterSubjectLabel(subject))}</option>`).join('');
+        form.elements.subject.value = item?.subject || subjectId || gradeData.subjects[0]?.id || '';
+        form.elements.title.value = item?.title || '';
+        form.elements.url.value = item?.url || '';
+        form.elements.memo.value = item?.memo || '';
+        $('#material-file-hint').textContent = item?.file ? `현재 파일: ${item.file.name} · 새 파일을 선택하면 교체돼요.` : 'PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 20MB예요.';
+        openModal('material-modal');
+      }
+      async function openMaterialFile(item) {
+        const tab = window.open('', '_blank');
+        if (!tab) { showToast('팝업을 허용한 뒤 다시 열어 주세요.'); return; }
+        try {
+          let record = (await readAssessmentFileRecords([item.file.id]))[0];
+          if (!record?.blob && cloudSession?.user) record = await downloadCloudAttachment(item.file);
+          if (!record?.blob) throw new Error('이 기기에 파일이 없어요. 동기화 계정으로 로그인해 주세요.');
+          const url = URL.createObjectURL(record.blob);
+          tab.location.href = url;
+          setTimeout(() => URL.revokeObjectURL(url), 60000);
+        } catch (error) { tab.close(); showToast(error.message || '파일을 열지 못했어요.'); }
+      }
+      function safeWebUrl(value) {
+        try { const url = new URL(value); return ['https:', 'http:'].includes(url.protocol) ? url.href : null; } catch { return null; }
+      }
+      function validMusicUrl(value) {
+        try { const url = new URL(value); return url.protocol === 'https:' && url.hostname === 'music.youtube.com' ? url.href : null; } catch { return null; }
+      }
+      function renderDailySong() {
+        const starterSongs = [
+          { title:'밤편지', artist:'아이유', url:'https://music.youtube.com/watch?v=NnRjwEhFU70' },
+          { title:'From The Start', artist:'Laufey', url:'https://music.youtube.com/watch?v=h8DeZSB2o-c' }
+        ];
+        const savedSongs = [...data.songs].filter(item => validMusicUrl(item.url)).sort((a, b) => a.id.localeCompare(b.id));
+        const songs = savedSongs.length ? savedSongs : starterSongs;
+        const day = Math.floor(new Date(`${localDate(new Date())}T12:00:00`).getTime() / 86400000);
+        const song = songs.length ? songs[day % songs.length] : null;
+        $('#daily-song-title').textContent = `${song.title} · ${song.artist}`;
+        $('#daily-song-open').href = song.url;
+        $('#song-list').innerHTML = data.songs.length ? data.songs.map(item => `<div class="assessment-file-draft"><span class="assessment-file-name">${escapeHtml(item.title)}${item.artist ? ` · ${escapeHtml(item.artist)}` : ''}</span><span class="academy-actions"><button type="button" class="small-action" data-song-edit="${escapeHtml(item.id)}">수정</button><button type="button" class="small-action danger" data-song-delete="${escapeHtml(item.id)}">삭제</button></span></div>`).join('') : '<span class="assessment-file-empty">등록한 노래가 없어요.</span>';
+      }
+      function openSongModal(item = null) {
+        const form = $('#song-form'); form.reset(); songEditingId = item?.id || null;
+        $('#song-modal-title').textContent = item ? '오노추 노래 수정' : '오노추에 노래 추가';
+        $('#song-save').textContent = item ? '수정 내용 저장' : '노래 저장';
+        form.elements.title.value = item?.title || '';
+        form.elements.artist.value = item?.artist || '';
+        form.elements.url.value = item?.url || '';
+        renderDailySong(); openModal('song-modal');
+      }
       function renderExtras() { renderReports(); renderClub(); }
       function setExtraPage(page) {
         extraPage = page;
@@ -1079,7 +1196,7 @@
         clearTimeout(extrasRefreshTimer);
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        extrasRefreshTimer = setTimeout(() => { renderExtras(); renderAcademy(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
+        extrasRefreshTimer = setTimeout(() => { renderExtras(); renderAcademy(); renderExamScopes(); renderDailySong(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
       }
       function renderTasks() {
         const now = localDate(today);
@@ -1137,10 +1254,12 @@
         $('#page-title').textContent = `${cfg.label} 대시보드`;
         $('#planner-title').textContent = `${cfg.label} 학습 계획`;
         $('#subjects-title').textContent = `${cfg.label} 과목`;
+        $('#exam-scopes-title').textContent = `${cfg.label} 시험범위`;
+        $('#materials-title').textContent = `${cfg.label} 교재 및 학습 자료`;
         $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
-      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); }
-      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원' }; $('#crumb-current').textContent = names[id]; if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); }
+      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); }
+      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료' }; $('#crumb-current').textContent = names[id]; if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
       function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
@@ -1242,6 +1361,9 @@
       $('#add-club-entry').addEventListener('click', () => openClubModal());
       $('#add-academy-test').addEventListener('click', () => openAcademyTestModal());
       $('#add-academy-homework').addEventListener('click', () => openAcademyHomeworkModal());
+      $('#add-exam-scope').addEventListener('click', () => openExamScopeModal());
+      $('#add-material').addEventListener('click', () => openMaterialModal());
+      $('#daily-song-edit').addEventListener('click', () => openSongModal());
       $$('.extra-tab').forEach(button => button.addEventListener('click', () => setExtraPage(button.dataset.extraPage)));
       $('#report-filter-grade').addEventListener('change', e => { reportFilter.grade = e.target.value; reportFilter.semester = 'all'; reportFilter.subject = 'all'; renderReports(); });
       $('#report-filter-semester').addEventListener('change', e => { reportFilter.semester = e.target.value; reportFilter.subject = 'all'; renderReports(); });
@@ -1313,6 +1435,46 @@
         try { save(); } catch { if (index >= 0) data.academyHomework[index] = previous; else data.academyHomework = data.academyHomework.filter(row => row.id !== id); showToast('숙제를 저장하지 못했어요. 저장 공간을 확인해 주세요.'); return; }
         academyHomeworkEditingId = null; renderAcademy(); form.reset(); closeModal(form); showToast(index >= 0 ? '숙제를 수정했어요' : '숙제를 추가했어요');
       });
+      $('#exam-scope-form').addEventListener('submit', e => {
+        e.preventDefault(); const form = e.currentTarget; const fields = new FormData(form);
+        const exam = String(fields.get('exam') || '').trim(); const range = String(fields.get('range') || '').trim(); const date = String(fields.get('date') || '');
+        if (!exam || !range || !date) return;
+        const id = examScopeEditingId || uid(); const index = gradeData.examScopes.findIndex(item => item.id === id); const previous = index >= 0 ? gradeData.examScopes[index] : null;
+        const item = { id, subject:String(fields.get('subject') || ''), exam, date, range, done:Boolean(previous?.done) };
+        if (index >= 0) gradeData.examScopes[index] = item; else gradeData.examScopes.push(item);
+        try { save(); } catch { if (index >= 0) gradeData.examScopes[index] = previous; else gradeData.examScopes = gradeData.examScopes.filter(row => row.id !== id); showToast('시험범위를 저장하지 못했어요.'); return; }
+        examScopeEditingId = null; renderExamScopes(); form.reset(); closeModal(form); showToast(index >= 0 ? '시험범위를 수정했어요' : '시험범위를 추가했어요');
+      });
+      $('#material-form').addEventListener('submit', async e => {
+        e.preventDefault(); const form = e.currentTarget; const fields = new FormData(form);
+        const title = String(fields.get('title') || '').trim(); const inputUrl = String(fields.get('url') || '').trim(); const url = inputUrl ? safeWebUrl(inputUrl) : '';
+        if (!title) return;
+        if (inputUrl && !url) { showToast('http 또는 https 링크를 입력해 주세요.'); return; }
+        const upload = $('#material-file').files[0];
+        if (upload && upload.size > 20 * 1024 * 1024) { showToast('파일 하나는 20MB 이하여야 해요.'); return; }
+        const id = materialEditingId || uid(); const index = gradeData.materials.findIndex(item => item.id === id); const previous = index >= 0 ? gradeData.materials[index] : null;
+        const fileId = upload ? uid() : null;
+        if (upload) {
+          try { await saveAssessmentFileRecords([{ id:fileId, grade:activeGrade, materialId:id, name:upload.name, type:upload.type || 'application/octet-stream', size:upload.size, blob:upload, addedAt:new Date().toISOString() }]); }
+          catch (error) { showToast(error.message || '파일 저장에 실패했어요.'); return; }
+        }
+        const item = { id, subject:String(fields.get('subject') || ''), title, url, memo:String(fields.get('memo') || '').trim(), file:upload ? { id:fileId, name:upload.name, type:upload.type || 'application/octet-stream', size:upload.size } : previous?.file || null };
+        if (index >= 0) gradeData.materials[index] = item; else gradeData.materials.push(item);
+        try { save(); } catch { if (index >= 0) gradeData.materials[index] = previous; else gradeData.materials = gradeData.materials.filter(row => row.id !== id); if (fileId) deleteAssessmentFileRecords([fileId]).catch(() => {}); showToast('자료를 저장하지 못했어요.'); return; }
+        if (upload && previous?.file?.id) deleteAssessmentFileRecords([previous.file.id]).catch(() => {});
+        materialEditingId = null; renderMaterials(); form.reset(); closeModal(form); showToast(index >= 0 ? '자료를 수정했어요' : '자료를 추가했어요');
+      });
+      $('#song-form').addEventListener('submit', e => {
+        e.preventDefault(); const form = e.currentTarget; const fields = new FormData(form);
+        const title = String(fields.get('title') || '').trim(); const url = validMusicUrl(String(fields.get('url') || '').trim());
+        if (!title) return;
+        if (!url) { showToast('music.youtube.com의 공유 링크를 입력해 주세요.'); return; }
+        const id = songEditingId || uid(); const index = data.songs.findIndex(item => item.id === id); const previous = index >= 0 ? data.songs[index] : null;
+        const item = { id, title, artist:String(fields.get('artist') || '').trim(), url };
+        if (index >= 0) data.songs[index] = item; else data.songs.push(item);
+        try { save(); } catch { if (index >= 0) data.songs[index] = previous; else data.songs = data.songs.filter(row => row.id !== id); showToast('노래를 저장하지 못했어요.'); return; }
+        songEditingId = null; renderDailySong(); form.reset(); $('#song-modal-title').textContent = '오노추에 노래 추가'; $('#song-save').textContent = '노래 저장'; showToast(index >= 0 ? '노래를 수정했어요' : '노래를 추가했어요');
+      });
       $('#assessment-form').addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -1340,6 +1502,24 @@
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        const materialAdd = e.target.closest('[data-material-add-subject]');
+        if (materialAdd) { openMaterialModal(null, materialAdd.dataset.materialAddSubject); return; }
+        const materialEdit = e.target.closest('[data-material-edit]');
+        if (materialEdit) { const item = gradeData.materials.find(row => row.id === materialEdit.dataset.materialEdit); if (item) openMaterialModal(item); return; }
+        const materialDelete = e.target.closest('[data-material-delete]');
+        if (materialDelete) { const item = gradeData.materials.find(row => row.id === materialDelete.dataset.materialDelete); gradeData.materials = gradeData.materials.filter(row => row.id !== materialDelete.dataset.materialDelete); save(); renderMaterials(); if (item?.file?.id) deleteAssessmentFileRecords([item.file.id]).catch(() => showToast('자료는 삭제됐지만 파일을 지우지 못했어요.')); showToast('자료를 삭제했어요'); return; }
+        const materialOpen = e.target.closest('[data-material-open-file]');
+        if (materialOpen) { const item = gradeData.materials.find(row => row.id === materialOpen.dataset.materialOpenFile); if (item?.file) openMaterialFile(item); return; }
+        const scopeEdit = e.target.closest('[data-exam-scope-edit]');
+        if (scopeEdit) { const item = gradeData.examScopes.find(row => row.id === scopeEdit.dataset.examScopeEdit); if (item) openExamScopeModal(item); return; }
+        const scopeDelete = e.target.closest('[data-exam-scope-delete]');
+        if (scopeDelete) { gradeData.examScopes = gradeData.examScopes.filter(row => row.id !== scopeDelete.dataset.examScopeDelete); save(); renderExamScopes(); showToast('시험범위를 삭제했어요'); return; }
+        const scopeToggle = e.target.closest('[data-exam-scope-toggle]');
+        if (scopeToggle) { const item = gradeData.examScopes.find(row => row.id === scopeToggle.dataset.examScopeToggle); if (item) { item.done = !item.done; save(); renderExamScopes(); } return; }
+        const songEdit = e.target.closest('[data-song-edit]');
+        if (songEdit) { const item = data.songs.find(row => row.id === songEdit.dataset.songEdit); if (item) openSongModal(item); return; }
+        const songDelete = e.target.closest('[data-song-delete]');
+        if (songDelete) { data.songs = data.songs.filter(row => row.id !== songDelete.dataset.songDelete); save(); renderDailySong(); showToast('노래를 삭제했어요'); return; }
         const academyTestEdit = e.target.closest('[data-academy-test-edit]');
         if (academyTestEdit) { const item = data.academyTests.find(row => row.id === academyTestEdit.dataset.academyTestEdit); if (item) openAcademyTestModal(item); return; }
         const academyTestDelete = e.target.closest('[data-academy-test-delete]');
