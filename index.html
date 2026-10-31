@@ -202,6 +202,45 @@
     .assessment-file-hint { display:block; margin-top:6px; line-height:1.5; }
     .assessment-file-draft { color:#555a6b; background:#fff; }
     .assessment-file-remove { flex:0 0 auto; padding:4px 7px; border:1px solid #e9eaf0; border-radius:6px; color:#b35b65; background:#fff; font-size:10px; }
+    .extra-tabs { display:flex; gap:7px; margin-bottom:18px; padding:5px; width:max-content; max-width:100%; border:1px solid var(--line); border-radius:11px; background:#fff; }
+    .extra-tab { min-height:34px; padding:0 15px; border:0; border-radius:8px; color:#777d8f; background:transparent; font-size:11px; font-weight:650; }
+    .extra-tab.active { color:var(--accent); background:var(--accent-soft); }
+    .extra-page { display:none; }
+    .extra-page.active { display:block; }
+    .report-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; }
+    .report-filters .field { min-width:0; }
+    .report-filters .filter-disabled { opacity:.55; }
+    .report-list, .club-list { display:grid; gap:9px; }
+    .report-item { width:100%; display:flex; align-items:center; gap:12px; padding:13px 14px; border:1px solid #eff0f5; border-radius:11px; color:var(--ink); background:#fff; text-align:left; }
+    .report-item:hover { border-color:#dcd9ff; background:#fdfcff; }
+    .report-item.selected { border-color:#9e96f4; box-shadow:0 0 0 2px #6558e812; }
+    .report-copy { min-width:0; flex:1; }
+    .report-title { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:700; }
+    .report-category { margin-top:5px; color:#969bad; font-size:10px; }
+    .report-dday { flex:0 0 auto; padding:5px 8px; border-radius:7px; color:#6558e8; background:#efedff; font-size:10px; font-weight:750; white-space:nowrap; }
+    .report-dday.overdue { color:#888b96; background:#eceef2; }
+    .report-detail-panel { margin-top:18px; }
+    .report-detail-head, .club-item-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+    .report-detail-head { margin-bottom:18px; }
+    .report-detail-head h3 { margin:0; font-size:17px; letter-spacing:-.3px; }
+    .report-detail-head p { margin:7px 0 0; color:var(--muted); font-size:10px; }
+    .report-detail-body { padding:14px; border:1px solid #eff0f5; border-radius:11px; color:#464a5b; background:#fff; font-size:12px; line-height:1.7; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .report-detail-deadline { margin:0 0 12px; color:#777d8f; font-size:11px; }
+    .club-filters { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
+    .club-filter { padding:7px 10px; border:1px solid var(--line); border-radius:8px; color:#72778a; background:#fff; font-size:10px; }
+    .club-filter.active { color:var(--accent); background:var(--accent-soft); border-color:#dedbff; }
+    .club-item { padding:13px 14px; border:1px solid #eff0f5; border-radius:11px; background:#fff; }
+    .club-item.completed { background:#f7f8fa; }
+    .club-item.completed .club-title { color:#989daa; text-decoration:line-through; }
+    .club-item-main { display:flex; align-items:flex-start; gap:10px; min-width:0; flex:1; }
+    .club-check { width:18px; height:18px; margin-top:1px; padding:0; flex:0 0 auto; border:1.5px solid #d5d7e0; border-radius:6px; color:#fff; background:#fff; }
+    .club-check.done { border-color:var(--green); background:var(--green); }
+    .club-check svg { width:12px; height:12px; vertical-align:middle; }
+    .club-copy { min-width:0; flex:1; }
+    .club-title { font-size:12px; font-weight:700; }
+    .club-meta { margin-top:5px; color:#969bad; font-size:10px; }
+    .club-description { margin-top:8px; color:#626779; font-size:11px; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .club-item-actions { display:flex; gap:6px; flex:0 0 auto; }
     .small-action { min-height:32px; padding:0 10px; border:1px solid var(--line); border-radius:8px; color:#6c7182; background:#fff; font-size:10px; font-weight:650; }
     .small-action.danger { color:#b35b65; }
     .stats-empty { margin-top: 18px; }
@@ -227,7 +266,7 @@
       .app { display:block; padding-bottom:65px; }
       .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:block; }
       .brand, .nav-label, .sidebar-bottom { display:none; }
-      .nav { height:100%; grid-template-columns:repeat(5,minmax(0,1fr)); gap:2px; }
+      .nav { height:100%; grid-template-columns:repeat(6,minmax(0,1fr)); gap:2px; }
       .nav-btn { height:50px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
       .nav-btn svg { width:17px; height:17px; }
       main { padding:19px 16px 30px; }
@@ -245,6 +284,12 @@
       .assessment-detail-grid { grid-template-columns:1fr; }
       .assessment-detail-block.wide { grid-column:auto; }
       .assessment-detail-head { flex-direction:column; }
+      .report-filters { grid-template-columns:1fr; gap:9px; }
+      .report-item { gap:8px; padding:11px 9px; }
+      .report-dday { padding:5px 6px; font-size:9px; }
+      .report-detail-head { flex-direction:column; }
+      .club-item-head { gap:8px; }
+      .club-item-actions { gap:4px; }
     }
     @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } .calendar-day { min-height:67px; padding:4px 2px; } .calendar-date { width:22px; height:22px; font-size:10px; } .assessment-chip { font-size:7px; } .agenda-item { gap:8px; padding:10px 8px; } .agenda-date { min-width:46px; font-size:10px; } .assessment-status { font-size:8px; padding:4px 5px; } }
   </style>
@@ -260,6 +305,7 @@
         <button class="nav-btn" data-screen="subjects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h7M8 10h5"/></svg><span>과목 관리</span></button>
         <button class="nav-btn" data-screen="assessments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M4 9h16M8 14l2 2 5-5"/></svg><span>수행 평가</span></button>
         <button class="nav-btn" data-screen="records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 3 6-7"/></svg><span>학습 기록</span></button>
+        <button class="nav-btn" data-screen="extras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/><path d="m15 16 2 2 4-4"/></svg><span>부가 활동</span></button>
       </nav>
       <div class="sidebar-bottom">
         <div class="goal-box"><div class="goal-title"><span>오늘의 목표</span><span id="goal-mini">0%</span></div><p id="goal-caption">목표 시간을 채우고 있어요</p><div class="progress-track"><span id="goal-progress" style="width:0%"></span></div></div>
@@ -301,12 +347,31 @@
           <section class="panel assessment-detail-panel" id="assessment-detail-panel" hidden><div id="assessment-detail"></div></section>
         </section>
         <section class="screen" id="screen-records"><div class="page-heading"><div><h1>학습 기록</h1><p class="subtitle">꾸준히 쌓인 시간을 확인해봐요.</p></div></div><section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">이번 주의 집중 시간</p></div></div><div class="week-chart" id="records-chart"></div></section><section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">이번 주 과목별 시간</h2><p class="panel-subtitle">타이머로 기록한 학습량</p></div></div><div class="subject-list" id="record-subjects"></div></section></section>
+        <section class="screen" id="screen-extras">
+          <div class="page-heading"><div><h1>부가 활동</h1><p class="subtitle">보고서 마감과 방송부 활동을 한곳에 정리해요.</p></div></div>
+          <div class="extra-tabs" role="tablist" aria-label="부가 활동 페이지">
+            <button class="extra-tab active" data-extra-page="reports" role="tab" aria-selected="true">활동보고서</button>
+            <button class="extra-tab" data-extra-page="club" role="tab" aria-selected="false">동아리</button>
+          </div>
+          <section class="extra-page active" id="extra-reports">
+            <div class="page-heading"><div><h2 class="panel-title" style="font-size:18px">활동보고서</h2><p class="subtitle">학년·학기·과목과 진로 보고서를 정리해요.</p></div><button class="primary-btn" id="add-report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>보고서 추가</button></div>
+            <section class="panel"><div class="panel-head"><div><h3 class="panel-title">보고서 분류</h3><p class="panel-subtitle">학년과 학기, 과목별로 목록을 좁혀볼 수 있어요.</p></div></div><div class="report-filters"><div class="field"><label for="report-filter-grade">분류</label><select id="report-filter-grade"><option value="all">전체 보고서</option><option value="career">진로</option><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="report-filter-semester">학기</label><select id="report-filter-semester"><option value="all">전체 학기</option></select></div><div class="field"><label for="report-filter-subject">과목</label><select id="report-filter-subject"><option value="all">전체 과목</option></select></div></div></section>
+            <section class="panel screen-section"><div class="panel-head"><div><h3 class="panel-title">보고서 목록</h3><p class="panel-subtitle">목록을 누르면 자세한 내용을 볼 수 있어요.</p></div></div><div class="report-list" id="report-list"></div></section>
+            <section class="panel report-detail-panel" id="report-detail-panel" hidden><div id="report-detail"></div></section>
+          </section>
+          <section class="extra-page" id="extra-club">
+            <div class="page-heading"><div><h2 class="panel-title" style="font-size:18px">동아리 · 방송부</h2><p class="subtitle">대본부터 행사 송출, 장비 점검까지 방송부 활동을 기록해요.</p></div><button class="primary-btn" id="add-club-entry"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>활동 추가</button></div>
+            <section class="panel"><div class="panel-head"><div><h3 class="panel-title">방송부 활동 보드</h3><p class="panel-subtitle">방송 준비와 활동을 기록하고 완료 여부를 체크해요.</p></div></div><div class="club-filters" id="club-filters"></div><div class="club-list" id="club-list"></div></section>
+          </section>
+        </section>
       </div>
     </main>
   </div>
   <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field" id="subject-semester-field"><label for="subject-semester-input">학기</label><select id="subject-semester-input" name="semester"></select></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
   <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea><div class="assessment-file-list" id="assessment-file-drafts"></div></div><div class="field"><label for="assessment-files">파일 첨부 (선택)</label><input id="assessment-files" type="file" multiple><small class="assessment-file-hint">첨부 파일은 이 브라우저에 저장돼요. 브라우저 데이터 삭제 시 파일이 사라질 수 있어요.</small></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title"><form class="modal" id="report-form"><div class="modal-head"><h2 id="report-modal-title">보고서 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="report-title">보고서 이름</label><input id="report-title" name="title" placeholder="예: 도시 문제 탐구 보고서" required maxlength="100"></div><div class="field"><label for="report-kind">보고서 분류</label><select id="report-kind" name="kind"><option value="subject">과목 보고서</option><option value="career">진로 보고서</option></select></div><div class="report-course-fields" id="report-course-fields"><div class="form-row"><div class="field"><label for="report-grade">학년</label><select id="report-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="report-semester">학기</label><select id="report-semester" name="semester"></select></div></div><div class="field"><label for="report-subject">과목</label><select id="report-subject" name="subject"></select></div></div><div class="field"><label for="report-deadline">마감일</label><input id="report-deadline" name="deadline" type="date"><small class="assessment-file-hint">마감일을 입력하면 목록에 D-day가 표시돼요.</small></div><div class="field"><label for="report-details">작성할 내용</label><textarea id="report-details" name="details" rows="5" placeholder="무슨 내용을 조사하고 작성해야 하는지, 제출 형식과 준비할 일을 적어두세요." maxlength="3000"></textarea></div><div class="field"><label for="report-memo">참고자료·메모</label><textarea id="report-memo" name="memo" rows="3" placeholder="참고할 링크, 교과서 쪽수, 선생님 안내 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="report-save-btn">보고서 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="club-modal" role="dialog" aria-modal="true" aria-labelledby="club-modal-title"><form class="modal" id="club-form"><div class="modal-head"><h2 id="club-modal-title">방송부 활동 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="club-category">활동 카테고리</label><select id="club-category" name="category"></select></div><div class="field"><label for="club-title">할 일·활동 이름</label><input id="club-title" name="title" placeholder="예: 점심 방송 오프닝 대본 작성" required maxlength="100"></div><div class="form-row"><div class="field"><label for="club-date">활동 날짜</label><input id="club-date" name="date" type="date" required></div><div class="field"><label for="club-deadline">마감일 (선택)</label><input id="club-deadline" name="deadline" type="date"></div></div><div class="field"><label for="club-description">메모</label><textarea id="club-description" name="description" rows="4" placeholder="담당 역할, 대본 내용, 송출 순서, 준비물이나 장비 점검 내용을 적어두세요." maxlength="2000"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="club-save-btn">활동 저장</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script>
     (() => {
@@ -316,6 +381,13 @@
       const TIMER_MINUTES = 70;
       const DDAY_DATE = '2026-12-07';
       const colors = ['#7568ed', '#f0a65b', '#41ad91', '#5b9bdb', '#e57991', '#b175d1'];
+      const clubCategories = [
+        { id:'planning', name:'방송 기획·대본' },
+        { id:'production', name:'촬영·편집' },
+        { id:'event', name:'행사·교내 방송' },
+        { id:'equipment', name:'장비·기술 점검' },
+        { id:'meeting', name:'회의·활동 일지' }
+      ];
       const today = new Date();
       const localDate = (date) => { const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
       const shiftDate = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return localDate(d); };
@@ -395,7 +467,9 @@
         }
         const hashGrade = /^#g([1-3])$/.exec(location.hash)?.[1];
         if (hashGrade) activeGrade = hashGrade;
-        return { activeGrade, grades };
+        const reports = Array.isArray(stored?.reports) ? stored.reports.map(item => ({ ...item, kind:item.kind === 'career' ? 'career' : 'subject', grade:String(item.grade || '1'), semester:item.semester || '', subject:item.subject || '', deadline:item.deadline || '', details:item.details || '', memo:item.memo || '' })) : [];
+        const clubEntries = Array.isArray(stored?.clubEntries) ? stored.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : [];
+        return { activeGrade, grades, reports, clubEntries };
       }
       let data = loadData();
       let activeGrade = data.activeGrade;
@@ -414,6 +488,13 @@
       let selectedAssessmentId = null;
       let assessmentEditingId = null;
       let assessmentExpiryTimer = null;
+      let extrasRefreshTimer = null;
+      let extraPage = 'reports';
+      let reportFilter = { grade:'all', semester:'all', subject:'all' };
+      let selectedReportId = null;
+      let reportEditingId = null;
+      let clubFilter = 'all';
+      let clubEditingId = null;
       let assessmentDbPromise = null;
       let assessmentDraftFiles = [];
       let assessmentExistingFiles = [];
@@ -580,11 +661,143 @@
         renderAssessmentFileLinks(item);
       }
       function renderAssessments() { renderAssessmentCalendar(); renderAssessmentAgenda(); renderAssessmentDetail(); }
+      function dayDifference(date) {
+        if (!date) return null;
+        const [year, month, day] = date.split('-').map(Number);
+        const [todayYear, todayMonth, todayDay] = localDate(new Date()).split('-').map(Number);
+        return Math.round((Date.UTC(year, month - 1, day) - Date.UTC(todayYear, todayMonth - 1, todayDay)) / 86400000);
+      }
+      function ddayLabel(date) {
+        const days = dayDifference(date);
+        return days === null ? '마감 미정' : days === 0 ? 'D-Day' : days > 0 ? `D-${days}` : `D+${Math.abs(days)}`;
+      }
+      function reportSubjectFor(grade, id) { return data.grades[String(grade)]?.subjects.find(subject => subject.id === id); }
+      function reportCategoryLabel(report) {
+        if (report.kind === 'career') return '진로';
+        const grade = String(report.grade || '1');
+        const subject = reportSubjectFor(grade, report.subject);
+        const semester = subject?.semester || report.semester || gradeConfigs[grade]?.period || '';
+        return `${gradeConfigs[grade]?.label || `고${grade}`} · ${semesterText(semester)} · ${subject?.name || '과목 미지정'}`;
+      }
+      function allReportSubjects(grade = null, semester = 'all') {
+        const grades = grade && grade !== 'all' ? [String(grade)] : ['1', '2', '3'];
+        return grades.flatMap(gradeId => data.grades[gradeId].subjects
+          .filter(subject => semester === 'all' || subject.semester === semester)
+          .map(subject => ({ grade:gradeId, ...subject })));
+      }
+      function renderReportFilters() {
+        const gradeSelect = $('#report-filter-grade');
+        const semesterSelect = $('#report-filter-semester');
+        const subjectSelect = $('#report-filter-subject');
+        const selectedGrade = reportFilter.grade;
+        const semesters = [...new Set(allReportSubjects(selectedGrade === 'career' ? 'all' : selectedGrade).map(subject => subject.semester).filter(Boolean))];
+        if (!semesters.includes(reportFilter.semester)) reportFilter.semester = 'all';
+        semesterSelect.innerHTML = `<option value="all">전체 학기</option>${semesters.map(semester => `<option value="${escapeHtml(semester)}">${escapeHtml(semesterText(semester))}</option>`).join('')}`;
+        semesterSelect.value = reportFilter.semester;
+        const subjects = allReportSubjects(selectedGrade === 'career' ? 'all' : selectedGrade, reportFilter.semester);
+        if (!subjects.some(subject => `${subject.grade}:${subject.id}` === reportFilter.subject)) reportFilter.subject = 'all';
+        subjectSelect.innerHTML = `<option value="all">전체 과목</option>${subjects.map(subject => `<option value="${subject.grade}:${subject.id}">${gradeConfigs[subject.grade].label} · ${semesterText(subject.semester)} · ${escapeHtml(subject.name)}</option>`).join('')}`;
+        subjectSelect.value = reportFilter.subject;
+        const careerOnly = selectedGrade === 'career';
+        semesterSelect.disabled = careerOnly;
+        subjectSelect.disabled = careerOnly;
+        semesterSelect.closest('.field').classList.toggle('filter-disabled', careerOnly);
+        subjectSelect.closest('.field').classList.toggle('filter-disabled', careerOnly);
+      }
+      function reportMatchesFilters(report) {
+        if (reportFilter.grade === 'career' && report.kind !== 'career') return false;
+        if (reportFilter.grade !== 'all' && reportFilter.grade !== 'career' && (report.kind !== 'subject' || String(report.grade) !== reportFilter.grade)) return false;
+        if (report.kind === 'career') return reportFilter.grade === 'all' || reportFilter.grade === 'career';
+        const subject = reportSubjectFor(report.grade, report.subject);
+        if (reportFilter.semester !== 'all' && (subject?.semester || report.semester) !== reportFilter.semester) return false;
+        if (reportFilter.subject !== 'all' && `${report.grade}:${report.subject}` !== reportFilter.subject) return false;
+        return true;
+      }
+      function renderReportList() {
+        const items = data.reports.filter(reportMatchesFilters).sort((a, b) => {
+          if (!a.deadline && !b.deadline) return a.title.localeCompare(b.title);
+          if (!a.deadline) return 1;
+          if (!b.deadline) return -1;
+          return a.deadline.localeCompare(b.deadline) || a.title.localeCompare(b.title);
+        });
+        $('#report-list').innerHTML = items.length ? items.map(report => {
+          const difference = dayDifference(report.deadline);
+          const overdue = difference !== null && difference < 0;
+          return `<button class="report-item ${selectedReportId === report.id ? 'selected' : ''}" data-report-open="${escapeHtml(report.id)}"><span class="report-copy"><span class="report-title">${escapeHtml(report.title)}</span><span class="report-category">${escapeHtml(reportCategoryLabel(report))}${report.deadline ? ` · 마감 ${fmtDate(report.deadline, { year:'numeric', month:'numeric', day:'numeric' })}` : ''}</span></span><span class="report-dday ${overdue ? 'overdue' : ''}">${ddayLabel(report.deadline)}</span></button>`;
+        }).join('') : emptyMarkup('등록된 보고서가 없어요', '보고서 추가를 눌러 과목 또는 진로 보고서를 기록해보세요.');
+      }
+      function renderReportDetail() {
+        const report = data.reports.find(item => item.id === selectedReportId);
+        const panel = $('#report-detail-panel');
+        if (!report) { panel.hidden = true; $('#report-detail').innerHTML = ''; return; }
+        const deadline = report.deadline ? `${fmtDate(report.deadline, { year:'numeric', month:'long', day:'numeric', weekday:'long' })} · ${ddayLabel(report.deadline)}` : '마감일 미정';
+        panel.hidden = false;
+        $('#report-detail').innerHTML = `<div class="report-detail-head"><div><h3>${escapeHtml(report.title)}</h3><p>${escapeHtml(reportCategoryLabel(report))}</p></div><div class="assessment-detail-actions"><button class="small-action" data-report-edit="${escapeHtml(report.id)}">수정</button><button class="small-action danger" data-report-delete="${escapeHtml(report.id)}">삭제</button></div></div><div class="report-detail-deadline">마감일: ${escapeHtml(deadline)}</div><div class="assessment-detail-grid"><div class="assessment-detail-block wide"><div class="assessment-detail-label">작성할 내용</div><div class="assessment-detail-copy">${report.details ? escapeHtml(report.details) : '작성할 내용이 아직 없어요.'}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">참고자료·메모</div><div class="assessment-detail-copy">${report.memo ? escapeHtml(report.memo) : '참고자료나 메모가 아직 없어요.'}</div></div></div>`;
+      }
+      function renderReports() { renderReportFilters(); renderReportList(); renderReportDetail(); }
+      function clubCategoryName(id) { return clubCategories.find(category => category.id === id)?.name || '회의·활동 일지'; }
+      function renderClub() {
+        $('#club-filters').innerHTML = `<button class="club-filter ${clubFilter === 'all' ? 'active' : ''}" data-club-filter="all">전체</button>${clubCategories.map(category => `<button class="club-filter ${clubFilter === category.id ? 'active' : ''}" data-club-filter="${category.id}">${escapeHtml(category.name)}</button>`).join('')}`;
+        const entries = data.clubEntries.filter(entry => clubFilter === 'all' || entry.category === clubFilter).sort((a, b) => Number(a.done) - Number(b.done) || (a.deadline || a.date).localeCompare(b.deadline || b.date));
+        $('#club-list').innerHTML = entries.length ? entries.map(entry => {
+          return `<article class="club-item ${entry.done ? 'completed' : ''}"><div class="club-item-head"><div class="club-item-main"><button class="club-check ${entry.done ? 'done' : ''}" data-club-toggle="${escapeHtml(entry.id)}" aria-label="${entry.done ? '완료 취소' : '완료 표시'}">${entry.done ? checkIcon : ''}</button><div class="club-copy"><div class="club-title">${escapeHtml(entry.title)}</div><div class="club-meta">${escapeHtml(clubCategoryName(entry.category))} · ${fmtDate(entry.date, { month:'numeric', day:'numeric' })}${entry.deadline ? ` · 마감 ${ddayLabel(entry.deadline)}` : ''}${entry.done ? ' · 완료' : ''}</div>${entry.description ? `<div class="club-description">${escapeHtml(entry.description)}</div>` : ''}</div></div><div class="club-item-actions"><button class="small-action" data-club-edit="${escapeHtml(entry.id)}">수정</button><button class="small-action danger" data-club-delete="${escapeHtml(entry.id)}">삭제</button></div></div></article>`;
+        }).join('') : emptyMarkup('등록된 방송부 활동이 없어요', '대본, 촬영, 행사 방송, 장비 점검이나 회의 내용을 추가해보세요.');
+      }
+      function renderExtras() { renderReports(); renderClub(); }
+      function setExtraPage(page) {
+        extraPage = page;
+        $$('.extra-tab').forEach(button => { const selected = button.dataset.extraPage === page; button.classList.toggle('active', selected); button.setAttribute('aria-selected', String(selected)); });
+        $$('.extra-page').forEach(section => section.classList.toggle('active', section.id === `extra-${page}`));
+        if (screen === 'extras') $('#crumb-current').textContent = `부가 활동 · ${page === 'reports' ? '활동보고서' : '동아리'}`;
+        if (page === 'reports') renderReports(); else renderClub();
+      }
+      function populateReportFormSubjects(grade, semester = '', selectedSubject = '') {
+        const subjects = data.grades[String(grade)].subjects;
+        const semesters = [...new Set(subjects.map(subject => subject.semester).filter(Boolean))];
+        const chosenSemester = semesters.includes(semester) ? semester : semesters[0] || '';
+        $('#report-semester').innerHTML = semesters.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(semesterText(value))}</option>`).join('');
+        $('#report-semester').value = chosenSemester;
+        const filtered = subjects.filter(subject => !chosenSemester || subject.semester === chosenSemester);
+        $('#report-subject').innerHTML = filtered.map(subject => `<option value="${escapeHtml(subject.id)}">${escapeHtml(subject.name)}</option>`).join('');
+        $('#report-subject').value = filtered.some(subject => subject.id === selectedSubject) ? selectedSubject : filtered[0]?.id || '';
+      }
+      function updateReportKindFields() { $('#report-course-fields').hidden = $('#report-kind').value === 'career'; }
+      function openReportModal(report = null) {
+        const form = $('#report-form'); form.reset(); reportEditingId = report?.id || null;
+        $('#report-modal-title').textContent = report ? '보고서 수정' : '보고서 추가';
+        $('#report-save-btn').textContent = report ? '수정 내용 저장' : '보고서 저장';
+        $('#report-kind').value = report?.kind || 'subject';
+        $('#report-grade').value = report?.grade || activeGrade;
+        populateReportFormSubjects($('#report-grade').value, report?.semester || '', report?.subject || '');
+        $('#report-deadline').value = report?.deadline || '';
+        $('#report-details').value = report?.details || '';
+        $('#report-memo').value = report?.memo || '';
+        $('#report-title').value = report?.title || '';
+        updateReportKindFields(); openModal('report-modal');
+      }
+      function openClubModal(entry = null) {
+        const form = $('#club-form'); form.reset(); clubEditingId = entry?.id || null;
+        $('#club-modal-title').textContent = entry ? '방송부 활동 수정' : '방송부 활동 추가';
+        $('#club-save-btn').textContent = entry ? '수정 내용 저장' : '활동 저장';
+        $('#club-category').innerHTML = clubCategories.map(category => `<option value="${category.id}">${escapeHtml(category.name)}</option>`).join('');
+        $('#club-category').value = entry?.category || 'planning';
+        $('#club-title').value = entry?.title || '';
+        $('#club-date').value = entry?.date || localDate(new Date());
+        $('#club-deadline').value = entry?.deadline || '';
+        $('#club-description').value = entry?.description || '';
+        openModal('club-modal');
+      }
       function scheduleAssessmentExpiry() {
         clearTimeout(assessmentExpiryTimer);
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
         assessmentExpiryTimer = setTimeout(() => { renderAssessments(); scheduleAssessmentExpiry(); }, Math.max(1000, midnight.getTime() - now.getTime()));
+      }
+      function scheduleExtrasRefresh() {
+        clearTimeout(extrasRefreshTimer);
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        extrasRefreshTimer = setTimeout(() => { renderExtras(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
       }
       function renderTasks() {
         const now = localDate(today);
@@ -644,8 +857,8 @@
         $('#subjects-title').textContent = `${cfg.label} 과목`;
         $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
-      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); }
-      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
+      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); }
+      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동' }; $('#crumb-current').textContent = names[id]; if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
       function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
@@ -687,6 +900,15 @@
       $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
       $('#add-subject').addEventListener('click', () => { renderSubjects(); openModal('subject-modal'); });
       $('#add-assessment').addEventListener('click', () => openAssessmentModal());
+      $('#add-report').addEventListener('click', () => openReportModal());
+      $('#add-club-entry').addEventListener('click', () => openClubModal());
+      $$('.extra-tab').forEach(button => button.addEventListener('click', () => setExtraPage(button.dataset.extraPage)));
+      $('#report-filter-grade').addEventListener('change', e => { reportFilter.grade = e.target.value; reportFilter.semester = 'all'; reportFilter.subject = 'all'; renderReports(); });
+      $('#report-filter-semester').addEventListener('change', e => { reportFilter.semester = e.target.value; reportFilter.subject = 'all'; renderReports(); });
+      $('#report-filter-subject').addEventListener('change', e => { reportFilter.subject = e.target.value; renderReports(); });
+      $('#report-kind').addEventListener('change', updateReportKindFields);
+      $('#report-grade').addEventListener('change', e => populateReportFormSubjects(e.target.value));
+      $('#report-semester').addEventListener('change', e => populateReportFormSubjects($('#report-grade').value, e.target.value));
       $('#assessment-files').addEventListener('change', e => {
         assessmentDraftFiles.push(...Array.from(e.currentTarget.files || []).map(file => ({ id:uid(), file })));
         e.currentTarget.value = '';
@@ -696,6 +918,35 @@
       $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); }));
       $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; gradeData.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
       $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; const semester = String(f.get('semester') || gradeConfigs[activeGrade].period); gradeData.subjects.push({ id: uid(), name, semester, goal: Number(f.get('goal')), color: colors[gradeData.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
+      $('#report-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const form = e.currentTarget; const fields = new FormData(form); const title = String(fields.get('title')).trim();
+        if (!title) return;
+        const kind = String(fields.get('kind'));
+        const id = reportEditingId || uid();
+        const report = { id, title, kind, grade:kind === 'career' ? '' : String(fields.get('grade')), semester:kind === 'career' ? '' : String(fields.get('semester')), subject:kind === 'career' ? '' : String(fields.get('subject')), deadline:String(fields.get('deadline') || ''), details:String(fields.get('details') || '').trim(), memo:String(fields.get('memo') || '').trim() };
+        const index = data.reports.findIndex(item => item.id === id);
+        const previous = index >= 0 ? data.reports[index] : null;
+        if (index >= 0) data.reports[index] = report; else data.reports.push(report);
+        try { save(); } catch {
+          if (index >= 0) data.reports[index] = previous; else data.reports = data.reports.filter(item => item.id !== id);
+          showToast('보고서를 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.'); return;
+        }
+        selectedReportId = id; reportEditingId = null; renderReports(); form.reset(); closeModal(form); showToast(index >= 0 ? '보고서 내용을 수정했어요' : '보고서를 추가했어요');
+      });
+      $('#club-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const form = e.currentTarget; const fields = new FormData(form); const title = String(fields.get('title')).trim(); const date = String(fields.get('date'));
+        if (!title || !date) return;
+        const id = clubEditingId || uid(); const index = data.clubEntries.findIndex(entry => entry.id === id); const previous = index >= 0 ? data.clubEntries[index] : null;
+        const entry = { id, category:String(fields.get('category')), title, date, deadline:String(fields.get('deadline') || ''), description:String(fields.get('description') || '').trim(), done:Boolean(previous?.done) };
+        if (index >= 0) data.clubEntries[index] = entry; else data.clubEntries.push(entry);
+        try { save(); } catch {
+          if (index >= 0) data.clubEntries[index] = previous; else data.clubEntries = data.clubEntries.filter(item => item.id !== id);
+          showToast('활동을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.'); return;
+        }
+        clubEditingId = null; clubFilter = 'all'; renderClub(); form.reset(); closeModal(form); showToast(index >= 0 ? '방송부 활동을 수정했어요' : '방송부 활동을 추가했어요');
+      });
       $('#assessment-form').addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -723,6 +974,20 @@
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        const reportOpenBtn = e.target.closest('[data-report-open]');
+        if (reportOpenBtn) { selectedReportId = reportOpenBtn.dataset.reportOpen; renderReportList(); renderReportDetail(); return; }
+        const reportEditBtn = e.target.closest('[data-report-edit]');
+        if (reportEditBtn) { const report = data.reports.find(item => item.id === reportEditBtn.dataset.reportEdit); if (report) openReportModal(report); return; }
+        const reportDeleteBtn = e.target.closest('[data-report-delete]');
+        if (reportDeleteBtn) { const id = reportDeleteBtn.dataset.reportDelete; data.reports = data.reports.filter(item => item.id !== id); selectedReportId = null; save(); renderReports(); showToast('보고서를 삭제했어요'); return; }
+        const clubFilterBtn = e.target.closest('[data-club-filter]');
+        if (clubFilterBtn) { clubFilter = clubFilterBtn.dataset.clubFilter; renderClub(); return; }
+        const clubToggleBtn = e.target.closest('[data-club-toggle]');
+        if (clubToggleBtn) { const entry = data.clubEntries.find(item => item.id === clubToggleBtn.dataset.clubToggle); if (entry) { entry.done = !entry.done; save(); renderClub(); } return; }
+        const clubEditBtn = e.target.closest('[data-club-edit]');
+        if (clubEditBtn) { const entry = data.clubEntries.find(item => item.id === clubEditBtn.dataset.clubEdit); if (entry) openClubModal(entry); return; }
+        const clubDeleteBtn = e.target.closest('[data-club-delete]');
+        if (clubDeleteBtn) { data.clubEntries = data.clubEntries.filter(item => item.id !== clubDeleteBtn.dataset.clubDelete); save(); renderClub(); showToast('방송부 활동을 삭제했어요'); return; }
         const removeExistingFile = e.target.closest('[data-assessment-remove-existing]');
         if (removeExistingFile) { assessmentRemovedFileIds.add(removeExistingFile.dataset.assessmentRemoveExisting); renderAssessmentDraftFiles(); return; }
         const removeNewFile = e.target.closest('[data-assessment-remove-new]');
@@ -749,7 +1014,7 @@
       $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => el.classList.remove('open')); });
       window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
-      render(); scheduleAssessmentExpiry();
+      render(); scheduleAssessmentExpiry(); scheduleExtrasRefresh();
     })();
   </script>
 </body>
