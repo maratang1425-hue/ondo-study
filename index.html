@@ -189,6 +189,14 @@
     .assessment-detail-label { margin-bottom:7px; color:#969bad; font-size:10px; font-weight:700; }
     .assessment-detail-copy { color:#464a5b; font-size:12px; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
     .assessment-detail-block.wide { grid-column:1 / -1; }
+    .assessment-file-list { display:grid; gap:7px; margin-top:10px; }
+    .assessment-file-link, .assessment-file-draft { display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0; padding:9px 10px; border:1px solid #ececf4; border-radius:9px; color:#5147b6; background:#fafaff; font-size:11px; text-decoration:none; }
+    .assessment-file-link:hover { border-color:#d8d4ff; background:#f4f2ff; }
+    .assessment-file-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .assessment-file-meta, .assessment-file-empty, .assessment-file-hint { color:#9297a7; font-size:10px; }
+    .assessment-file-hint { display:block; margin-top:6px; line-height:1.5; }
+    .assessment-file-draft { color:#555a6b; background:#fff; }
+    .assessment-file-remove { flex:0 0 auto; padding:4px 7px; border:1px solid #e9eaf0; border-radius:6px; color:#b35b65; background:#fff; font-size:10px; }
     .small-action { min-height:32px; padding:0 10px; border:1px solid var(--line); border-radius:8px; color:#6c7182; background:#fff; font-size:10px; font-weight:650; }
     .small-action.danger { color:#b35b65; }
     .stats-empty { margin-top: 18px; }
@@ -289,12 +297,13 @@
   </div>
   <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field" id="subject-semester-field"><label for="subject-semester-input">학기</label><select id="subject-semester-input" name="semester"></select></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
-  <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea><div class="assessment-file-list" id="assessment-file-drafts"></div></div><div class="field"><label for="assessment-files">파일 첨부 (선택)</label><input id="assessment-files" type="file" multiple><small class="assessment-file-hint">첨부 파일은 이 브라우저에 저장돼요. 브라우저 데이터 삭제 시 파일이 사라질 수 있어요.</small></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script>
     (() => {
       const STORAGE_KEY = 'ondo-study-v2';
       const LEGACY_STORAGE_KEY = 'ondo-study-v1';
+      const ATTACHMENT_DB = 'ondo-study-assessment-files-v1';
       const colors = ['#7568ed', '#f0a65b', '#41ad91', '#5b9bdb', '#e57991', '#b175d1'];
       const today = new Date();
       const localDate = (date) => { const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
@@ -337,7 +346,7 @@
           return previous ? { ...subject, goal: Number(previous.goal) || subject.goal, color: previous.color || subject.color } : subject;
         });
         savedSubjects.filter(item => !base.subjects.some(subject => subject.id === item.id)).forEach(item => subjects.push({ ...item, semester: item.semester || gradeConfigs[grade].period }));
-        const assessments = Array.isArray(saved.assessments) ? saved.assessments.map(item => ({ ...item, time: item.time || '', topic: item.topic || '', references: item.references || '', cautions: item.cautions || '' })) : [];
+        const assessments = Array.isArray(saved.assessments) ? saved.assessments.map(item => ({ ...item, time: item.time || '', topic: item.topic || '', references: item.references || '', cautions: item.cautions || '', attachments: Array.isArray(item.attachments) ? item.attachments : [] })) : [];
         return { goalMinutes: Number(saved.goalMinutes) || 120, subjects, tasks: Array.isArray(saved.tasks) ? saved.tasks : [], sessions: Array.isArray(saved.sessions) ? saved.sessions : [], assessments };
       };
       const migrateLegacyData = (legacy, grades) => {
@@ -394,10 +403,77 @@
       let selectedAssessmentId = null;
       let assessmentEditingId = null;
       let assessmentExpiryTimer = null;
+      let assessmentDbPromise = null;
+      let assessmentDraftFiles = [];
+      let assessmentExistingFiles = [];
+      let assessmentRemovedFileIds = new Set();
+      let assessmentObjectUrls = [];
       let toastTimeout;
       const $ = (q, root = document) => root.querySelector(q);
       const $$ = (q, root = document) => [...root.querySelectorAll(q)];
       const save = () => { data.activeGrade = activeGrade; localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); };
+      function openAssessmentFileDb() {
+        if (!window.indexedDB) return Promise.reject(new Error('이 브라우저는 파일 저장을 지원하지 않아요.'));
+        if (assessmentDbPromise) return assessmentDbPromise;
+        assessmentDbPromise = new Promise((resolve, reject) => {
+          const request = indexedDB.open(ATTACHMENT_DB, 1);
+          request.onupgradeneeded = () => { if (!request.result.objectStoreNames.contains('files')) request.result.createObjectStore('files', { keyPath:'id' }); };
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error || new Error('첨부파일 저장소를 열지 못했어요.'));
+          request.onblocked = () => reject(new Error('첨부파일 저장소가 다른 탭에서 사용 중이에요. 다른 온도 탭을 닫고 다시 시도해 주세요.'));
+        }).catch(error => { assessmentDbPromise = null; throw error; });
+        return assessmentDbPromise;
+      }
+      async function saveAssessmentFileRecords(records) {
+        if (!records.length) return;
+        const db = await openAssessmentFileDb();
+        return new Promise((resolve, reject) => {
+          const transaction = db.transaction('files', 'readwrite');
+          records.forEach(record => transaction.objectStore('files').put(record));
+          transaction.oncomplete = () => resolve();
+          transaction.onerror = () => reject(transaction.error || new Error('첨부파일을 저장하지 못했어요.'));
+          transaction.onabort = () => reject(transaction.error || new Error('첨부파일 저장이 취소됐어요.'));
+        });
+      }
+      async function readAssessmentFileRecords(ids = null) {
+        const db = await openAssessmentFileDb();
+        return new Promise((resolve, reject) => {
+          const transaction = db.transaction('files', 'readonly');
+          const request = transaction.objectStore('files').getAll();
+          request.onsuccess = () => { const records = request.result || []; resolve(ids ? records.filter(record => ids.includes(record.id)) : records); };
+          request.onerror = () => reject(request.error || new Error('첨부파일 목록을 읽지 못했어요.'));
+        });
+      }
+      async function deleteAssessmentFileRecords(ids) {
+        if (!ids.length) return;
+        const db = await openAssessmentFileDb();
+        return new Promise((resolve, reject) => {
+          const transaction = db.transaction('files', 'readwrite');
+          const store = transaction.objectStore('files');
+          ids.forEach(id => store.delete(id));
+          transaction.oncomplete = () => resolve();
+          transaction.onerror = () => reject(transaction.error || new Error('첨부파일을 삭제하지 못했어요.'));
+          transaction.onabort = () => reject(transaction.error || new Error('첨부파일 삭제가 취소됐어요.'));
+        });
+      }
+      async function deleteAssessmentFilesFor(grade, assessmentId) {
+        const records = await readAssessmentFileRecords();
+        await deleteAssessmentFileRecords(records.filter(record => record.grade === grade && record.assessmentId === assessmentId).map(record => record.id));
+      }
+      function formatFileSize(bytes) {
+        if (!bytes) return '0 KB';
+        if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      }
+      function renderAssessmentDraftFiles() {
+        const container = $('#assessment-file-drafts');
+        const existing = assessmentExistingFiles.filter(file => !assessmentRemovedFileIds.has(file.id));
+        const entries = [
+          ...existing.map(file => `<div class="assessment-file-draft"><span class="assessment-file-name">${escapeHtml(file.name)} <span class="assessment-file-meta">${formatFileSize(file.size || 0)}</span></span><button type="button" class="assessment-file-remove" data-assessment-remove-existing="${escapeHtml(file.id)}">첨부 취소</button></div>`),
+          ...assessmentDraftFiles.map(entry => `<div class="assessment-file-draft"><span class="assessment-file-name">${escapeHtml(entry.file.name)} <span class="assessment-file-meta">${formatFileSize(entry.file.size)}</span></span><button type="button" class="assessment-file-remove" data-assessment-remove-new="${escapeHtml(entry.id)}">첨부 취소</button></div>`)
+        ];
+        container.innerHTML = entries.length ? entries.join('') : '<span class="assessment-file-empty">첨부된 파일이 없어요.</span>';
+      }
       const subjectById = (id) => gradeData.subjects.find(s => s.id === id);
       const subjectName = (id) => subjectById(id)?.name || '기타';
       const subjectColor = (id) => subjectById(id)?.color || '#a5a8b4';
@@ -455,16 +531,42 @@
           return `<button class="agenda-item ${expired ? 'expired' : ''} ${selected ? 'selected' : ''}" data-assessment-open="${escapeHtml(item.id)}"><span class="agenda-date">${dateLabel}</span><span class="agenda-copy"><span class="agenda-title">${escapeHtml(item.title)}</span><span class="agenda-subject">${escapeHtml(subject)}${detail}</span></span><span class="assessment-status">${expired ? '만료된 수행' : '예정'}</span></button>`;
         }).join('') : emptyMarkup(selectedAssessmentDate ? '이 날짜에 수행 평가가 없어요' : '이번 달 수행 평가가 없어요', '수행 평가를 추가해 일정을 채워보세요.');
       }
+      function revokeAssessmentObjectUrls() {
+        assessmentObjectUrls.forEach(url => URL.revokeObjectURL(url));
+        assessmentObjectUrls = [];
+      }
+      async function renderAssessmentFileLinks(item) {
+        const container = $('#assessment-file-links');
+        const attachments = Array.isArray(item.attachments) ? item.attachments : [];
+        if (!attachments.length) { container.innerHTML = '<span class="assessment-file-empty">첨부된 파일이 없어요.</span>'; return; }
+        container.innerHTML = '<span class="assessment-file-empty">파일을 불러오는 중…</span>';
+        try {
+          const records = await readAssessmentFileRecords(attachments.map(file => file.id));
+          if (selectedAssessmentId !== item.id || !$('#assessment-file-links')) return;
+          const recordMap = new Map(records.map(record => [record.id, record]));
+          container.innerHTML = attachments.map(file => {
+            const record = recordMap.get(file.id);
+            if (!record?.blob) return `<div class="assessment-file-draft"><span class="assessment-file-name">${escapeHtml(file.name)}</span><span class="assessment-file-meta">파일을 찾을 수 없어요</span></div>`;
+            const url = URL.createObjectURL(record.blob);
+            assessmentObjectUrls.push(url);
+            return `<a class="assessment-file-link" href="${url}" download="${escapeHtml(file.name)}" target="_blank" rel="noopener"><span class="assessment-file-name">${escapeHtml(file.name)} <span class="assessment-file-meta">${formatFileSize(file.size || 0)}</span></span><span>열기</span></a>`;
+          }).join('');
+        } catch {
+          if (selectedAssessmentId === item.id) container.innerHTML = '<span class="assessment-file-empty">파일을 불러오지 못했어요. 이 브라우저의 저장 공간을 확인해 주세요.</span>';
+        }
+      }
       function renderAssessmentDetail() {
         const item = gradeData.assessments.find(assessment => assessment.id === selectedAssessmentId);
         const panel = $('#assessment-detail-panel');
+        revokeAssessmentObjectUrls();
         if (!item) { panel.hidden = true; panel.classList.remove('expired'); $('#assessment-detail').innerHTML = ''; return; }
         const expired = assessmentExpired(item);
         const subject = subjectById(item.subject)?.name || '과목 미지정';
         const dateText = fmtDate(item.date, { month:'long', day:'numeric', weekday:'long' }) + (item.time ? ` · ${item.time}` : '');
         const textOrEmpty = value => value ? escapeHtml(value) : '등록된 내용이 없어요.';
         panel.hidden = false; panel.classList.toggle('expired', expired);
-        $('#assessment-detail').innerHTML = `<div class="assessment-detail-head"><div><h2>${escapeHtml(item.title)}</h2><p>${expired ? '만료된 수행' : '수행 평가 상세정보'}</p></div><div class="assessment-detail-actions"><button class="small-action" data-assessment-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-assessment-delete="${escapeHtml(item.id)}">삭제</button></div></div><div class="assessment-detail-grid"><div class="assessment-detail-block"><div class="assessment-detail-label">과목</div><div class="assessment-detail-copy">${escapeHtml(subject)}</div></div><div class="assessment-detail-block"><div class="assessment-detail-label">일정</div><div class="assessment-detail-copy">${escapeHtml(dateText)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">주제</div><div class="assessment-detail-copy">${textOrEmpty(item.topic)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">참고자료</div><div class="assessment-detail-copy">${textOrEmpty(item.references)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">주의사항</div><div class="assessment-detail-copy">${textOrEmpty(item.cautions)}</div></div></div>`;
+        $('#assessment-detail').innerHTML = `<div class="assessment-detail-head"><div><h2>${escapeHtml(item.title)}</h2><p>${expired ? '만료된 수행' : '수행 평가 상세정보'}</p></div><div class="assessment-detail-actions"><button class="small-action" data-assessment-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-assessment-delete="${escapeHtml(item.id)}">삭제</button></div></div><div class="assessment-detail-grid"><div class="assessment-detail-block"><div class="assessment-detail-label">과목</div><div class="assessment-detail-copy">${escapeHtml(subject)}</div></div><div class="assessment-detail-block"><div class="assessment-detail-label">일정</div><div class="assessment-detail-copy">${escapeHtml(dateText)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">주제</div><div class="assessment-detail-copy">${textOrEmpty(item.topic)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">참고자료</div><div class="assessment-detail-copy">${textOrEmpty(item.references)}</div><div class="assessment-file-list" id="assessment-file-links"></div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">주의사항</div><div class="assessment-detail-copy">${textOrEmpty(item.cautions)}</div></div></div>`;
+        renderAssessmentFileLinks(item);
       }
       function renderAssessments() { renderAssessmentCalendar(); renderAssessmentAgenda(); renderAssessmentDetail(); }
       function scheduleAssessmentExpiry() {
@@ -531,6 +633,9 @@
       function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
       function openAssessmentModal(item = null) {
         const form = $('#assessment-form'); form.reset(); assessmentEditingId = item?.id || null;
+        assessmentDraftFiles = [];
+        assessmentExistingFiles = Array.isArray(item?.attachments) ? item.attachments.map(file => ({ ...file })) : [];
+        assessmentRemovedFileIds = new Set();
         $('#assessment-modal-title').textContent = item ? '수행 평가 수정' : '수행 평가 추가';
         $('#assessment-save-btn').textContent = item ? '수정 내용 저장' : '수행 평가 저장';
         $('#assessment-subject').innerHTML = gradeData.subjects.map(subject => `<option value="${subject.id}">${escapeHtml(semesterSubjectLabel(subject))}</option>`).join('') || '<option value="">과목 미지정</option>';
@@ -541,6 +646,7 @@
         } else {
           form.elements.date.value = selectedAssessmentDate || localDate(new Date());
         }
+        renderAssessmentDraftFiles();
         openModal('assessment-modal');
       }
       function updateTimerDisplay() { const m = Math.floor(timerSeconds / 60); const s = timerSeconds % 60; $('#timer-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
@@ -563,20 +669,46 @@
       $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
       $('#add-subject').addEventListener('click', () => { renderSubjects(); openModal('subject-modal'); });
       $('#add-assessment').addEventListener('click', () => openAssessmentModal());
+      $('#assessment-files').addEventListener('change', e => {
+        assessmentDraftFiles.push(...Array.from(e.currentTarget.files || []).map(file => ({ id:uid(), file })));
+        e.currentTarget.value = '';
+        renderAssessmentDraftFiles();
+      });
       $$('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn)));
       $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); }));
       $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; gradeData.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
       $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; const semester = String(f.get('semester') || gradeConfigs[activeGrade].period); gradeData.subjects.push({ id: uid(), name, semester, goal: Number(f.get('goal')), color: colors[gradeData.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
-      $('#assessment-form').addEventListener('submit', e => {
-        e.preventDefault(); const f = new FormData(e.currentTarget); const title = String(f.get('title')).trim(); const date = String(f.get('date'));
+      $('#assessment-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const f = new FormData(form); const title = String(f.get('title')).trim(); const date = String(f.get('date'));
         if (!title || !date) return;
-        const item = { id: assessmentEditingId || uid(), title, subject: String(f.get('subject') || ''), topic: String(f.get('topic') || '').trim(), date, time: String(f.get('time') || ''), references: String(f.get('references') || '').trim(), cautions: String(f.get('cautions') || '').trim() };
+        const wasEditing = Boolean(assessmentEditingId);
+        const itemId = assessmentEditingId || uid();
+        const keptAttachments = assessmentExistingFiles.filter(file => !assessmentRemovedFileIds.has(file.id));
+        const newRecords = assessmentDraftFiles.map(entry => ({ id:entry.id, grade:activeGrade, assessmentId:itemId, name:entry.file.name, type:entry.file.type || 'application/octet-stream', size:entry.file.size, blob:entry.file, addedAt:new Date().toISOString() }));
+        try { await saveAssessmentFileRecords(newRecords); }
+        catch (error) { showToast(error?.message || '첨부파일 저장에 실패했어요. 저장 공간을 확인해 주세요.'); return; }
+        const item = { id:itemId, title, subject:String(f.get('subject') || ''), topic:String(f.get('topic') || '').trim(), date, time:String(f.get('time') || ''), references:String(f.get('references') || '').trim(), cautions:String(f.get('cautions') || '').trim(), attachments:[...keptAttachments, ...newRecords.map(({ id, name, type, size, addedAt }) => ({ id, name, type, size, addedAt }))] };
         const index = gradeData.assessments.findIndex(assessment => assessment.id === item.id);
+        const previousItem = index >= 0 ? gradeData.assessments[index] : null;
         if (index >= 0) gradeData.assessments[index] = item; else gradeData.assessments.push(item);
+        try { save(); }
+        catch {
+          if (index >= 0) gradeData.assessments[index] = previousItem; else gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== item.id);
+          deleteAssessmentFileRecords(newRecords.map(record => record.id)).catch(() => {});
+          showToast('수행 평가를 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.');
+          return;
+        }
+        deleteAssessmentFileRecords([...assessmentRemovedFileIds]).catch(() => showToast('수행 평가는 저장했지만 일부 첨부파일을 삭제하지 못했어요.'));
         selectedAssessmentId = item.id; selectedAssessmentDate = item.date; assessmentMonth = new Date(`${item.date}T12:00:00`); assessmentMonth.setDate(1);
-        save(); renderAssessments(); setScreen('assessments'); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(assessmentEditingId ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
+        renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        const removeExistingFile = e.target.closest('[data-assessment-remove-existing]');
+        if (removeExistingFile) { assessmentRemovedFileIds.add(removeExistingFile.dataset.assessmentRemoveExisting); renderAssessmentDraftFiles(); return; }
+        const removeNewFile = e.target.closest('[data-assessment-remove-new]');
+        if (removeNewFile) { assessmentDraftFiles = assessmentDraftFiles.filter(entry => entry.id !== removeNewFile.dataset.assessmentRemoveNew); renderAssessmentDraftFiles(); return; }
         const gradeBtn = e.target.closest('[data-grade]');
         if (gradeBtn) { setGrade(gradeBtn.dataset.grade); return; }
         const semesterBtn = e.target.closest('[data-semester]');
@@ -589,7 +721,7 @@
         const editBtn = e.target.closest('[data-assessment-edit]');
         if (editBtn) { const item = gradeData.assessments.find(assessment => assessment.id === editBtn.dataset.assessmentEdit); if (item) openAssessmentModal(item); return; }
         const deleteBtn = e.target.closest('[data-assessment-delete]');
-        if (deleteBtn) { gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== deleteBtn.dataset.assessmentDelete); selectedAssessmentId = null; save(); renderAssessments(); showToast('수행 평가를 삭제했어요'); return; }
+        if (deleteBtn) { const removedId = deleteBtn.dataset.assessmentDelete; gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== removedId); selectedAssessmentId = null; save(); renderAssessments(); deleteAssessmentFilesFor(activeGrade, removedId).catch(() => {}); showToast('수행 평가를 삭제했어요'); return; }
         const assessmentBtn = e.target.closest('[data-assessment-open]');
         if (assessmentBtn) { const item = gradeData.assessments.find(assessment => assessment.id === assessmentBtn.dataset.assessmentOpen); if (item) { selectedAssessmentId = item.id; selectedAssessmentDate = item.date; renderAssessments(); } return; }
         const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = gradeData.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요');
