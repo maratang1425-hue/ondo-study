@@ -27,11 +27,12 @@
     button { cursor: pointer; }
     button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #666; outline-offset: 2px; }
     .app { display: flex; min-height: 100vh; }
-    .sidebar { width: 240px; flex: 0 0 240px; padding: 27px 16px 20px; background: #fff; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+    .sidebar { width: 240px; flex: 0 0 240px; padding: 27px 16px 20px; background: #fff; border-right: 1px solid var(--line); display: flex; flex-direction: column; overflow-y:auto; }
     .brand { display: flex; align-items: center; gap: 10px; margin: 1px 9px 35px; font-weight: 800; letter-spacing: -.4px; font-size: 18px; }
     .brand-mark { width: 31px; height: 31px; border-radius: 11px; display: grid; place-items: center; color: white; background: var(--accent); box-shadow: 0 5px 12px #33333344; }
     .brand-mark svg { width: 18px; height: 18px; }
     .nav-label { margin: 0 10px 10px; color: #a5a5a5; font-size: 10px; font-weight: 750; letter-spacing: 1.1px; }
+    .admissions-label { margin-top:24px; padding-top:19px; border-top:1px solid var(--line); }
     .nav { display: grid; gap: 5px; }
     .nav-btn { height: 42px; width: 100%; padding: 0 11px; display: flex; align-items: center; gap: 11px; color: #7d7d7d; background: transparent; border: 0; border-radius: 10px; text-align: left; font-weight: 600; transition: .15s; }
     .nav-btn svg { width: 18px; height: 18px; stroke-width: 1.8; }
@@ -52,6 +53,7 @@
     .topbar { max-width: 1230px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .top-left { display: flex; align-items: center; gap: 17px; min-width: 0; }
     .grade-switch { display: flex; align-items: center; gap: 3px; padding: 4px; border: 1px solid var(--line); border-radius: 11px; background: #fff; flex: 0 0 auto; }
+    .grade-switch[hidden] { display:none; }
     .grade-btn { min-width: 43px; height: 30px; padding: 0 9px; border: 0; border-radius: 7px; color: #7d7d7d; background: transparent; font-size: 11px; font-weight: 650; }
     .grade-btn:hover { color: var(--accent); background: #f7f7f7; }
     .grade-btn.active { color: #fff; background: var(--accent); box-shadow: 0 3px 9px #3333332c; }
@@ -59,6 +61,7 @@
     .top-actions { display: flex; align-items: center; gap: 10px; }
     .date-chip { padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: white; color: #686868; font-size: 11px; }
     .primary-btn { min-height: 39px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; color: #fff; background: var(--accent); border: 0; border-radius: 10px; font-size: 12px; font-weight: 700; box-shadow: 0 5px 13px #3333332c; transition: .15s; }
+    .primary-btn[hidden] { display:none; }
     .primary-btn:hover { background: #262626; transform: translateY(-1px); }
     .primary-btn svg { width: 15px; height: 15px; }
     .content { max-width: 1230px; margin: 0 auto; }
@@ -277,6 +280,30 @@
     .material-subject { margin:22px 0 9px; font-size:12px; color:#626262; }
     .material-subject:first-child { margin-top:0; }
     .material-open { display:inline-flex; align-items:center; gap:5px; color:#333; font-size:11px; font-weight:700; text-decoration:underline; background:none; border:0; padding:0; }
+    .admissions-filters { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; }
+    .admission-summary { padding:22px; margin-bottom:18px; border:1px solid #dedede; border-radius:18px; background:#292929; color:#fff; }
+    .admission-summary-label { color:#bcbcbc; font-size:11px; font-weight:700; }
+    .admission-summary-value { margin-top:6px; font-size:30px; font-weight:800; letter-spacing:-1px; }
+    .admission-summary-note { margin-top:5px; color:#b9b9b9; font-size:11px; }
+    .semester-panels { display:grid; gap:16px; }
+    .semester-panel { padding:19px; border:1px solid var(--line); border-radius:16px; background:#fff; }
+    .semester-panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+    .semester-panel-head h2 { margin:0; font-size:15px; }
+    .semester-average { color:#484848; font-size:12px; font-weight:750; white-space:nowrap; }
+    .score-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+    .score-row, .student-subject-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border:1px solid #ededed; border-radius:10px; }
+    .score-row label, .student-subject-name { font-size:11px; font-weight:650; }
+    .score-select { min-width:82px; min-height:34px; padding:0 8px; border:1px solid #dedede; border-radius:8px; background:#fff; color:#333; font-size:11px; }
+    .semester-count { margin-top:12px; color:#929292; font-size:10px; }
+    .student-subject-list { display:grid; gap:9px; }
+    .student-subject-row { flex-wrap:wrap; background:#fafafa; }
+    .student-subject-row .small-action { flex:0 0 auto; }
+    .student-entry-list { width:100%; display:grid; gap:7px; }
+    .student-entry { padding:12px; border:1px solid #e8e8e8; border-radius:9px; background:#fff; }
+    .student-entry-head { display:flex; align-items:flex-start; justify-content:space-between; gap:9px; }
+    .student-entry-title { font-size:12px; font-weight:750; }
+    .student-entry-text { margin:7px 0 0; color:#555; font-size:11px; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .student-entry-note { margin-top:8px; color:#777; font-size:10px; white-space:pre-wrap; overflow-wrap:anywhere; }
     .stats-empty { margin-top: 18px; }
     .modal-backdrop { position: fixed; inset: 0; z-index: 10; padding: 18px; display: none; place-items: center; background: #2121214d; backdrop-filter: blur(3px); }
     .modal-backdrop.open { display: grid; }
@@ -308,9 +335,11 @@
     @media (max-width: 1000px) { .sidebar { width:205px; flex-basis:205px; } main { padding-left:25px; padding-right:25px; } .stats-grid { grid-template-columns:repeat(2, minmax(0,1fr)); } }
     @media (max-width: 740px) {
       .app { display:block; padding-bottom:65px; }
-      .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:block; }
+      .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:flex; align-items:center; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; }
+      .sidebar::-webkit-scrollbar { display:none; }
       .brand, .nav-label, .sidebar-bottom { display:none; }
-      .nav { height:100%; display:flex; overflow-x:auto; scrollbar-width:none; gap:2px; }
+      .nav { height:100%; flex:0 0 auto; display:flex; overflow:visible; gap:2px; }
+      .admissions-nav { margin-left:8px; padding-left:8px; border-left:1px solid var(--line); }
       .nav::-webkit-scrollbar { display:none; }
       .nav-btn { height:50px; min-width:64px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
       .nav-btn svg { width:17px; height:17px; }
@@ -339,6 +368,7 @@
       .club-item-actions { gap:4px; }
       .academy-item { flex-direction:column; }
       .academy-actions { align-self:flex-end; }
+      .score-list { grid-template-columns:1fr; }
       .study-entry-head { flex-direction:column; }
       .study-entry-actions { align-self:flex-end; }
     }
@@ -361,13 +391,18 @@
         <button class="nav-btn" data-screen="exam-scopes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5zM8 8h8M8 12h8M8 16h5"/></svg><span>시험범위</span></button>
         <button class="nav-btn" data-screen="materials"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h12l4 4v14H4zM16 3v5h4M8 12h8M8 16h8"/></svg><span>교재·자료</span></button>
       </nav>
+      <div class="nav-label admissions-label">입시 공간</div>
+      <nav class="nav admissions-nav" aria-label="입시 공간 메뉴">
+        <button class="nav-btn" data-screen="admission-grades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4zM8 8h8M8 12h3M14 12h2M8 16h3M14 16h2"/></svg><span>교과 성적 입력</span></button>
+        <button class="nav-btn" data-screen="student-records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5zM8 8h8M8 12h8M8 16h5"/></svg><span>학생부 입력</span></button>
+      </nav>
       <div class="sidebar-bottom">
         <div class="goal-box"><div class="goal-title"><span>오늘의 목표</span><span id="goal-mini">0%</span></div><p id="goal-caption">목표 시간을 채우고 있어요</p><div class="progress-track"><span id="goal-progress" style="width:0%"></span></div></div>
         <div class="user"><div class="avatar">온</div><div><div class="user-name">나의 학습 공간</div><div class="user-sub">차근차근, 꾸준하게</div></div></div>
       </div>
     </aside>
     <main>
-      <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb">나의 학습 공간 <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="secondary-btn" id="sync-open"><span id="sync-button-label">동기화</span></button><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
+      <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb"><span id="crumb-space">나의 학습 공간</span> <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="secondary-btn" id="sync-open"><span id="sync-button-label">동기화</span></button><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
       <div class="content">
         <section class="screen active" id="screen-home">
           <div class="page-heading"><div><h1 id="page-title">고1 대시보드</h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
@@ -427,6 +462,8 @@
         </section>
         <section class="screen" id="screen-exam-scopes"><div class="page-heading"><div><h1 id="exam-scopes-title">고1 시험범위</h1><p class="subtitle">과목별 시험 범위를 기록하고 공부 완료를 표시해요.</p></div><button class="primary-btn" id="add-exam-scope">범위 추가</button></div><section class="panel"><div class="scope-list" id="exam-scope-list"></div></section></section>
         <section class="screen" id="screen-materials"><div class="page-heading"><div><h1 id="materials-title">교재 및 학습 자료</h1><p class="subtitle">학년·학기·과목별로 교재, PDF와 학습 자료를 모아둬요.</p></div><button class="primary-btn" id="add-material">자료 추가</button></div><section class="panel"><div class="material-list" id="material-list"></div></section></section>
+        <section class="screen" id="screen-admission-grades"><div class="page-heading"><div><h1>교과 성적 입력</h1><p class="subtitle">고1~고3 1학기 성적을 한곳에서 관리해요. 고3 2학기는 계산에서 제외해요.</p></div></div><div class="admissions-filters" id="admission-grade-filters" aria-label="학년별 성적 보기"></div><section class="admission-summary" aria-label="평균 내신"><div class="admission-summary-label">전체 평균 내신</div><div class="admission-summary-value" id="admission-average">—</div><div class="admission-summary-note" id="admission-average-note">입력한 과목만 단순 평균으로 계산해요.</div></section><div class="semester-panels" id="admission-grade-panels"></div></section>
+        <section class="screen" id="screen-student-records"><div class="page-heading"><div><h1>학생부 입력</h1><p class="subtitle">학년·학기·과목별 학생부 내용을 기록하고 면접 준비 메모를 남겨요.</p></div><button class="primary-btn" id="add-student-record">학생부 내용 추가</button></div><div class="admissions-filters" id="student-record-grade-filters" aria-label="학년별 학생부 보기"></div><div class="semester-panels" id="student-record-panels"></div></section>
       </div>
     </main>
   </div>
@@ -440,6 +477,7 @@
   <div class="modal-backdrop" id="exam-scope-modal" role="dialog" aria-modal="true" aria-labelledby="exam-scope-modal-title"><form class="modal" id="exam-scope-form"><div class="modal-head"><h2 id="exam-scope-modal-title">시험범위 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="exam-scope-subject">과목</label><select id="exam-scope-subject" name="subject"></select></div><div class="field"><label for="exam-scope-name">시험 이름</label><input id="exam-scope-name" name="exam" placeholder="예: 제2차 정기고사" maxlength="100" required></div><div class="field"><label for="exam-scope-date">시험 날짜</label><input id="exam-scope-date" name="date" type="date" required></div><div class="field"><label for="exam-scope-range">시험 범위</label><textarea id="exam-scope-range" name="range" rows="5" placeholder="예: 교과서 50~85쪽, 프린트 2~4장" maxlength="3000" required></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="exam-scope-save">범위 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="material-modal" role="dialog" aria-modal="true" aria-labelledby="material-modal-title"><form class="modal" id="material-form"><div class="modal-head"><h2 id="material-modal-title">교재 및 학습 자료 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="material-subject">과목</label><select id="material-subject" name="subject"></select></div><div class="field"><label for="material-title">교재·자료 이름</label><input id="material-title" name="title" placeholder="예: 수학 교과서, 단원 정리 PDF" maxlength="100" required></div><div class="field"><label for="material-file">파일 첨부</label><input id="material-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.ppt,.pptx,.hwp,.hwpx"><small class="assessment-file-hint" id="material-file-hint">PDF, 이미지, 문서 파일을 올릴 수 있어요. 파일당 최대 20MB예요.</small></div><div class="field"><label for="material-url">링크 (선택)</label><input id="material-url" name="url" type="url" placeholder="https://..."></div><div class="field"><label for="material-memo">메모 (선택)</label><textarea id="material-memo" name="memo" rows="3" placeholder="교재 쪽수, 공부 방법 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="material-save">자료 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="song-modal" role="dialog" aria-modal="true" aria-labelledby="song-modal-title"><form class="modal" id="song-form"><div class="modal-head"><h2 id="song-modal-title">오노추에 노래 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">소녀시대, 블랙핑크, 로제, 제니, 지수, 태연, 태티서 노래만 추천해요. 등록한 노래가 있으면 그중에서 날짜별로 한 곡씩 표시돼요.</div><div class="field"><label for="song-title">노래 제목</label><input id="song-title" name="title" maxlength="100" required></div><div class="field"><label for="song-artist">가수</label><select id="song-artist" name="artist"><option>소녀시대</option><option>블랙핑크</option><option>로제</option><option>제니</option><option>지수</option><option>태연</option><option>태티서</option></select></div><div class="field"><label for="song-url">YouTube Music 공유 링크</label><input id="song-url" name="url" type="url" placeholder="https://music.youtube.com/watch?v=..." required></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="song-save">노래 저장</button></div><div class="assessment-file-list" id="song-list"></div></div></form></div>
+  <div class="modal-backdrop" id="student-record-modal" role="dialog" aria-modal="true" aria-labelledby="student-record-modal-title"><form class="modal" id="student-record-form"><div class="modal-head"><h2 id="student-record-modal-title">학생부 내용 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="form-row"><div class="field"><label for="student-record-grade">학년</label><select id="student-record-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="student-record-semester">학기</label><select id="student-record-semester" name="semester"></select></div></div><div class="field"><label for="student-record-subject">과목</label><select id="student-record-subject" name="subject"></select></div><div class="field"><label for="student-record-title">기록 제목</label><input id="student-record-title" name="title" maxlength="100" placeholder="예: 탐구 활동과 배운 점" required></div><div class="field"><label for="student-record-content">학생부 내용</label><textarea id="student-record-content" name="content" rows="7" maxlength="8000" placeholder="학생부에 적힌 내용이나 활동 기록을 입력해 주세요." required></textarea></div><div class="field"><label for="student-record-interview">면접 대비 메모 (선택)</label><textarea id="student-record-interview" name="interviewNotes" rows="4" maxlength="3000" placeholder="활동 동기, 내가 맡은 역할, 배운 점과 예상 질문을 적어두세요."></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="student-record-save">학생부 내용 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -485,6 +523,16 @@
           { name: '윤리와 사상', semester: '1학기' }, { name: '역사로 탐구하는 현대세계', semester: '1학기' }
         ] }
       };
+      const admissionTerms = [
+        { grade:'1', semester:'1학기', subjects:['공통국어1', '공통수학1', '공통영어1', '통합사회1', '통합과학1', '한국사1', '정보'] },
+        { grade:'1', semester:'2학기', subjects:['공통국어2', '공통수학2', '공통영어2', '통합사회2', '통합과학2', '한국사2', '한문'] },
+        { grade:'2', semester:'1학기', subjects:gradeConfigs['2'].subjects.filter(item => item.semester === '1학기').map(item => item.name) },
+        { grade:'2', semester:'2학기', subjects:gradeConfigs['2'].subjects.filter(item => item.semester === '2학기').map(item => item.name) },
+        { grade:'3', semester:'1학기', subjects:gradeConfigs['3'].subjects.map(item => item.name) }
+      ];
+      const admissionScoreId = (grade, semester, subject) => `${grade}|${semester}|${subject}`;
+      const normalizeCourseGrades = rows => Array.isArray(rows) ? [...new Map(rows.filter(item => item && admissionTerms.some(term => term.grade === String(item.grade) && term.semester === item.semester && term.subjects.includes(item.subject)) && [1,2,3,4,5].includes(Number(item.score))).map(item => { const row = { id:admissionScoreId(String(item.grade), item.semester, item.subject), grade:String(item.grade), semester:item.semester, subject:item.subject, score:Number(item.score) }; return [row.id, row]; })).values()] : [];
+      const normalizeStudentRecords = rows => Array.isArray(rows) ? rows.map(item => ({ ...item, grade:String(item.grade || '1'), semester:item.semester || '1학기', subject:item.subject || '', title:item.title || '', content:item.content || '', interviewNotes:item.interviewNotes || '' })) : [];
       const subjectId = (grade, subject, index) => `g${grade}-${subject.semester === '1학기' ? 's1' : subject.semester === '2학기' ? 's2' : 'all'}-${index + 1}`;
       const makeGradeData = (grade) => ({
         goalMinutes: 120,
@@ -545,13 +593,17 @@
         const academyTests = Array.isArray(stored?.academyTests) ? stored.academyTests.map(item => ({ ...item, scope:item.scope || '', notes:item.notes || '' })) : [];
         const academyHomework = Array.isArray(stored?.academyHomework) ? stored.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : [];
         const songs = Array.isArray(stored?.songs) ? stored.songs.map(item => ({ ...item, artist:item.artist || '' })) : [];
-        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework, songs };
+        const courseGrades = normalizeCourseGrades(stored?.courseGrades);
+        const studentRecords = normalizeStudentRecords(stored?.studentRecords);
+        return { activeGrade, grades, reports, clubEntries, academyTests, academyHomework, songs, courseGrades, studentRecords };
       }
       let data = loadData();
       let activeGrade = data.activeGrade;
       let gradeData = data.grades[activeGrade];
       let activeSemester = 'all';
       let screen = 'home';
+      let admissionGradeFilter = 'all';
+      let studentRecordEditingId = null;
       let taskFilter = 'all';
       let timerSeconds = TIMER_MINUTES * 60;
       let timerRunning = false;
@@ -677,7 +729,9 @@
           clubEntries:Array.isArray(payload?.clubEntries) ? payload.clubEntries.map(item => ({ ...item, category:clubCategories.some(category => category.id === item.category) ? item.category : 'meeting', date:item.date || localDate(new Date()), deadline:item.deadline || '', description:item.description || '', done:Boolean(item.done) })) : [],
           academyTests:Array.isArray(payload?.academyTests) ? payload.academyTests.map(item => ({ ...item, scope:item.scope || '', notes:item.notes || '' })) : [],
           academyHomework:Array.isArray(payload?.academyHomework) ? payload.academyHomework.map(item => ({ ...item, details:item.details || '', done:Boolean(item.done) })) : [],
-          songs:Array.isArray(payload?.songs) ? payload.songs.map(item => ({ ...item, artist:item.artist || '' })) : []
+          songs:Array.isArray(payload?.songs) ? payload.songs.map(item => ({ ...item, artist:item.artist || '' })) : [],
+          courseGrades:normalizeCourseGrades(payload?.courseGrades),
+          studentRecords:normalizeStudentRecords(payload?.studentRecords)
         };
       }
       function mergeStudyData(remotePayload, localPayload) {
@@ -702,6 +756,8 @@
         remote.academyTests = mergeRows(remote.academyTests, local.academyTests);
         remote.academyHomework = mergeRows(remote.academyHomework, local.academyHomework);
         remote.songs = mergeRows(remote.songs, local.songs);
+        remote.courseGrades = mergeRows(remote.courseGrades, local.courseGrades);
+        remote.studentRecords = mergeRows(remote.studentRecords, local.studentRecords);
         return remote;
       }
       function applyCloudPayload(payload) {
@@ -1148,6 +1204,59 @@
         form.elements.url.value = item?.url || '';
         renderDailySong(); openModal('song-modal');
       }
+      function admissionFilterMarkup() {
+        return [{ id:'all', label:'전체' }, { id:'1', label:'고1' }, { id:'2', label:'고2' }, { id:'3', label:'고3' }].map(item => `<button class="filter-btn ${admissionGradeFilter === item.id ? 'active' : ''}" data-admission-grade-filter="${item.id}" aria-pressed="${admissionGradeFilter === item.id}">${item.label}</button>`).join('');
+      }
+      function visibleAdmissionTerms() { return admissionTerms.filter(term => admissionGradeFilter === 'all' || term.grade === admissionGradeFilter); }
+      function gradeAverage(rows) { return rows.length ? (rows.reduce((sum, item) => sum + Number(item.score), 0) / rows.length).toFixed(2) : '—'; }
+      function renderAdmissionGrades() {
+        $('#admission-grade-filters').innerHTML = admissionFilterMarkup();
+        $('#admission-average').textContent = data.courseGrades.length ? `${gradeAverage(data.courseGrades)}등급` : '—';
+        $('#admission-average-note').textContent = data.courseGrades.length ? `입력한 ${data.courseGrades.length}과목만 단순 평균 · 고3 2학기 제외` : '입력한 과목만 단순 평균으로 계산해요.';
+        const scores = new Map(data.courseGrades.map(item => [item.id, item.score]));
+        $('#admission-grade-panels').innerHTML = visibleAdmissionTerms().map(term => {
+          const entered = term.subjects.map(subject => scores.get(admissionScoreId(term.grade, term.semester, subject))).filter(score => [1,2,3,4,5].includes(score));
+          const rows = term.subjects.map((subject, index) => {
+            const id = admissionScoreId(term.grade, term.semester, subject);
+            const inputId = `score-${term.grade}-${term.semester[0]}-${index}`;
+            const value = scores.get(id) || '';
+            return `<div class="score-row"><label for="${inputId}">${escapeHtml(subject)}</label><select class="score-select" id="${inputId}" data-course-score="${escapeHtml(id)}" aria-label="고${term.grade} ${term.semester} ${escapeHtml(subject)} 내신 등급"><option value="">미입력</option>${[1,2,3,4,5].map(score => `<option value="${score}" ${value === score ? 'selected' : ''}>${score}등급</option>`).join('')}</select></div>`;
+          }).join('');
+          return `<section class="semester-panel"><div class="semester-panel-head"><h2>고${term.grade} · ${term.semester}</h2><span class="semester-average">평균 ${entered.length ? `${(entered.reduce((sum, score) => sum + score, 0) / entered.length).toFixed(2)}등급` : '—'}</span></div><div class="score-list">${rows}</div><div class="semester-count">${entered.length}/${term.subjects.length}과목 입력 · 빈칸은 평균에서 제외</div></section>`;
+        }).join('');
+      }
+      function renderStudentRecords() {
+        $('#student-record-grade-filters').innerHTML = admissionFilterMarkup();
+        $('#student-record-panels').innerHTML = visibleAdmissionTerms().map(term => {
+          const count = data.studentRecords.filter(item => item.grade === term.grade && item.semester === term.semester).length;
+          const rows = term.subjects.map(subject => {
+            const entries = data.studentRecords.filter(item => item.grade === term.grade && item.semester === term.semester && item.subject === subject);
+            const markup = entries.length ? `<div class="student-entry-list">${entries.map(item => `<article class="student-entry"><div class="student-entry-head"><div class="student-entry-title">${escapeHtml(item.title)}</div><div class="study-entry-actions"><button class="small-action" data-student-record-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-student-record-delete="${escapeHtml(item.id)}">삭제</button></div></div><p class="student-entry-text">${escapeHtml(item.content)}</p>${item.interviewNotes ? `<div class="student-entry-note">면접 대비 · ${escapeHtml(item.interviewNotes)}</div>` : ''}</article>`).join('')}</div>` : '';
+            return `<div class="student-subject-row"><span class="student-subject-name">${escapeHtml(subject)} <span class="assessment-file-meta">${entries.length}건</span></span><button class="small-action" data-student-record-add="${escapeHtml(admissionScoreId(term.grade, term.semester, subject))}">내용 추가</button>${markup}</div>`;
+          }).join('');
+          return `<section class="semester-panel"><div class="semester-panel-head"><h2>고${term.grade} · ${term.semester}</h2><span class="semester-average">${count}건 기록</span></div><div class="student-subject-list">${rows}</div></section>`;
+        }).join('');
+      }
+      function populateStudentRecordChoices(grade, semester, subject = '') {
+        const form = $('#student-record-form');
+        const terms = admissionTerms.filter(term => term.grade === String(grade));
+        const selectedTerm = terms.find(term => term.semester === semester) || terms[0] || admissionTerms[0];
+        form.elements.grade.value = selectedTerm.grade;
+        form.elements.semester.innerHTML = terms.map(term => `<option value="${term.semester}">${term.semester}</option>`).join('');
+        form.elements.semester.value = selectedTerm.semester;
+        form.elements.subject.innerHTML = selectedTerm.subjects.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
+        form.elements.subject.value = selectedTerm.subjects.includes(subject) ? subject : selectedTerm.subjects[0];
+      }
+      function openStudentRecordModal(item = null, grade = activeGrade, semester = '1학기', subject = '') {
+        const form = $('#student-record-form'); form.reset(); studentRecordEditingId = item?.id || null;
+        $('#student-record-modal-title').textContent = item ? '학생부 내용 수정' : '학생부 내용 추가';
+        $('#student-record-save').textContent = item ? '수정 내용 저장' : '학생부 내용 저장';
+        populateStudentRecordChoices(item?.grade || grade, item?.semester || semester, item?.subject || subject);
+        form.elements.title.value = item?.title || '';
+        form.elements.content.value = item?.content || '';
+        form.elements.interviewNotes.value = item?.interviewNotes || '';
+        openModal('student-record-modal');
+      }
       function renderExtras() { renderReports(); renderClub(); }
       function setExtraPage(page) {
         extraPage = page;
@@ -1264,8 +1373,15 @@
         $('#materials-title').textContent = `${cfg.label} 교재 및 학습 자료`;
         $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
-      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); }
-      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료' }; $('#crumb-current').textContent = names[id]; if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); }
+      function updateSpaceHeader() {
+        const admissions = screen === 'admission-grades' || screen === 'student-records';
+        $('.grade-switch').hidden = admissions;
+        $('#crumb-space').textContent = admissions ? '입시 공간' : '나의 학습 공간';
+        $('#crumb-grade').textContent = admissions ? '고1~고3' : gradeConfigs[activeGrade].label;
+        $('#add-task-top').hidden = admissions;
+      }
+      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderAdmissionGrades(); renderStudentRecords(); updateSpaceHeader(); }
+      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'student-records') renderStudentRecords(); }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
       function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
@@ -1370,6 +1486,21 @@
       $('#add-exam-scope').addEventListener('click', () => openExamScopeModal());
       $('#add-material').addEventListener('click', () => openMaterialModal());
       $('#daily-song-edit').addEventListener('click', () => openSongModal());
+      $('#add-student-record').addEventListener('click', () => openStudentRecordModal(null, admissionGradeFilter === 'all' ? activeGrade : admissionGradeFilter));
+      $('#student-record-grade').addEventListener('change', e => populateStudentRecordChoices(e.target.value, '1학기'));
+      $('#student-record-semester').addEventListener('change', e => populateStudentRecordChoices($('#student-record-grade').value, e.target.value));
+      $('#admission-grade-panels').addEventListener('change', e => {
+        const input = e.target.closest('[data-course-score]'); if (!input) return;
+        const [grade, semester, subject] = input.dataset.courseScore.split('|');
+        if (!admissionTerms.some(term => term.grade === grade && term.semester === semester && term.subjects.includes(subject))) return;
+        const score = input.value ? Number(input.value) : null;
+        if (score !== null && ![1,2,3,4,5].includes(score)) { showToast('내신 등급은 1~5만 입력할 수 있어요.'); renderAdmissionGrades(); return; }
+        const previous = data.courseGrades.slice();
+        data.courseGrades = data.courseGrades.filter(item => item.id !== input.dataset.courseScore);
+        if (score !== null) data.courseGrades.push({ id:input.dataset.courseScore, grade, semester, subject, score });
+        try { save(); } catch { data.courseGrades = previous; showToast('등급을 저장하지 못했어요.'); }
+        renderAdmissionGrades();
+      });
       $$('.extra-tab').forEach(button => button.addEventListener('click', () => setExtraPage(button.dataset.extraPage)));
       $('#report-filter-grade').addEventListener('change', e => { reportFilter.grade = e.target.value; reportFilter.semester = 'all'; reportFilter.subject = 'all'; renderReports(); });
       $('#report-filter-semester').addEventListener('change', e => { reportFilter.semester = e.target.value; reportFilter.subject = 'all'; renderReports(); });
@@ -1483,6 +1614,17 @@
         try { save(); } catch { if (index >= 0) data.songs[index] = previous; else data.songs = data.songs.filter(row => row.id !== id); showToast('노래를 저장하지 못했어요.'); return; }
         songEditingId = null; renderDailySong(); form.reset(); $('#song-modal-title').textContent = '오노추에 노래 추가'; $('#song-save').textContent = '노래 저장'; showToast(index >= 0 ? '노래를 수정했어요' : '노래를 추가했어요');
       });
+      $('#student-record-form').addEventListener('submit', e => {
+        e.preventDefault(); const form = e.currentTarget; const fields = new FormData(form);
+        const grade = String(fields.get('grade') || ''); const semester = String(fields.get('semester') || ''); const subject = String(fields.get('subject') || '');
+        const title = String(fields.get('title') || '').trim(); const content = String(fields.get('content') || '').trim();
+        if (!title || !content || !admissionTerms.some(term => term.grade === grade && term.semester === semester && term.subjects.includes(subject))) { showToast('학년·학기·과목과 내용을 확인해 주세요.'); return; }
+        const id = studentRecordEditingId || uid(); const index = data.studentRecords.findIndex(item => item.id === id); const previous = index >= 0 ? data.studentRecords[index] : null;
+        const item = { id, grade, semester, subject, title, content, interviewNotes:String(fields.get('interviewNotes') || '').trim() };
+        if (index >= 0) data.studentRecords[index] = item; else data.studentRecords.push(item);
+        try { save(); } catch { if (index >= 0) data.studentRecords[index] = previous; else data.studentRecords = data.studentRecords.filter(row => row.id !== id); showToast('학생부 내용을 저장하지 못했어요.'); return; }
+        studentRecordEditingId = null; renderStudentRecords(); form.reset(); closeModal(form); showToast(index >= 0 ? '학생부 내용을 수정했어요' : '학생부 내용을 추가했어요');
+      });
       $('#assessment-form').addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -1510,6 +1652,14 @@
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        const admissionFilter = e.target.closest('[data-admission-grade-filter]');
+        if (admissionFilter) { admissionGradeFilter = admissionFilter.dataset.admissionGradeFilter; renderAdmissionGrades(); renderStudentRecords(); return; }
+        const studentAdd = e.target.closest('[data-student-record-add]');
+        if (studentAdd) { const [grade, semester, subject] = studentAdd.dataset.studentRecordAdd.split('|'); openStudentRecordModal(null, grade, semester, subject); return; }
+        const studentEdit = e.target.closest('[data-student-record-edit]');
+        if (studentEdit) { const item = data.studentRecords.find(row => row.id === studentEdit.dataset.studentRecordEdit); if (item) openStudentRecordModal(item); return; }
+        const studentDelete = e.target.closest('[data-student-record-delete]');
+        if (studentDelete) { data.studentRecords = data.studentRecords.filter(row => row.id !== studentDelete.dataset.studentRecordDelete); save(); renderStudentRecords(); showToast('학생부 내용을 삭제했어요'); return; }
         const materialAdd = e.target.closest('[data-material-add-subject]');
         if (materialAdd) { openMaterialModal(null, materialAdd.dataset.materialAddSubject); return; }
         const materialEdit = e.target.closest('[data-material-edit]');
