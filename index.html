@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f5f5">
+  <meta name="theme-color" content="#f7f8fa">
   <title>온도 — 나의 학습 관리</title>
   <style>
     :root {
@@ -373,6 +373,246 @@
       .study-entry-actions { align-self:flex-end; }
     }
     @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } .calendar-day { min-height:67px; padding:4px 2px; } .calendar-date { width:22px; height:22px; font-size:10px; } .assessment-chip { font-size:7px; } .agenda-item { gap:8px; padding:10px 8px; } .agenda-date { min-width:46px; font-size:10px; } .assessment-status { font-size:8px; padding:4px 5px; } }
+    /* 온도 디자인 시스템: 모든 주요 여백과 간격은 8px 단위로 맞춘다. */
+    :root {
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 40px;
+      --space-6: 48px;
+      --bg: #f7f8fa;
+      --paper: #ffffff;
+      --ink: #191b1f;
+      --muted: #687078;
+      --line: #e8eaed;
+      --accent: #22252a;
+      --accent-soft: #f0f1f3;
+      --mint: #f0f1f3;
+      --green: #525962;
+      --orange: #f0f1f3;
+      --shadow: 0 8px 24px rgba(25, 27, 31, .025);
+      --radius: 16px;
+    }
+    html { -webkit-text-size-adjust: 100%; }
+    body { font-size: 14px; line-height: 1.5; letter-spacing: -.015em; }
+    button, input, select, textarea { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #4c5561; outline-offset: 3px; }
+    .app { min-height: 100dvh; }
+    .sidebar { position: sticky; top: 0; width: 256px; height: 100dvh; flex-basis: 256px; padding: 32px 16px 24px; border-color: var(--line); }
+    .brand { gap: 16px; margin: 0 8px 48px; font-size: 22px; line-height: 32px; letter-spacing: -.05em; }
+    .brand-mark { width: 40px; height: 40px; border-radius: 12px; box-shadow: none; }
+    .brand-mark svg { width: 24px; height: 24px; }
+    .nav-label { margin: 0 8px 8px; color: #90969d; font-size: 11px; line-height: 16px; letter-spacing: .08em; }
+    .admissions-label { margin-top: 24px; padding-top: 24px; }
+    .nav { gap: 8px; }
+    .nav-btn { height: 44px; gap: 16px; padding: 0 8px; border-radius: 10px; color: #626a72; font-size: 13px; font-weight: 600; }
+    .nav-btn svg { width: 20px; height: 20px; flex: 0 0 20px; stroke-width: 1.8; }
+    .nav-btn:hover { background: #f6f7f8; }
+    .nav-btn.active { background: #eff0f2; color: #191b1f; font-weight: 750; }
+    .sidebar-bottom { padding-top: 32px; }
+    .goal-box { padding: 16px; border: 1px solid #edf0f2; border-radius: 16px; background: #f8f9fa; }
+    .goal-title { font-size: 12px; }
+    .goal-box p { margin: 8px 0 16px; font-size: 12px; }
+    .progress-track { height: 8px; background: #e7e9ec; }
+    .user { gap: 16px; padding: 24px 8px 0; }
+    .avatar { width: 40px; height: 40px; background: #e9ebee; font-size: 14px; }
+    .user-name { font-size: 13px; }
+    .user-sub { margin-top: 8px; font-size: 11px; }
+    main { min-width: 0; padding: 0; background: var(--bg); }
+    .topbar { position: sticky; top: 0; z-index: 4; max-width: none; min-height: 80px; margin: 0; padding: 16px 40px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); backdrop-filter: blur(16px); }
+    .top-left { gap: 24px; }
+    .grade-switch { gap: 8px; padding: 8px; border-radius: 12px; background: #f5f6f7; }
+    .grade-btn { min-width: 44px; height: 32px; padding: 0 8px; border-radius: 8px; font-size: 12px; }
+    .grade-btn.active { box-shadow: none; }
+    .breadcrumb { color: #777f87; font-size: 12px; white-space: nowrap; }
+    .top-actions { gap: 8px; flex: 0 0 auto; }
+    .date-chip { padding: 0 16px; height: 40px; display: flex; align-items: center; border-radius: 10px; font-size: 12px; }
+    .primary-btn, .secondary-btn { min-height: 40px; padding: 0 16px; border-radius: 10px; font-size: 13px; font-weight: 700; box-shadow: none; white-space: nowrap; }
+    .primary-btn:hover { background: #343941; transform: none; }
+    .primary-btn svg { width: 16px; height: 16px; }
+    .secondary-btn { color: #414850; }
+    .secondary-btn:hover { background: #f8f9fa; }
+    .content { width: 100%; max-width: 1280px; padding: 40px; }
+    .page-heading { gap: 24px; align-items: center; margin-bottom: 24px; }
+    h1 { font-size: clamp(28px, 2.8vw, 34px); line-height: 1.25; letter-spacing: -.055em; font-weight: 800; }
+    .subtitle { margin: 8px 0 0; color: #69717a; font-size: 13px; line-height: 1.55; }
+    .week-picker { min-height: 40px; padding: 0 16px; border-radius: 10px; font-size: 12px; }
+    .stats-grid { gap: 16px; margin-bottom: 16px; }
+    .stat-card, .panel, .subject-card, .semester-panel { border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); }
+    .stat-card { min-height: 152px; padding: 24px; }
+    .stat-top { font-size: 12px; font-weight: 600; }
+    .stat-icon, .stat-icon.mint, .stat-icon.orange, .stat-icon.blue { width: 36px; height: 36px; border-radius: 10px; color: #57606a; background: #f3f4f6; }
+    .stat-icon svg { width: 18px; height: 18px; }
+    .stat-value { margin-top: 16px; font-size: 28px; line-height: 32px; letter-spacing: -.06em; font-weight: 800; }
+    .stat-note { margin-top: 8px; color: #89919a; font-size: 11px; }
+    .dday-card { min-height: 112px; margin-bottom: 24px; padding: 24px 32px; gap: 24px; border-color: var(--line); border-radius: 16px; background: #fff; box-shadow: var(--shadow); }
+    .dday-title { color: #777f87; font-size: 11px; }
+    .dday-name { margin-top: 8px; font-size: 18px; line-height: 24px; }
+    .dday-date { margin-top: 8px; color: #89919a; font-size: 12px; }
+    .dday-count { font-size: 36px; letter-spacing: -.06em; }
+    .main-grid { grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr); gap: 24px; }
+    .column { gap: 24px; }
+    .panel { padding: 24px; }
+    .panel-head { gap: 16px; margin-bottom: 24px; }
+    .panel-title { font-size: 17px; line-height: 24px; letter-spacing: -.035em; }
+    .panel-subtitle { margin: 8px 0 0; color: #838b93; font-size: 12px; line-height: 16px; }
+    .link-btn { padding: 8px; font-size: 12px; }
+    .week-chart { height: 176px; padding: 8px 0 0; gap: 16px; }
+    .day-column { gap: 8px; }
+    .bar-wrap { height: 128px; }
+    .day-label { font-size: 11px; }
+    .task-list, .assessment-agenda, .report-list, .club-list, .academy-list, .scope-list, .material-list { gap: 8px; }
+    .task-item, .agenda-item, .report-item, .club-item, .academy-item, .study-entry { gap: 16px; padding: 16px; border-color: #edf0f2; border-radius: 12px; }
+    .task-name, .agenda-title, .report-title, .club-title, .academy-item-title, .study-entry-title { font-size: 13px; line-height: 20px; }
+    .task-meta, .agenda-subject, .report-category, .club-meta, .academy-item-meta, .study-entry-meta { margin-top: 8px; gap: 8px; font-size: 11px; }
+    .check-btn, .club-check { width: 20px; height: 20px; border-radius: 6px; }
+    .task-duration, .subject-hours { font-size: 11px; }
+    .empty-state { padding: 32px 24px; border-radius: 12px; font-size: 13px; line-height: 1.6; }
+    .empty-state .empty-icon { width: 40px; height: 40px; margin-bottom: 16px; }
+    .subject-list { gap: 16px; }
+    .subject-row { gap: 16px; }
+    .subject-name { font-size: 12px; }
+    .subject-progress { margin-top: 8px; }
+    .timer-panel { padding: 24px; border-color: #22252a; background: #22252a; }
+    .timer-panel::after { width: 192px; height: 192px; right: -96px; top: -96px; background: #ffffff09; }
+    .timer-panel .panel-subtitle { color: #aab0b7; }
+    .timer-inner { gap: 16px; }
+    .timer-display { font-size: 36px; letter-spacing: -.04em; }
+    .timer-state { margin-top: 8px; font-size: 12px; }
+    .timer-subject { max-width: 220px; min-height: 36px; margin-top: 16px; padding: 0 8px; font-size: 12px; }
+    .timer-btn { width: 48px; height: 48px; background: #434a53; }
+    .timer-btn:hover { background: #58616d; }
+    .screen-section, .assessment-detail-panel, .report-detail-panel { margin-top: 24px; }
+    .planner-toolbar, .semester-toolbar, .club-filters, .admissions-filters { gap: 8px; margin-bottom: 16px; }
+    .semester-toolbar { margin-top: 0; }
+    .semester-label { font-size: 12px; }
+    .semester-badge { padding: 8px; font-size: 11px; }
+    .filter-btn, .club-filter { min-height: 36px; padding: 0 16px; border-radius: 8px; font-size: 12px; font-weight: 650; }
+    .filter-btn.active, .club-filter.active { color: #fff; background: #22252a; border-color: #22252a; }
+    .subject-grid { gap: 16px; }
+    .subject-card { padding: 24px; }
+    .subject-card-top { gap: 16px; }
+    .subject-card h3 { font-size: 14px; }
+    .subject-card p { margin: 16px 0 8px; font-size: 12px; }
+    .calendar-toolbar { gap: 16px; margin-bottom: 24px; }
+    .calendar-month-nav { gap: 8px; }
+    .calendar-month { min-width: 128px; font-size: 17px; }
+    .calendar-nav-btn { width: 40px; height: 40px; border-radius: 10px; }
+    .calendar-reset { min-height: 40px; padding: 0 8px; font-size: 12px; }
+    .assessment-calendar { border-radius: 12px; }
+    .calendar-weekday { padding: 8px; font-size: 11px; }
+    .calendar-day { min-height: 112px; padding: 8px; }
+    .calendar-date { width: 28px; height: 28px; font-size: 12px; }
+    .calendar-events { gap: 8px; margin-top: 8px; }
+    .assessment-chip { padding: 8px; border-radius: 6px; font-size: 10px; }
+    .assessment-detail-head, .report-detail-head { gap: 16px; margin-bottom: 24px; }
+    .assessment-detail-head h2, .report-detail-head h3 { font-size: 19px; }
+    .assessment-detail-grid { gap: 16px; }
+    .assessment-detail-block, .report-detail-body { padding: 16px; border-radius: 12px; }
+    .assessment-detail-label { margin-bottom: 8px; font-size: 11px; }
+    .assessment-detail-copy, .report-detail-body { font-size: 13px; }
+    .assessment-file-list { gap: 8px; margin-top: 8px; }
+    .assessment-file-link, .assessment-file-draft { gap: 8px; padding: 8px 16px; font-size: 12px; }
+    .assessment-file-meta, .assessment-file-empty, .assessment-file-hint { font-size: 11px; }
+    .extra-tabs { gap: 8px; margin-bottom: 24px; padding: 8px; border-radius: 12px; }
+    .extra-tab { min-height: 40px; padding: 0 16px; font-size: 13px; }
+    .report-filters { gap: 16px; }
+    .report-detail-head p, .report-detail-deadline, .club-description, .academy-item-notes, .study-entry-body { font-size: 12px; }
+    .small-action { min-height: 36px; padding: 0 16px; font-size: 11px; }
+    .academy-schedule { gap: 16px; }
+    .academy-day { padding: 24px; border-radius: 12px; }
+    .academy-day strong { font-size: 14px; }
+    .academy-day span { margin-top: 8px; font-size: 12px; }
+    .daily-song { width: min(100%, 480px); min-height: 64px; margin: 0 auto 24px; padding: 8px 8px 8px 16px; gap: 16px; background: #22252a; box-shadow: 0 8px 24px #191b1f20; }
+    .daily-song-icon { width: 32px; height: 32px; }
+    .daily-song-label { font-size: 10px; }
+    .daily-song-title { margin-top: 8px; font-size: 13px; }
+    .daily-song-open, .daily-song-edit { height: 40px; padding: 0 16px; font-size: 12px; }
+    .daily-song-edit { width: 40px; padding: 0; font-size: 20px; }
+    .study-entry-actions { gap: 8px; }
+    .material-subject { margin: 24px 0 8px; font-size: 14px; }
+    .admission-summary { padding: 32px; margin-bottom: 24px; border-radius: 16px; background: #22252a; }
+    .admission-summary-label { font-size: 12px; }
+    .admission-summary-value { margin-top: 8px; font-size: 36px; }
+    .admission-summary-note { margin-top: 8px; font-size: 12px; }
+    .semester-panels { gap: 24px; }
+    .semester-panel { padding: 24px; }
+    .semester-panel-head { gap: 16px; margin-bottom: 24px; }
+    .semester-panel-head h2 { font-size: 18px; }
+    .semester-average { font-size: 13px; }
+    .score-list, .student-subject-list { gap: 8px; }
+    .score-row, .student-subject-row { gap: 16px; padding: 16px; border-radius: 10px; }
+    .score-row label, .student-subject-name { font-size: 13px; }
+    .score-select { min-width: 96px; min-height: 40px; padding: 0 8px; font-size: 12px; }
+    .semester-count { margin-top: 16px; font-size: 11px; }
+    .student-entry-list { gap: 8px; }
+    .student-entry { padding: 16px; border-radius: 10px; }
+    .student-entry-head { gap: 8px; }
+    .student-entry-title { font-size: 13px; }
+    .student-entry-text { margin-top: 8px; font-size: 12px; }
+    .student-entry-note { margin-top: 8px; font-size: 11px; }
+    .modal-backdrop { padding: 24px; background: #15171b80; backdrop-filter: blur(8px); }
+    .modal { width: min(100%, 480px); max-height: calc(100dvh - 48px); padding: 32px; border-radius: 20px; box-shadow: 0 32px 80px #17191e30; }
+    .modal-head { gap: 16px; margin-bottom: 24px; }
+    .modal-head h2 { font-size: 20px; }
+    .close-btn { width: 40px; height: 40px; border-radius: 10px; }
+    .form-grid { gap: 16px; }
+    .form-row { gap: 16px; }
+    .field label { margin-bottom: 8px; color: #505861; font-size: 12px; }
+    .field input, .field select, .field textarea { min-height: 44px; padding: 16px; border-radius: 10px; color: var(--ink); font-size: 14px; }
+    .field textarea { line-height: 1.55; }
+    .form-actions { gap: 8px; margin-top: 8px; }
+    .toast { bottom: 24px; padding: 16px; border-radius: 10px; font-size: 12px; }
+    .sync-help { padding: 16px; border-radius: 10px; font-size: 12px; }
+    .sync-account { gap: 8px; padding: 16px; font-size: 12px; }
+    .sync-actions { gap: 8px; }
+    @media (max-width: 1100px) {
+      .sidebar { width: 224px; flex-basis: 224px; }
+      .topbar { padding: 16px 24px; }
+      .content { padding: 32px 24px; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .main-grid { grid-template-columns: 1fr; }
+      .score-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 740px) {
+      .app { padding-bottom: 72px; }
+      .sidebar { position: fixed; top: auto; bottom: 0; z-index: 5; width: 100%; height: 72px; padding: 8px 16px; border: 0; border-top: 1px solid var(--line); box-shadow: 0 -8px 24px #191b1f0a; }
+      .nav { gap: 8px; }
+      .admissions-nav { margin-left: 16px; padding-left: 16px; }
+      .nav-btn { min-width: 72px; height: 56px; gap: 8px; padding: 8px; border-radius: 10px; font-size: 10px; }
+      .nav-btn svg { width: 20px; height: 20px; flex-basis: 20px; }
+      .topbar { min-height: 64px; padding: 16px; }
+      .top-left { gap: 8px; }
+      .top-actions { gap: 8px; }
+      .top-actions .secondary-btn, .top-actions .primary-btn { min-height: 40px; padding: 0 16px; font-size: 12px; }
+      .content { padding: 32px 16px 96px; }
+      .page-heading { gap: 16px; align-items: flex-start; }
+      h1 { font-size: 28px; }
+      .stat-card { padding: 24px; }
+      .dday-card { padding: 24px; }
+      .calendar-day { min-height: 80px; padding: 8px 0; }
+      .calendar-weekday { padding: 8px 0; font-size: 10px; }
+      .assessment-chip { padding: 8px 0; font-size: 9px; }
+      .score-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 430px) {
+      .stats-grid { gap: 8px; }
+      .stat-card { min-height: 136px; padding: 16px; }
+      .stat-top { font-size: 11px; }
+      .stat-value { font-size: 24px; }
+      .panel, .semester-panel { padding: 16px; }
+      .subject-card { padding: 16px; }
+      .dday-card { padding: 24px 16px; }
+      .dday-count { font-size: 28px; }
+      .modal-backdrop { padding: 16px; }
+      .modal { max-height: calc(100dvh - 32px); padding: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .calendar-day { min-height: 64px; padding: 8px 0; }
+      .calendar-date { width: 24px; height: 24px; }
+      .assessment-chip { font-size: 8px; }
+      .agenda-item { padding: 16px 8px; }
+    }
   </style>
 </head>
 <body>
@@ -462,7 +702,7 @@
         </section>
         <section class="screen" id="screen-exam-scopes"><div class="page-heading"><div><h1 id="exam-scopes-title">고1 시험범위</h1><p class="subtitle">과목별 시험 범위를 기록하고 공부 완료를 표시해요.</p></div><button class="primary-btn" id="add-exam-scope">범위 추가</button></div><section class="panel"><div class="scope-list" id="exam-scope-list"></div></section></section>
         <section class="screen" id="screen-materials"><div class="page-heading"><div><h1 id="materials-title">교재 및 학습 자료</h1><p class="subtitle">학년·학기·과목별로 교재, PDF와 학습 자료를 모아둬요.</p></div><button class="primary-btn" id="add-material">자료 추가</button></div><section class="panel"><div class="material-list" id="material-list"></div></section></section>
-        <section class="screen" id="screen-admission-grades"><div class="page-heading"><div><h1>교과 성적 입력</h1><p class="subtitle">고1~고3 1학기 성적을 한곳에서 관리해요. 고3 2학기는 계산에서 제외해요.</p></div></div><div class="admissions-filters" id="admission-grade-filters" aria-label="학년별 성적 보기"></div><section class="admission-summary" aria-label="평균 내신"><div class="admission-summary-label">전체 평균 내신</div><div class="admission-summary-value" id="admission-average">—</div><div class="admission-summary-note" id="admission-average-note">입력한 과목만 단순 평균으로 계산해요.</div></section><div class="semester-panels" id="admission-grade-panels"></div></section>
+        <section class="screen" id="screen-admission-grades"><div class="page-heading"><div><h1>교과 성적 입력</h1><p class="subtitle">고1~고3 성적을 한곳에서 관리해요. 고3 2학기는 계산에서 제외해요.</p></div></div><div class="admissions-filters" id="admission-grade-filters" aria-label="학년별 성적 보기"></div><section class="admission-summary" aria-label="평균 내신"><div class="admission-summary-label">전체 평균 내신</div><div class="admission-summary-value" id="admission-average">—</div><div class="admission-summary-note" id="admission-average-note">입력한 과목만 단순 평균으로 계산해요.</div></section><div class="semester-panels" id="admission-grade-panels"></div></section>
         <section class="screen" id="screen-student-records"><div class="page-heading"><div><h1>학생부 입력</h1><p class="subtitle">학년·학기·과목별 학생부 내용을 기록하고 면접 준비 메모를 남겨요.</p></div><button class="primary-btn" id="add-student-record">학생부 내용 추가</button></div><div class="admissions-filters" id="student-record-grade-filters" aria-label="학년별 학생부 보기"></div><div class="semester-panels" id="student-record-panels"></div></section>
       </div>
     </main>
