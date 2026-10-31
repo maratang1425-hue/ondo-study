@@ -1,0 +1,45 @@
+name: Update school dashboard and deploy
+
+on:
+  push:
+    branches: [main]
+    paths: [index.html, scripts/update-school-data.mjs, .github/workflows/school-pages.yml]
+  workflow_dispatch:
+  schedule:
+    - cron: '17,47 20-23,0-12 * * *'
+    - cron: '7 15 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ondo-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/configure-pages@v5
+      - name: Prepare site and fetch public school data
+        run: |
+          mkdir -p _site
+          cp index.html _site/index.html
+          node --input-type=module -e "import { buildSchoolData } from './scripts/update-school-data.mjs'; await buildSchoolData();"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
