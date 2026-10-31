@@ -269,6 +269,7 @@
     .sync-help a { color:var(--accent); }
     .sync-account { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 13px; border:1px solid var(--line); border-radius:10px; color:#555b6e; font-size:11px; }
     .sync-actions { display:flex; flex-wrap:wrap; gap:8px; }
+    .sync-account[hidden], .sync-actions[hidden], .field[hidden] { display:none !important; }
     .sync-actions .primary-btn,.sync-actions .secondary-btn { flex:1; }
     @media (max-width: 1000px) { .sidebar { width:205px; flex-basis:205px; } main { padding-left:25px; padding-right:25px; } .stats-grid { grid-template-columns:repeat(2, minmax(0,1fr)); } }
     @media (max-width: 740px) {

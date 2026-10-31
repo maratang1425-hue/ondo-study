@@ -20,7 +20,7 @@
 
 ## 맥과 iPad 동기화 설정
 
-Supabase 무료 프로젝트 하나를 만들고 아래 과정을 한 번 진행합니다.
+Supabase 프로젝트 하나를 만들고 아래 과정을 한 번 진행합니다.
 
 1. [Supabase](https://supabase.com/dashboard)에서 프로젝트를 만듭니다.
 2. 프로젝트의 **SQL Editor**에서 이 저장소의 `supabase-setup.sql` 내용을 실행합니다. 개인 학습 데이터 테이블, 비공개 첨부파일 저장소와 사용자별 접근 정책이 만들어집니다.
