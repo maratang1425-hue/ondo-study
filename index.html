@@ -567,6 +567,13 @@
     .sync-help { padding: 16px; border-radius: 10px; font-size: 12px; }
     .sync-account { gap: 8px; padding: 16px; font-size: 12px; }
     .sync-actions { gap: 8px; }
+    #admissions-lock-now[hidden] { display: none; }
+    .admissions-lock-icon { width: 48px; height: 48px; margin-bottom: 16px; display: grid; place-items: center; border-radius: 16px; background: var(--accent-soft); }
+    .admissions-lock-icon svg { width: 24px; height: 24px; }
+    .admissions-lock-copy { margin: 0 0 24px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .field input.admissions-passcode { text-align: center; font-size: 24px; letter-spacing: .5em; }
+    .admissions-lock-error { min-height: 24px; margin: 0; color: #b42318; font-size: 12px; }
+    .admissions-lock-note { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
     @media (max-width: 1100px) {
       .sidebar { width: 224px; flex-basis: 224px; }
       .topbar { padding: 16px 24px; }
@@ -647,7 +654,7 @@
       </div>
     </aside>
     <main>
-      <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb"><span id="crumb-space">나의 학습 공간</span> <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="secondary-btn" id="sync-open"><span id="sync-button-label">동기화</span></button><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
+      <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb"><span id="crumb-space">나의 학습 공간</span> <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="secondary-btn" id="admissions-lock-now" aria-label="입시 공간 다시 잠그기" hidden>잠그기</button><button class="secondary-btn" id="sync-open"><span id="sync-button-label">동기화</span></button><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
       <div class="content">
         <section class="screen active" id="screen-home">
           <div class="page-heading"><div><h1 id="page-title">고1 대시보드</h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="week-picker" id="week-label">이번 주</button></div>
@@ -724,6 +731,7 @@
   <div class="modal-backdrop" id="song-modal" role="dialog" aria-modal="true" aria-labelledby="song-modal-title"><form class="modal" id="song-form"><div class="modal-head"><h2 id="song-modal-title">오노추에 노래 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">소녀시대, 블랙핑크, 로제, 제니, 지수, 태연, 태티서 노래만 추천해요. 등록한 노래가 있으면 그중에서 날짜별로 한 곡씩 표시돼요.</div><div class="field"><label for="song-title">노래 제목</label><input id="song-title" name="title" maxlength="100" required></div><div class="field"><label for="song-artist">가수</label><select id="song-artist" name="artist"><option>소녀시대</option><option>블랙핑크</option><option>로제</option><option>제니</option><option>지수</option><option>태연</option><option>태티서</option></select></div><div class="field"><label for="song-url">YouTube Music 공유 링크</label><input id="song-url" name="url" type="url" placeholder="https://music.youtube.com/watch?v=..." required></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="song-save">노래 저장</button></div><div class="assessment-file-list" id="song-list"></div></div></form></div>
   <div class="modal-backdrop" id="student-record-modal" role="dialog" aria-modal="true" aria-labelledby="student-record-modal-title"><form class="modal" id="student-record-form"><div class="modal-head"><h2 id="student-record-modal-title">학생부 내용 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="form-row"><div class="field"><label for="student-record-grade">학년</label><select id="student-record-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="student-record-semester">학기</label><select id="student-record-semester" name="semester"></select></div></div><div class="field"><label for="student-record-subject">과목</label><select id="student-record-subject" name="subject"></select></div><div class="field"><label for="student-record-title">기록 제목</label><input id="student-record-title" name="title" maxlength="100" placeholder="예: 탐구 활동과 배운 점" required></div><div class="field"><label for="student-record-content">학생부 내용</label><textarea id="student-record-content" name="content" rows="7" maxlength="8000" placeholder="학생부에 적힌 내용이나 활동 기록을 입력해 주세요." required></textarea></div><div class="field"><label for="student-record-interview">면접 대비 메모 (선택)</label><textarea id="student-record-interview" name="interviewNotes" rows="4" maxlength="3000" placeholder="활동 동기, 내가 맡은 역할, 배운 점과 예상 질문을 적어두세요."></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="student-record-save">학생부 내용 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
+  <div class="modal-backdrop" id="admissions-unlock-modal" role="dialog" aria-modal="true" aria-labelledby="admissions-unlock-title" aria-describedby="admissions-unlock-copy"><form class="modal" id="admissions-unlock-form" autocomplete="off"><div class="modal-head"><h2 id="admissions-unlock-title">입시 공간 잠금 해제</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="admissions-lock-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></div><p class="admissions-lock-copy" id="admissions-unlock-copy">교과 성적과 학생부를 보려면 4자리 암호 코드를 입력해 주세요.</p><div class="form-grid"><div class="field"><label for="admissions-passcode">암호 코드</label><input class="admissions-passcode" id="admissions-passcode" name="passcode" type="password" inputmode="numeric" pattern="[0-9]{4}" minlength="4" maxlength="4" autocomplete="off" required aria-describedby="admissions-unlock-error"></div><p class="admissions-lock-error" id="admissions-unlock-error" role="alert"></p><p class="admissions-lock-note">입시 공간을 나가거나 새로고침하면 자동으로 잠겨요.</p><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="admissions-unlock-submit">잠금 해제</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
@@ -732,6 +740,7 @@
       const LEGACY_STORAGE_KEY = 'ondo-study-v1';
       const ATTACHMENT_DB = 'ondo-study-assessment-files-v1';
       const TIMER_MINUTES = 70;
+      const ADMISSIONS_PASSCODE_DIGEST = '091943436a6273fb665375735e716ba2d5c12fac19c232df2e27e5e023735a81';
       const DDAY_DATE = '2026-12-07';
       const colors = ['#404040', '#5c5c5c', '#747474', '#8e8e8e', '#a5a5a5', '#bdbdbd'];
       const clubCategories = [
@@ -848,6 +857,12 @@
       let activeSemester = 'all';
       let screen = 'home';
       let admissionGradeFilter = 'all';
+      let admissionsUnlocked = false;
+      let pendingAdmissionScreen = 'admission-grades';
+      let admissionUnlocking = false;
+      let admissionLockVersion = 0;
+      let admissionFailedAttempts = 0;
+      let admissionRetryAfter = 0;
       let studentRecordEditingId = null;
       let taskFilter = 'all';
       let timerSeconds = TIMER_MINUTES * 60;
@@ -1453,8 +1468,35 @@
         return [{ id:'all', label:'전체' }, { id:'1', label:'고1' }, { id:'2', label:'고2' }, { id:'3', label:'고3' }].map(item => `<button class="filter-btn ${admissionGradeFilter === item.id ? 'active' : ''}" data-admission-grade-filter="${item.id}" aria-pressed="${admissionGradeFilter === item.id}">${item.label}</button>`).join('');
       }
       function visibleAdmissionTerms() { return admissionTerms.filter(term => admissionGradeFilter === 'all' || term.grade === admissionGradeFilter); }
+      function isAdmissionScreen(id) { return id === 'admission-grades' || id === 'student-records'; }
+      function requestAdmissionAccess(id) {
+        pendingAdmissionScreen = id;
+        admissionLockVersion++;
+        $('#admissions-unlock-form').reset();
+        $('#admissions-unlock-error').textContent = '';
+        $('#admissions-passcode').removeAttribute('aria-invalid');
+        openModal('admissions-unlock-modal');
+      }
+      function lockAdmissions(redirect = true) {
+        admissionsUnlocked = false;
+        closeModal($('#admissions-unlock-modal'));
+        $('#student-record-form').reset();
+        $('#student-record-modal').classList.remove('open');
+        studentRecordEditingId = null;
+        renderAdmissionGrades();
+        renderStudentRecords();
+        if (redirect && isAdmissionScreen(screen)) setScreen('home');
+        else updateSpaceHeader();
+      }
       function gradeAverage(rows) { return rows.length ? (rows.reduce((sum, item) => sum + Number(item.score), 0) / rows.length).toFixed(2) : '—'; }
       function renderAdmissionGrades() {
+        if (!admissionsUnlocked) {
+          $('#admission-grade-filters').innerHTML = '';
+          $('#admission-grade-panels').innerHTML = '';
+          $('#admission-average').textContent = '—';
+          $('#admission-average-note').textContent = '잠금 해제 후 성적을 확인할 수 있어요.';
+          return;
+        }
         $('#admission-grade-filters').innerHTML = admissionFilterMarkup();
         $('#admission-average').textContent = data.courseGrades.length ? `${gradeAverage(data.courseGrades)}등급` : '—';
         $('#admission-average-note').textContent = data.courseGrades.length ? `입력한 ${data.courseGrades.length}과목만 단순 평균 · 고3 2학기 제외` : '입력한 과목만 단순 평균으로 계산해요.';
@@ -1471,6 +1513,11 @@
         }).join('');
       }
       function renderStudentRecords() {
+        if (!admissionsUnlocked) {
+          $('#student-record-grade-filters').innerHTML = '';
+          $('#student-record-panels').innerHTML = '';
+          return;
+        }
         $('#student-record-grade-filters').innerHTML = admissionFilterMarkup();
         $('#student-record-panels').innerHTML = visibleAdmissionTerms().map(term => {
           const count = data.studentRecords.filter(item => item.grade === term.grade && item.semester === term.semester).length;
@@ -1493,6 +1540,7 @@
         form.elements.subject.value = selectedTerm.subjects.includes(subject) ? subject : selectedTerm.subjects[0];
       }
       function openStudentRecordModal(item = null, grade = activeGrade, semester = '1학기', subject = '') {
+        if (!admissionsUnlocked) { requestAdmissionAccess('student-records'); return; }
         const form = $('#student-record-form'); form.reset(); studentRecordEditingId = item?.id || null;
         $('#student-record-modal-title').textContent = item ? '학생부 내용 수정' : '학생부 내용 추가';
         $('#student-record-save').textContent = item ? '수정 내용 저장' : '학생부 내용 저장';
@@ -1625,12 +1673,13 @@
         $('#crumb-space').textContent = admissions ? '입시 공간' : '나의 학습 공간';
         $('#crumb-grade').textContent = admissions ? '고1~고3' : gradeConfigs[activeGrade].label;
         $('#add-task-top').hidden = admissions;
+        $('#admissions-lock-now').hidden = !admissions || !admissionsUnlocked;
       }
       function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderAdmissionGrades(); renderStudentRecords(); updateSpaceHeader(); }
-      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'student-records') renderStudentRecords(); }
+      function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'student-records') renderStudentRecords(); }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
-      function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
+      function closeModal(el) { const backdrop = el.closest('.modal-backdrop'); backdrop.classList.remove('open'); if (backdrop.id === 'admissions-unlock-modal') { admissionLockVersion++; $('#admissions-unlock-form').reset(); $('#admissions-unlock-error').textContent = ''; $('#admissions-passcode').removeAttribute('aria-invalid'); } }
       function openAssessmentModal(item = null) {
         const form = $('#assessment-form'); form.reset(); assessmentEditingId = item?.id || null;
         assessmentDraftFiles = [];
@@ -1709,6 +1758,7 @@
         } catch (error) { setSyncStatus(error.message || '계정을 만들지 못했어요.', 'error'); }
       });
       $('#sync-signout').addEventListener('click', async () => {
+        lockAdmissions();
         try { const { error } = await cloudClient?.auth.signOut() || {}; if (error) throw error; cloudSession = null; cloudInitializedUser = null; renderSyncControls(); setSyncStatus('로그아웃했어요. 이 브라우저의 자료는 그대로 남아 있어요.', 'connected'); }
         catch (error) { setSyncStatus(error.message || '로그아웃하지 못했어요.', 'error'); }
       });
@@ -1720,6 +1770,47 @@
         } catch (error) { setSyncStatus(error.message, 'error'); }
       }
       window.addEventListener('focus', () => { if (document.visibilityState === 'visible') pullCloudData(); });
+      window.addEventListener('pagehide', () => lockAdmissions());
+      $('#admissions-lock-now').addEventListener('click', () => { lockAdmissions(); showToast('입시 공간을 잠갔어요'); });
+      $('#admissions-passcode').addEventListener('input', e => { e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4); e.target.removeAttribute('aria-invalid'); $('#admissions-unlock-error').textContent = ''; });
+      $('#admissions-unlock-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        if (admissionUnlocking) return;
+        const input = $('#admissions-passcode');
+        const error = $('#admissions-unlock-error');
+        if (Date.now() < admissionRetryAfter) { error.textContent = `${Math.ceil((admissionRetryAfter - Date.now()) / 1000)}초 후 다시 입력해 주세요.`; return; }
+        if (!/^[0-9]{4}$/.test(input.value)) { error.textContent = '숫자 4자리를 입력해 주세요.'; input.setAttribute('aria-invalid', 'true'); return; }
+        const version = admissionLockVersion;
+        const target = pendingAdmissionScreen;
+        admissionUnlocking = true;
+        $('#admissions-unlock-submit').disabled = true;
+        try {
+          const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input.value));
+          const actual = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+          if (version !== admissionLockVersion || !$('#admissions-unlock-modal').classList.contains('open')) return;
+          if (actual !== ADMISSIONS_PASSCODE_DIGEST) {
+            admissionFailedAttempts++;
+            if (admissionFailedAttempts >= 5) { admissionFailedAttempts = 0; admissionRetryAfter = Date.now() + 30000; error.textContent = '암호가 여러 번 틀렸어요. 30초 후 다시 입력해 주세요.'; }
+            else error.textContent = '암호 코드가 맞지 않아요. 다시 입력해 주세요.';
+            input.value = ''; input.setAttribute('aria-invalid', 'true'); input.focus();
+            return;
+          }
+          admissionFailedAttempts = 0; admissionRetryAfter = 0;
+          admissionsUnlocked = true;
+          closeModal($('#admissions-unlock-form'));
+          setScreen(target);
+          showToast('입시 공간 잠금을 해제했어요');
+        } catch {
+          error.textContent = '잠금을 해제하지 못했어요. 페이지를 새로고침해 주세요.';
+        } finally { admissionUnlocking = false; $('#admissions-unlock-submit').disabled = false; }
+      });
+      $('#admissions-unlock-modal').addEventListener('keydown', e => {
+        if (e.key !== 'Tab') return;
+        const controls = Array.from(e.currentTarget.querySelectorAll('button:not([disabled]), input'));
+        const first = controls[0], last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
       $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.screen)));
       $$('[data-goto]').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.goto)));
       $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
@@ -1736,6 +1827,7 @@
       $('#student-record-grade').addEventListener('change', e => populateStudentRecordChoices(e.target.value, '1학기'));
       $('#student-record-semester').addEventListener('change', e => populateStudentRecordChoices($('#student-record-grade').value, e.target.value));
       $('#admission-grade-panels').addEventListener('change', e => {
+        if (!admissionsUnlocked) { requestAdmissionAccess('admission-grades'); return; }
         const input = e.target.closest('[data-course-score]'); if (!input) return;
         const [grade, semester, subject] = input.dataset.courseScore.split('|');
         if (!admissionTerms.some(term => term.grade === grade && term.semester === semester && term.subjects.includes(subject))) return;
@@ -1760,7 +1852,7 @@
         renderAssessmentDraftFiles();
       });
       $$('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn)));
-      $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); }));
+      $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(backdrop); }));
       $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; gradeData.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
       $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; const semester = String(f.get('semester') || gradeConfigs[activeGrade].period); gradeData.subjects.push({ id: uid(), name, semester, goal: Number(f.get('goal')), color: colors[gradeData.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
       $('#report-form').addEventListener('submit', e => {
@@ -1861,7 +1953,7 @@
         songEditingId = null; renderDailySong(); form.reset(); $('#song-modal-title').textContent = '오노추에 노래 추가'; $('#song-save').textContent = '노래 저장'; showToast(index >= 0 ? '노래를 수정했어요' : '노래를 추가했어요');
       });
       $('#student-record-form').addEventListener('submit', e => {
-        e.preventDefault(); const form = e.currentTarget; const fields = new FormData(form);
+        e.preventDefault(); if (!admissionsUnlocked) { requestAdmissionAccess('student-records'); return; } const form = e.currentTarget; const fields = new FormData(form);
         const grade = String(fields.get('grade') || ''); const semester = String(fields.get('semester') || ''); const subject = String(fields.get('subject') || '');
         const title = String(fields.get('title') || '').trim(); const content = String(fields.get('content') || '').trim();
         if (!title || !content || !admissionTerms.some(term => term.grade === grade && term.semester === semester && term.subjects.includes(subject))) { showToast('학년·학기·과목과 내용을 확인해 주세요.'); return; }
@@ -1898,6 +1990,7 @@
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        if (!admissionsUnlocked && e.target.closest('[data-admission-grade-filter], [data-student-record-add], [data-student-record-edit], [data-student-record-delete]')) { requestAdmissionAccess('student-records'); return; }
         const admissionFilter = e.target.closest('[data-admission-grade-filter]');
         if (admissionFilter) { admissionGradeFilter = admissionFilter.dataset.admissionGradeFilter; renderAdmissionGrades(); renderStudentRecords(); return; }
         const studentAdd = e.target.closest('[data-student-record-add]');
@@ -1972,7 +2065,7 @@
       $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
       $('#timer-toggle').addEventListener('click', toggleTimer);
       $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => el.classList.remove('open')); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => closeModal(el)); });
       window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
       render(); scheduleAssessmentExpiry(); scheduleExtrasRefresh();
     })();
