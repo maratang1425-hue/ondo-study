@@ -278,7 +278,7 @@
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">오늘의 학습 계획</h2><p class="panel-subtitle" id="today-task-subtitle">오늘 할 일을 하나씩 완료해봐요</p></div><button class="link-btn" data-goto="planner">전체 계획 →</button></div><div class="task-list" id="today-tasks"></div></section>
             </div>
             <div class="column">
-              <section class="panel timer-panel"><div class="panel-head"><div><h2 class="panel-title">집중 타이머</h2><p class="panel-subtitle">짧게 몰입하고, 기록으로 남겨요</p></div></div><div class="timer-inner"><div><div class="timer-display" id="timer-display">25:00</div><div class="timer-state" id="timer-state">포모도로 · 25분</div><select class="timer-subject" id="timer-subject" aria-label="집중 과목"></select></div><button class="timer-btn" id="timer-toggle" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></div></section>
+              <section class="panel timer-panel"><div class="panel-head"><div><h2 class="panel-title">집중 타이머</h2><p class="panel-subtitle">짧게 몰입하고, 기록으로 남겨요</p></div></div><div class="timer-inner"><div><div class="timer-display" id="timer-display">01:10:00</div><div class="timer-state" id="timer-state">포모도로 · 1시간 10분</div><select class="timer-subject" id="timer-subject" aria-label="집중 과목"></select></div><button class="timer-btn" id="timer-toggle" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></div></section>
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">과목별 학습</h2><p class="panel-subtitle">이번 주 공부 시간</p></div><button class="link-btn" data-goto="subjects">관리 →</button></div><div class="subject-list" id="subject-summary"></div></section>
             </div>
           </div>
@@ -304,6 +304,7 @@
       const STORAGE_KEY = 'ondo-study-v2';
       const LEGACY_STORAGE_KEY = 'ondo-study-v1';
       const ATTACHMENT_DB = 'ondo-study-assessment-files-v1';
+      const TIMER_MINUTES = 70;
       const colors = ['#7568ed', '#f0a65b', '#41ad91', '#5b9bdb', '#e57991', '#b175d1'];
       const today = new Date();
       const localDate = (date) => { const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
@@ -392,7 +393,7 @@
       let activeSemester = 'all';
       let screen = 'home';
       let taskFilter = 'all';
-      let timerSeconds = 25 * 60;
+      let timerSeconds = TIMER_MINUTES * 60;
       let timerRunning = false;
       let timerInterval = null;
       let timerSubject = null;
@@ -649,13 +650,13 @@
         renderAssessmentDraftFiles();
         openModal('assessment-modal');
       }
-      function updateTimerDisplay() { const m = Math.floor(timerSeconds / 60); const s = timerSeconds % 60; $('#timer-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+      function updateTimerDisplay() { const h = Math.floor(timerSeconds / 3600); const m = Math.floor((timerSeconds % 3600) / 60); const s = timerSeconds % 60; $('#timer-display').textContent = h ? `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}` : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
       function toggleTimer() {
         if (timerRunning) { clearInterval(timerInterval); timerRunning = false; $('#timer-state').textContent = '일시 정지됨'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 시작'); return; }
         if (!timerSubject && gradeData.subjects.length) { timerSubject = gradeData.subjects[0].id; }
         timerGrade = activeGrade; timerSessionSubject = timerSubject;
         timerRunning = true; $('#timer-state').textContent = `집중 중 · ${subjectName(timerSubject || '')}`; $('#timer-icon').innerHTML = '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 일시 정지');
-        timerInterval = setInterval(() => { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false; const mins = 25; const now = localDate(new Date()); data.grades[timerGrade].sessions.push({ id: uid(), date: now, minutes: mins, subject: timerSessionSubject }); save(); timerSeconds = 25 * 60; updateTimerDisplay(); $('#timer-state').textContent = '25분 집중 완료!'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; render(); showToast('집중 시간 25분을 기록했어요 🎉'); } }, 1000);
+        timerInterval = setInterval(() => { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false; const mins = TIMER_MINUTES; const now = localDate(new Date()); data.grades[timerGrade].sessions.push({ id: uid(), date: now, minutes: mins, subject: timerSessionSubject }); save(); timerSeconds = TIMER_MINUTES * 60; updateTimerDisplay(); $('#timer-state').textContent = '1시간 10분 집중 완료!'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; render(); showToast('집중 시간 1시간 10분을 기록했어요 🎉'); } }, 1000);
       }
       function setGrade(grade, updateHash = true) {
         if (!['1', '2', '3'].includes(String(grade)) || String(grade) === activeGrade) return;
