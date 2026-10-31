@@ -144,6 +144,53 @@
     .subject-card p { margin: 15px 0 9px; color: var(--muted); font-size: 10px; }
     .subject-card .progress-track { background: #f0f1f5; }
     .subject-card .progress-track > span { background: var(--subject-color, var(--accent)); }
+    .calendar-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:17px; }
+    .calendar-month-nav { display:flex; align-items:center; gap:10px; }
+    .calendar-month { min-width:112px; text-align:center; font-size:15px; font-weight:750; letter-spacing:-.3px; }
+    .calendar-nav-btn { width:34px; height:34px; border:1px solid var(--line); border-radius:9px; color:#666b7e; background:#fff; font-size:16px; }
+    .calendar-nav-btn:hover { border-color:#d8d4ff; color:var(--accent); }
+    .calendar-reset { border:0; color:var(--accent); background:transparent; font-size:11px; font-weight:650; }
+    .assessment-calendar { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); border-radius:11px; overflow:hidden; }
+    .calendar-weekday { padding:10px 5px; color:#898ea0; background:#fafafe; border-right:1px solid var(--line); border-bottom:1px solid var(--line); text-align:center; font-size:10px; font-weight:700; }
+    .calendar-weekday:nth-child(6) { color:#6d8fe4; }
+    .calendar-weekday:last-child { color:#dc777e; }
+    .calendar-day { min-width:0; min-height:104px; padding:7px 6px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:#fff; }
+    .calendar-day.outside { background:#fafafd; }
+    .calendar-day.selected { background:#f6f5ff; box-shadow:inset 0 0 0 2px #8278ee; }
+    .calendar-date { width:26px; height:26px; padding:0; border:0; border-radius:50%; color:#4c5061; background:transparent; font-size:11px; }
+    .calendar-day.outside .calendar-date { color:#c0c3cd; }
+    .calendar-day.today .calendar-date { color:#fff; background:var(--accent); font-weight:750; }
+    .calendar-events { display:grid; gap:4px; margin-top:4px; }
+    .assessment-chip { width:100%; overflow:hidden; padding:4px 5px; border:0; border-radius:5px; color:#5549c8; background:#efedff; text-align:left; text-overflow:ellipsis; white-space:nowrap; font-size:9px; font-weight:650; }
+    .assessment-chip:hover { background:#e3e0ff; }
+    .assessment-chip.expired { color:#858895; background:#eceef2; }
+    .calendar-more { color:#969bad; font-size:9px; }
+    .assessment-agenda { display:grid; gap:8px; }
+    .agenda-item { width:100%; display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #eff0f5; border-radius:11px; color:var(--ink); background:#fff; text-align:left; }
+    .agenda-item:hover { border-color:#dcd9ff; background:#fdfcff; }
+    .agenda-item.selected { border-color:#9e96f4; box-shadow:0 0 0 2px #6558e812; }
+    .agenda-item.expired { border-color:#e7e8ed; color:#858895; background:#f0f1f4; }
+    .agenda-date { min-width:53px; color:var(--accent); font-size:11px; font-weight:750; }
+    .agenda-item.expired .agenda-date { color:#858895; }
+    .agenda-copy { min-width:0; flex:1; }
+    .agenda-title { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:700; }
+    .agenda-subject { margin-top:4px; color:#969bad; font-size:10px; }
+    .assessment-status { flex:0 0 auto; padding:4px 7px; border-radius:6px; color:#6558e8; background:#efedff; font-size:9px; font-weight:700; }
+    .agenda-item.expired .assessment-status { color:#777b87; background:#e3e5ea; }
+    .assessment-detail-panel { margin-top:18px; }
+    .assessment-detail-panel.expired { border-color:#e2e3e8; background:#f1f2f5; box-shadow:none; }
+    .assessment-detail-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:20px; }
+    .assessment-detail-head h2 { margin:0; font-size:18px; letter-spacing:-.4px; }
+    .assessment-detail-head p { margin:7px 0 0; color:var(--muted); font-size:11px; }
+    .assessment-detail-actions { display:flex; gap:7px; flex:0 0 auto; }
+    .assessment-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+    .assessment-detail-block { min-width:0; padding:13px; border:1px solid #eff0f5; border-radius:11px; background:#fff; }
+    .assessment-detail-panel.expired .assessment-detail-block { border-color:#e6e7ec; background:#f8f8fa; }
+    .assessment-detail-label { margin-bottom:7px; color:#969bad; font-size:10px; font-weight:700; }
+    .assessment-detail-copy { color:#464a5b; font-size:12px; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .assessment-detail-block.wide { grid-column:1 / -1; }
+    .small-action { min-height:32px; padding:0 10px; border:1px solid var(--line); border-radius:8px; color:#6c7182; background:#fff; font-size:10px; font-weight:650; }
+    .small-action.danger { color:#b35b65; }
     .stats-empty { margin-top: 18px; }
     .modal-backdrop { position: fixed; inset: 0; z-index: 10; padding: 18px; display: none; place-items: center; background: #1d20334d; backdrop-filter: blur(3px); }
     .modal-backdrop.open { display: grid; }
@@ -153,8 +200,10 @@
     .close-btn { width: 30px; height: 30px; border:0; border-radius:8px; background:#f4f5f8; color:#717789; font-size:19px; }
     .form-grid { display:grid; gap:13px; }
     .field label { display:block; margin-bottom:6px; color:#656a7b; font-size:11px; font-weight:650; }
-    .field input, .field select { width:100%; height:40px; padding:0 11px; outline:none; border:1px solid #e4e6ed; border-radius:9px; background:white; color:#303447; font-size:12px; }
-    .field input:focus, .field select:focus { border-color:#9a91f5; box-shadow:0 0 0 3px #6558e817; }
+    .field input, .field select, .field textarea { width:100%; min-height:40px; padding:10px 11px; outline:none; border:1px solid #e4e6ed; border-radius:9px; background:white; color:#303447; font-size:12px; }
+    .field textarea { resize:vertical; line-height:1.5; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color:#9a91f5; box-shadow:0 0 0 3px #6558e817; }
+    .modal { max-height:calc(100vh - 36px); overflow-y:auto; }
     .form-row { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
     .form-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:5px; }
     .secondary-btn { padding:0 13px; min-height:39px; border:1px solid var(--line); border-radius:9px; color:#6c7182; background:white; font-size:11px; font-weight:650; }
@@ -165,7 +214,7 @@
       .app { display:block; padding-bottom:65px; }
       .sidebar { position:fixed; z-index:5; left:0; right:0; bottom:0; width:auto; height:61px; padding:5px 10px; border-right:0; border-top:1px solid var(--line); display:block; }
       .brand, .nav-label, .sidebar-bottom { display:none; }
-      .nav { height:100%; grid-template-columns:repeat(4,1fr); gap:2px; }
+      .nav { height:100%; grid-template-columns:repeat(5,minmax(0,1fr)); gap:2px; }
       .nav-btn { height:50px; padding:4px 1px; flex-direction:column; justify-content:center; gap:2px; border-radius:8px; font-size:9px; }
       .nav-btn svg { width:17px; height:17px; }
       main { padding:19px 16px 30px; }
@@ -177,8 +226,14 @@
       .subject-grid { grid-template-columns:repeat(2, minmax(0,1fr)); }
       .page-heading { align-items:flex-start; }
       .week-picker { font-size:10px; }
+      .calendar-day { min-height:78px; padding:5px 3px; }
+      .calendar-weekday { padding:8px 2px; font-size:9px; }
+      .assessment-chip { padding:3px 4px; font-size:8px; }
+      .assessment-detail-grid { grid-template-columns:1fr; }
+      .assessment-detail-block.wide { grid-column:auto; }
+      .assessment-detail-head { flex-direction:column; }
     }
-    @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } }
+    @media (max-width: 430px) { .stats-grid { gap:9px; } .stat-card { min-height:105px; padding:13px; } .stat-value { font-size:21px; } .stat-top { font-size:10px; } .panel { padding:16px; } .subject-grid { grid-template-columns:1fr; } .topbar { margin-bottom:21px; } .primary-btn { min-height:36px; padding:0 11px; } .calendar-day { min-height:67px; padding:4px 2px; } .calendar-date { width:22px; height:22px; font-size:10px; } .assessment-chip { font-size:7px; } .agenda-item { gap:8px; padding:10px 8px; } .agenda-date { min-width:46px; font-size:10px; } .assessment-status { font-size:8px; padding:4px 5px; } }
   </style>
 </head>
 <body>
@@ -190,6 +245,7 @@
         <button class="nav-btn active" data-screen="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg><span>대시보드</span></button>
         <button class="nav-btn" data-screen="planner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></svg><span>학습 계획</span></button>
         <button class="nav-btn" data-screen="subjects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h7M8 10h5"/></svg><span>과목 관리</span></button>
+        <button class="nav-btn" data-screen="assessments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M4 9h16M8 14l2 2 5-5"/></svg><span>수행 평가</span></button>
         <button class="nav-btn" data-screen="records"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 3 6-7"/></svg><span>학습 기록</span></button>
       </nav>
       <div class="sidebar-bottom">
@@ -221,12 +277,19 @@
         </section>
         <section class="screen" id="screen-planner"><div class="page-heading"><div><h1 id="planner-title">고1 학습 계획</h1><p class="subtitle">해야 할 일을 정리하고 하나씩 끝내봐요.</p></div></div><div class="panel"><div class="planner-toolbar"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="today">오늘</button><button class="filter-btn" data-filter="upcoming">예정</button><button class="filter-btn" data-filter="done">완료</button></div><div class="semester-toolbar" id="planner-semesters" hidden></div><div class="task-list" id="all-tasks"></div></div></section>
         <section class="screen" id="screen-subjects"><div class="page-heading"><div><h1 id="subjects-title">고1 과목</h1><p class="subtitle">학년과 학기별 과목을 관리해요.</p></div><button class="primary-btn" id="add-subject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>과목 추가</button></div><div class="semester-toolbar" id="subjects-semesters" hidden></div><div class="subject-grid" id="subject-grid"></div></section>
+        <section class="screen" id="screen-assessments">
+          <div class="page-heading"><div><h1>수행 평가</h1><p class="subtitle">학년별 수행 평가 일정과 준비 내용을 관리해요.</p></div><button class="primary-btn" id="add-assessment"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>수행 평가 추가</button></div>
+          <section class="panel"><div class="calendar-toolbar"><div class="calendar-month-nav"><button class="calendar-nav-btn" data-assessment-month="-1" aria-label="이전 달">‹</button><div class="calendar-month" id="assessment-month-label"></div><button class="calendar-nav-btn" data-assessment-month="1" aria-label="다음 달">›</button></div><button class="calendar-reset" data-assessment-clear-date>월 전체 일정</button></div><div id="assessment-calendar" class="assessment-calendar"></div></section>
+          <section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title" id="assessment-agenda-title">수행 평가 목록</h2><p class="panel-subtitle">일정을 누르면 상세 내용을 확인할 수 있어요.</p></div></div><div class="assessment-agenda" id="assessment-agenda"></div></section>
+          <section class="panel assessment-detail-panel" id="assessment-detail-panel" hidden><div id="assessment-detail"></div></section>
+        </section>
         <section class="screen" id="screen-records"><div class="page-heading"><div><h1>학습 기록</h1><p class="subtitle">꾸준히 쌓인 시간을 확인해봐요.</p></div></div><section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">이번 주의 집중 시간</p></div></div><div class="week-chart" id="records-chart"></div></section><section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">이번 주 과목별 시간</h2><p class="panel-subtitle">타이머로 기록한 학습량</p></div></div><div class="subject-list" id="record-subjects"></div></section></section>
       </div>
     </main>
   </div>
   <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field" id="subject-semester-field"><label for="subject-semester-input">학기</label><select id="subject-semester-input" name="semester"></select></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
+  <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script>
     (() => {
@@ -263,7 +326,7 @@
       const makeGradeData = (grade) => ({
         goalMinutes: 120,
         subjects: gradeConfigs[grade].subjects.map((subject, index) => ({ id: subjectId(grade, subject, index), name: subject.name, semester: subject.semester, goal: 3, color: colors[index % colors.length] })),
-        tasks: [], sessions: []
+        tasks: [], sessions: [], assessments: []
       });
       const normalizeGradeData = (grade, saved) => {
         const base = makeGradeData(grade);
@@ -274,7 +337,8 @@
           return previous ? { ...subject, goal: Number(previous.goal) || subject.goal, color: previous.color || subject.color } : subject;
         });
         savedSubjects.filter(item => !base.subjects.some(subject => subject.id === item.id)).forEach(item => subjects.push({ ...item, semester: item.semester || gradeConfigs[grade].period }));
-        return { goalMinutes: Number(saved.goalMinutes) || 120, subjects, tasks: Array.isArray(saved.tasks) ? saved.tasks : [], sessions: Array.isArray(saved.sessions) ? saved.sessions : [] };
+        const assessments = Array.isArray(saved.assessments) ? saved.assessments.map(item => ({ ...item, time: item.time || '', topic: item.topic || '', references: item.references || '', cautions: item.cautions || '' })) : [];
+        return { goalMinutes: Number(saved.goalMinutes) || 120, subjects, tasks: Array.isArray(saved.tasks) ? saved.tasks : [], sessions: Array.isArray(saved.sessions) ? saved.sessions : [], assessments };
       };
       const migrateLegacyData = (legacy, grades) => {
         if (!legacy || !Array.isArray(legacy.subjects)) return;
@@ -325,6 +389,11 @@
       let timerSubject = null;
       let timerGrade = null;
       let timerSessionSubject = null;
+      let assessmentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      let selectedAssessmentDate = null;
+      let selectedAssessmentId = null;
+      let assessmentEditingId = null;
+      let assessmentExpiryTimer = null;
       let toastTimeout;
       const $ = (q, root = document) => root.querySelector(q);
       const $$ = (q, root = document) => [...root.querySelectorAll(q)];
@@ -347,6 +416,63 @@
       function renderChart(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); const values = dates.map(minsForDate); const max = Math.max(120, ...values); target.innerHTML = dates.map((d, i) => { const isToday = d === localDate(today); const h = Math.max(values[i] ? 8 : 4, values[i] / max * 100); return `<div class="day-column"><div class="bar-wrap"><div class="bar ${isToday ? 'today' : ''}" style="height:${h}%" data-hours="${(values[i] / 60).toFixed(1)}"></div></div><span class="day-label ${isToday ? 'today' : ''}">${new Intl.DateTimeFormat('ko-KR', { weekday:'short' }).format(new Date(d + 'T12:00:00'))}</span></div>`; }).join(''); }
       function renderSubjectList(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); target.innerHTML = gradeData.subjects.length ? gradeData.subjects.map(s => { const m = gradeData.sessions.filter(x => x.subject === s.id && dates.includes(x.date)).reduce((a, x) => a + x.minutes, 0); const percent = Math.min(100, m / (s.goal * 60) * 100); return `<div class="subject-row"><span class="subject-color" style="background:${s.color}"></span><div class="subject-info"><div style="display:flex;justify-content:space-between;gap:10px"><span class="subject-name">${escapeHtml(s.name)}</span><span class="subject-hours">${fmtDuration(m)} / 주 ${s.goal}시간</span></div><div class="subject-progress"><span style="width:${percent}%;background:${s.color}"></span></div></div></div>`; }).join('') : emptyMarkup('아직 등록된 과목이 없어요', '과목을 추가하고 학습 시간을 모아보세요.'); }
       function emptyMarkup(title, desc) { return `<div class="empty-state"><div class="empty-icon">✦</div><strong>${escapeHtml(title)}</strong><br>${escapeHtml(desc)}</div>`; }
+      function assessmentExpired(item) { return item.date < localDate(new Date()); }
+      function assessmentMonthName(date = assessmentMonth) { return new Intl.DateTimeFormat('ko-KR', { year:'numeric', month:'long' }).format(date); }
+      function assessmentsForDate(date) { return gradeData.assessments.filter(item => item.date === date).sort((a, b) => String(a.time || '').localeCompare(String(b.time || '')) || a.title.localeCompare(b.title)); }
+      function renderAssessmentCalendar() {
+        const y = assessmentMonth.getFullYear(), m = assessmentMonth.getMonth();
+        const firstOffset = (new Date(y, m, 1).getDay() + 6) % 7;
+        const dayCount = new Date(y, m + 1, 0).getDate();
+        const cellCount = Math.ceil((firstOffset + dayCount) / 7) * 7;
+        const weekdays = ['월', '화', '수', '목', '금', '토', '일'];
+        const todayDate = localDate(new Date());
+        const cells = Array.from({ length: cellCount }, (_, index) => {
+          const date = new Date(y, m, index - firstOffset + 1);
+          const dateKey = localDate(date);
+          const inMonth = date.getMonth() === m;
+          const events = inMonth ? assessmentsForDate(dateKey) : [];
+          const selected = selectedAssessmentDate === dateKey;
+          const classes = ['calendar-day', inMonth ? '' : 'outside', dateKey === todayDate ? 'today' : '', selected ? 'selected' : ''].filter(Boolean).join(' ');
+          const eventMarkup = events.slice(0, 2).map(item => `<button class="assessment-chip ${assessmentExpired(item) ? 'expired' : ''}" data-assessment-open="${escapeHtml(item.id)}" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</button>`).join('');
+          const more = events.length > 2 ? `<div class="calendar-more">+${events.length - 2}개 더</div>` : '';
+          return `<div class="${classes}">${inMonth ? `<button class="calendar-date" data-assessment-date="${dateKey}" aria-label="${m + 1}월 ${date.getDate()}일 일정 보기">${date.getDate()}</button>` : `<div class="calendar-date">${date.getDate()}</div>`}<div class="calendar-events">${eventMarkup}${more}</div></div>`;
+        }).join('');
+        $('#assessment-month-label').textContent = assessmentMonthName();
+        $('#assessment-calendar').innerHTML = `${weekdays.map(day => `<div class="calendar-weekday">${day}</div>`).join('')}${cells}`;
+      }
+      function renderAssessmentAgenda() {
+        const monthKey = `${assessmentMonth.getFullYear()}-${String(assessmentMonth.getMonth() + 1).padStart(2, '0')}`;
+        let items = gradeData.assessments.filter(item => item.date?.startsWith(monthKey));
+        if (selectedAssessmentDate?.startsWith(monthKey)) items = items.filter(item => item.date === selectedAssessmentDate);
+        items.sort((a, b) => a.date.localeCompare(b.date) || String(a.time || '').localeCompare(String(b.time || '')) || a.title.localeCompare(b.title));
+        $('#assessment-agenda-title').textContent = selectedAssessmentDate?.startsWith(monthKey) ? `${fmtDate(selectedAssessmentDate, { month:'long', day:'numeric', weekday:'long' })} 수행 평가` : `${assessmentMonthName()} 수행 평가 목록`;
+        $('#assessment-agenda').innerHTML = items.length ? items.map(item => {
+          const expired = assessmentExpired(item);
+          const selected = item.id === selectedAssessmentId;
+          const dateLabel = fmtDate(item.date, { month:'numeric', day:'numeric' });
+          const subject = subjectById(item.subject)?.name || '과목 미지정';
+          const detail = item.time ? ` · ${item.time}` : '';
+          return `<button class="agenda-item ${expired ? 'expired' : ''} ${selected ? 'selected' : ''}" data-assessment-open="${escapeHtml(item.id)}"><span class="agenda-date">${dateLabel}</span><span class="agenda-copy"><span class="agenda-title">${escapeHtml(item.title)}</span><span class="agenda-subject">${escapeHtml(subject)}${detail}</span></span><span class="assessment-status">${expired ? '만료된 수행' : '예정'}</span></button>`;
+        }).join('') : emptyMarkup(selectedAssessmentDate ? '이 날짜에 수행 평가가 없어요' : '이번 달 수행 평가가 없어요', '수행 평가를 추가해 일정을 채워보세요.');
+      }
+      function renderAssessmentDetail() {
+        const item = gradeData.assessments.find(assessment => assessment.id === selectedAssessmentId);
+        const panel = $('#assessment-detail-panel');
+        if (!item) { panel.hidden = true; panel.classList.remove('expired'); $('#assessment-detail').innerHTML = ''; return; }
+        const expired = assessmentExpired(item);
+        const subject = subjectById(item.subject)?.name || '과목 미지정';
+        const dateText = fmtDate(item.date, { month:'long', day:'numeric', weekday:'long' }) + (item.time ? ` · ${item.time}` : '');
+        const textOrEmpty = value => value ? escapeHtml(value) : '등록된 내용이 없어요.';
+        panel.hidden = false; panel.classList.toggle('expired', expired);
+        $('#assessment-detail').innerHTML = `<div class="assessment-detail-head"><div><h2>${escapeHtml(item.title)}</h2><p>${expired ? '만료된 수행' : '수행 평가 상세정보'}</p></div><div class="assessment-detail-actions"><button class="small-action" data-assessment-edit="${escapeHtml(item.id)}">수정</button><button class="small-action danger" data-assessment-delete="${escapeHtml(item.id)}">삭제</button></div></div><div class="assessment-detail-grid"><div class="assessment-detail-block"><div class="assessment-detail-label">과목</div><div class="assessment-detail-copy">${escapeHtml(subject)}</div></div><div class="assessment-detail-block"><div class="assessment-detail-label">일정</div><div class="assessment-detail-copy">${escapeHtml(dateText)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">주제</div><div class="assessment-detail-copy">${textOrEmpty(item.topic)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">참고자료</div><div class="assessment-detail-copy">${textOrEmpty(item.references)}</div></div><div class="assessment-detail-block wide"><div class="assessment-detail-label">주의사항</div><div class="assessment-detail-copy">${textOrEmpty(item.cautions)}</div></div></div>`;
+      }
+      function renderAssessments() { renderAssessmentCalendar(); renderAssessmentAgenda(); renderAssessmentDetail(); }
+      function scheduleAssessmentExpiry() {
+        clearTimeout(assessmentExpiryTimer);
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        assessmentExpiryTimer = setTimeout(() => { renderAssessments(); scheduleAssessmentExpiry(); }, Math.max(1000, midnight.getTime() - now.getTime()));
+      }
       function renderTasks() {
         const now = localDate(today);
         const todayTasks = gradeData.tasks.filter(t => t.date === now).sort((a, b) => Number(a.done) - Number(b.done));
@@ -398,11 +524,25 @@
         $('#subjects-title').textContent = `${cfg.label} 과목`;
         $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
-      function render() { renderGradeHeader(); renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); }
-      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
+      function render() { renderGradeHeader(); renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); }
+      function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { document.getElementById(id).classList.add('open'); const input = $('input', document.getElementById(id)); if (input) setTimeout(() => input.focus(), 50); }
       function closeModal(el) { el.closest('.modal-backdrop').classList.remove('open'); }
+      function openAssessmentModal(item = null) {
+        const form = $('#assessment-form'); form.reset(); assessmentEditingId = item?.id || null;
+        $('#assessment-modal-title').textContent = item ? '수행 평가 수정' : '수행 평가 추가';
+        $('#assessment-save-btn').textContent = item ? '수정 내용 저장' : '수행 평가 저장';
+        $('#assessment-subject').innerHTML = gradeData.subjects.map(subject => `<option value="${subject.id}">${escapeHtml(semesterSubjectLabel(subject))}</option>`).join('') || '<option value="">과목 미지정</option>';
+        if (item) {
+          form.elements.title.value = item.title || ''; form.elements.subject.value = item.subject || '';
+          form.elements.date.value = item.date || ''; form.elements.time.value = item.time || '';
+          form.elements.topic.value = item.topic || ''; form.elements.references.value = item.references || ''; form.elements.cautions.value = item.cautions || '';
+        } else {
+          form.elements.date.value = selectedAssessmentDate || localDate(new Date());
+        }
+        openModal('assessment-modal');
+      }
       function updateTimerDisplay() { const m = Math.floor(timerSeconds / 60); const s = timerSeconds % 60; $('#timer-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
       function toggleTimer() {
         if (timerRunning) { clearInterval(timerInterval); timerRunning = false; $('#timer-state').textContent = '일시 정지됨'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 시작'); return; }
@@ -413,7 +553,7 @@
       }
       function setGrade(grade, updateHash = true) {
         if (!['1', '2', '3'].includes(String(grade)) || String(grade) === activeGrade) return;
-        activeGrade = String(grade); gradeData = data.grades[activeGrade]; activeSemester = 'all'; timerSubject = null;
+        activeGrade = String(grade); gradeData = data.grades[activeGrade]; activeSemester = 'all'; timerSubject = null; selectedAssessmentDate = null; selectedAssessmentId = null;
         save(); render();
         if (updateHash && location.hash !== `#g${activeGrade}`) location.hash = `g${activeGrade}`;
       }
@@ -422,15 +562,36 @@
       $$('[data-goto]').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.goto)));
       $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
       $('#add-subject').addEventListener('click', () => { renderSubjects(); openModal('subject-modal'); });
+      $('#add-assessment').addEventListener('click', () => openAssessmentModal());
       $$('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn)));
       $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); }));
       $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; gradeData.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
       $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; const semester = String(f.get('semester') || gradeConfigs[activeGrade].period); gradeData.subjects.push({ id: uid(), name, semester, goal: Number(f.get('goal')), color: colors[gradeData.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
+      $('#assessment-form').addEventListener('submit', e => {
+        e.preventDefault(); const f = new FormData(e.currentTarget); const title = String(f.get('title')).trim(); const date = String(f.get('date'));
+        if (!title || !date) return;
+        const item = { id: assessmentEditingId || uid(), title, subject: String(f.get('subject') || ''), topic: String(f.get('topic') || '').trim(), date, time: String(f.get('time') || ''), references: String(f.get('references') || '').trim(), cautions: String(f.get('cautions') || '').trim() };
+        const index = gradeData.assessments.findIndex(assessment => assessment.id === item.id);
+        if (index >= 0) gradeData.assessments[index] = item; else gradeData.assessments.push(item);
+        selectedAssessmentId = item.id; selectedAssessmentDate = item.date; assessmentMonth = new Date(`${item.date}T12:00:00`); assessmentMonth.setDate(1);
+        save(); renderAssessments(); setScreen('assessments'); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(assessmentEditingId ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
+      });
       document.addEventListener('click', e => {
         const gradeBtn = e.target.closest('[data-grade]');
         if (gradeBtn) { setGrade(gradeBtn.dataset.grade); return; }
         const semesterBtn = e.target.closest('[data-semester]');
         if (semesterBtn) { activeSemester = semesterBtn.dataset.semester; renderSemesterControls(); renderTasks(); renderSubjects(); return; }
+        const monthBtn = e.target.closest('[data-assessment-month]');
+        if (monthBtn) { assessmentMonth = new Date(assessmentMonth.getFullYear(), assessmentMonth.getMonth() + Number(monthBtn.dataset.assessmentMonth), 1); selectedAssessmentDate = null; selectedAssessmentId = null; renderAssessments(); return; }
+        if (e.target.closest('[data-assessment-clear-date]')) { selectedAssessmentDate = null; selectedAssessmentId = null; renderAssessments(); return; }
+        const dateBtn = e.target.closest('[data-assessment-date]');
+        if (dateBtn) { selectedAssessmentDate = dateBtn.dataset.assessmentDate; selectedAssessmentId = null; renderAssessments(); return; }
+        const editBtn = e.target.closest('[data-assessment-edit]');
+        if (editBtn) { const item = gradeData.assessments.find(assessment => assessment.id === editBtn.dataset.assessmentEdit); if (item) openAssessmentModal(item); return; }
+        const deleteBtn = e.target.closest('[data-assessment-delete]');
+        if (deleteBtn) { gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== deleteBtn.dataset.assessmentDelete); selectedAssessmentId = null; save(); renderAssessments(); showToast('수행 평가를 삭제했어요'); return; }
+        const assessmentBtn = e.target.closest('[data-assessment-open]');
+        if (assessmentBtn) { const item = gradeData.assessments.find(assessment => assessment.id === assessmentBtn.dataset.assessmentOpen); if (item) { selectedAssessmentId = item.id; selectedAssessmentDate = item.date; renderAssessments(); } return; }
         const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = gradeData.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요');
       });
       $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
@@ -438,7 +599,7 @@
       $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => el.classList.remove('open')); });
       window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
-      render();
+      render(); scheduleAssessmentExpiry();
     })();
   </script>
 </body>
