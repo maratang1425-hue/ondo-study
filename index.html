@@ -238,13 +238,13 @@
       const shiftDate = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return localDate(d); };
       const uid = () => Math.random().toString(36).slice(2, 10);
       const gradeConfigs = {
-        '1': { label: '고1', period: '학년 과정', subjects: [
+        '1': { label: '고1', period: '학년 과정', description: '고1 과정을 차근차근 채워봐요.', subjects: [
           { name: '공통국어2', semester: '학년 과정' }, { name: '공통수학2', semester: '학년 과정' },
           { name: '한국사2', semester: '학년 과정' }, { name: '공통영어2', semester: '학년 과정' },
           { name: '통합사회2', semester: '학년 과정' }, { name: '통합과학2', semester: '학년 과정' },
           { name: '한문', semester: '학년 과정' }
         ] },
-        '2': { label: '고2', period: '1·2학기', subjects: [
+        '2': { label: '고2', period: '1·2학기', description: '고2 1·2학기 공부를 차근차근 이어가봐요.', subjects: [
           { name: '문학', semester: '1학기' }, { name: '대수', semester: '1학기' }, { name: '영어1', semester: '1학기' },
           { name: '현대사회와윤리', semester: '1학기' }, { name: '경제', semester: '1학기' },
           { name: '도시의 미래 탐구', semester: '1학기' }, { name: '일본어', semester: '1학기' },
@@ -252,7 +252,7 @@
           { name: '세계시민과 지리', semester: '2학기' }, { name: '사회와 문화', semester: '2학기' },
           { name: '동아시아 역사 기행', semester: '2학기' }, { name: '일본어 회화', semester: '2학기' }
         ] },
-        '3': { label: '고3', period: '1학기', subjects: [
+        '3': { label: '고3', period: '1학기', description: '고3 1학기 공부를 차근차근 이어가봐요.', subjects: [
           { name: '독서와 작문', semester: '1학기' }, { name: '확률과 통계', semester: '1학기' },
           { name: '영어 독해와 작문', semester: '1학기' }, { name: '한국지리 탐구', semester: '1학기' },
           { name: '정치', semester: '1학기' }, { name: '법과 사회', semester: '1학기' },
@@ -396,7 +396,7 @@
         $('#page-title').innerHTML = `${cfg.label} 대시보드 <span aria-hidden="true">☀️</span>`;
         $('#planner-title').textContent = `${cfg.label} 학습 계획`;
         $('#subjects-title').textContent = `${cfg.label} 과목`;
-        $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.label} ${cfg.period}을 차근차근 채워봐요.`;
+        $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
       }
       function render() { renderGradeHeader(); renderStats(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); }
       function setScreen(id) { screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', records:'학습 기록' }; $('#crumb-current').textContent = names[id]; }
