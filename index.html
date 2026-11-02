@@ -795,6 +795,8 @@
       const StudyTimer = globalThis.OndoStudyTimer;
       const TIMER_STATE_KEY = 'ondo-focus-timer-v1';
       const STUDY_OUTBOX_KEY = 'ondo-study-time-outbox-v1';
+      const SCHOOL_DATA_CACHE_KEY = 'ondo-school-snapshot-v1';
+      const SCHOOL_DATA_PUBLIC_URL = 'https://maratang1425-hue.github.io/ondo-study/school-data.json';
       const MAX_ATTACHMENT_BYTES = 200 * 1024 * 1024;
       const ADMISSIONS_PASSCODE_DIGEST = '091943436a6273fb665375735e716ba2d5c12fac19c232df2e27e5e023735a81';
       const DDAY_DATE = '2026-12-07';
@@ -931,7 +933,7 @@
       let todayHubPage = 'music';
       let todayHubDate = schoolTodayDate();
       let todayHubTracksToday = true;
-      let schoolSnapshot = null;
+      let schoolSnapshot = readSchoolSnapshotCache();
       let schoolDataLoading = false;
       let schoolDataError = false;
       let schoolDataLastLoaded = 0;
@@ -1598,14 +1600,20 @@
         form.elements.url.value = item?.url || '';
         renderDailySong(); openModal('song-modal');
       }
-      function schoolTodayDate() { return new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Seoul', year:'numeric', month:'2-digit', day:'2-digit' }).format(new Date()); }
+      function schoolTodayDate(date = new Date()) {
+        const parts = new Intl.DateTimeFormat('en', { timeZone:'Asia/Seoul', numberingSystem:'latn', year:'numeric', month:'2-digit', day:'2-digit' }).formatToParts(date);
+        const value = type => parts.find(part => part.type === type).value;
+        return `${value('year')}-${value('month')}-${value('day')}`;
+      }
+      function validSchoolSnapshot(value) { return value?.schemaVersion === 1 && value.school === '운호고등학교' && value.meals && value.timetable; }
+      function readSchoolSnapshotCache() { try { const value = JSON.parse(localStorage.getItem(SCHOOL_DATA_CACHE_KEY)); return validSchoolSnapshot(value) ? value : null; } catch { return null; } }
       function schoolSourceStatus(source) {
         if (schoolDataLoading && !source) return '학교 자료를 불러오고 있어요…';
         if (!source?.fetchedAt || source.status === 'unavailable') return '자료를 불러오지 못했어요. 원문에서 확인하거나 잠시 후 새로고침해 주세요.';
         const time = new Date(source.fetchedAt);
         const stamp = Number.isNaN(time.getTime()) ? '' : new Intl.DateTimeFormat('ko-KR', { timeZone:'Asia/Seoul', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit', hour12:false }).format(time);
         const stale = source.status === 'stale' || schoolDataError || Date.now() - time.getTime() > 2 * 60 * 60 * 1000;
-        return `${stale ? '이전 자료 · 최신 확인이 필요해요 · ' : ''}${stamp} 수집${source.status === 'partial' ? ' · 일부 기간은 확인 중이에요' : ''}`;
+        return `${schoolDataError ? '저장된 자료 · 현재 연결을 확인해 주세요 · ' : stale ? '이전 자료 · 최신 확인이 필요해요 · ' : ''}${stamp} 수집${source.status === 'partial' ? ' · 일부 기간은 확인 중이에요' : ''}`;
       }
       function renderTodayHub() {
         if (todayHubTracksToday) todayHubDate = schoolTodayDate();
@@ -1624,7 +1632,7 @@
         const covered = Array.isArray(meals?.months) && meals.months.includes(todayHubDate.slice(0,7));
         $('#school-meal-content').innerHTML = [['lunch','중식'], ['dinner','석식']].map(([key,label]) => {
           const dishes = Array.isArray(mealDay?.[key]) ? mealDay[key].filter(item => typeof item === 'string') : [];
-          const empty = schoolDataLoading && !meals ? '불러오는 중이에요…' : covered ? `학교 홈페이지에 등록된 ${label}이 없어요.` : '선택한 달의 식단을 아직 불러오지 못했어요.';
+          const empty = schoolDataLoading && !meals ? '불러오는 중이에요…' : schoolDataError && !meals ? '급식 자료 연결에 실패했어요. 새로고침하거나 학교 원문을 확인해 주세요.' : covered ? `학교 홈페이지에 등록된 ${label}이 없어요.` : '선택한 달의 식단을 아직 불러오지 못했어요.';
           return `<section class="school-meal"><h3>${label}</h3>${dishes.length ? `<ul>${dishes.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : `<p class="school-today-empty">${empty}</p>`}</section>`;
         }).join('');
         $('#school-meal-status').textContent = `${schoolSourceStatus(meals)}${mealDay ? ' · 괄호 안 숫자는 학교 원문의 알레르기 표시예요.' : ''}`;
@@ -1638,7 +1646,7 @@
         if (Array.isArray(lessons) && lessons.length) {
           $('#school-timetable-content').innerHTML = `<div class="school-periods">${lessons.map(item => `<div class="school-period ${item.changed ? 'changed' : ''}"><div class="school-period-meta"><span>${escapeHtml(item.period)}교시</span><span>${escapeHtml(item.time || '')}</span></div><div class="school-period-subject">${escapeHtml(item.subject)}</div>${item.changed ? '<div class="school-period-change">변경된 수업</div>' : ''}</div>`).join('')}</div>`;
         } else {
-          const empty = !profile ? '학년·반을 설정하면 내 시간표가 표시돼요.' : schoolDataLoading && !timetable ? '컴시간 자료를 불러오고 있어요…' : weekday === 0 || weekday === 6 ? '토·일요일은 컴시간 정규 시간표가 없어요.' : Array.isArray(lessons) ? '이 날짜에 등록된 수업이 없어요.' : '컴시간에서 선택한 날짜의 시간표를 아직 제공하지 않아요.';
+          const empty = !profile ? '학년·반을 설정하면 내 시간표가 표시돼요.' : schoolDataLoading && !timetable ? '컴시간 자료를 불러오고 있어요…' : schoolDataError && !timetable ? '시간표 자료 연결에 실패했어요. 새로고침하거나 컴시간 원문을 확인해 주세요.' : weekday === 0 || weekday === 6 ? '토·일요일은 컴시간 정규 시간표가 없어요.' : Array.isArray(lessons) ? '이 날짜에 등록된 수업이 없어요.' : '컴시간에서 선택한 날짜의 시간표를 아직 제공하지 않아요.';
           $('#school-timetable-content').innerHTML = `<p class="school-today-empty">${empty}</p>`;
         }
         $('#school-timetable-status').textContent = `${schoolSourceStatus(timetable)}${timetable?.modifiedAt ? ` · 원문 수정 ${timetable.modifiedAt}` : ''}`;
@@ -1646,17 +1654,28 @@
       async function loadSchoolData() {
         if (schoolDataLoading) return;
         schoolDataLoading = true; renderTodayHub();
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 12000);
         try {
-          const url = new URL('school-data.json', location.href); url.searchParams.set('v', String(Math.floor(Date.now() / 60000)));
-          const response = await fetch(url, { cache:'no-store', signal:controller.signal });
-          if (!response.ok) throw new Error('school data unavailable');
-          const snapshot = await response.json();
-          if (snapshot.schemaVersion !== 1 || snapshot.school !== '운호고등학교' || !snapshot.meals || !snapshot.timetable) throw new Error('invalid school snapshot');
+          // Local files and the macOS app cannot fetch adjacent JSON files.
+          // Use the same public HTTPS snapshot, without weakening browser security.
+          const candidates = location.protocol === 'file:' ? [SCHOOL_DATA_PUBLIC_URL] : [new URL('school-data.json',location.href).href,SCHOOL_DATA_PUBLIC_URL];
+          let snapshot = null;
+          for (const candidate of new Set(candidates)) {
+            const controller = new AbortController(), timeout = setTimeout(() => controller.abort(),8000);
+            try {
+              const url = new URL(candidate); url.searchParams.set('v',String(Math.floor(Date.now()/60000)));
+              const response = await fetch(url,{cache:'no-store',signal:controller.signal});
+              if (!response.ok) throw new Error('school data unavailable');
+              const value = await response.json();
+              if (!validSchoolSnapshot(value)) throw new Error('invalid school snapshot');
+              snapshot = value; break;
+            } catch { /* Try the public snapshot when a copied or local page has no JSON. */ }
+            finally { clearTimeout(timeout); }
+          }
+          if (!snapshot) throw new Error('school data unavailable');
           schoolSnapshot = snapshot; schoolDataError = false; schoolDataLastLoaded = Date.now();
+          try { localStorage.setItem(SCHOOL_DATA_CACHE_KEY,JSON.stringify(snapshot)); } catch { /* Rendering works even when the browser cannot cache data. */ }
         } catch { schoolDataError = true; }
-        finally { clearTimeout(timeout); schoolDataLoading = false; renderTodayHub(); }
+        finally { schoolDataLoading = false; renderTodayHub(); }
       }
       function populateSchoolRooms(grade, selected = '1') {
         const count = Math.min(40, Math.max(1, Number(schoolSnapshot?.timetable?.classCounts?.[Number(grade) - 1]) || 10));
@@ -2128,7 +2147,12 @@
       $('#add-exam-scope').addEventListener('click', () => openExamScopeModal());
       $('#add-material').addEventListener('click', () => openMaterialModal());
       $('#daily-song-edit').addEventListener('click', () => openSongModal());
-      $$('[data-today-page]').forEach(button => button.addEventListener('click', () => { todayHubPage = button.dataset.todayPage; renderTodayHub(); if (todayHubPage !== 'music' && Date.now() - schoolDataLastLoaded > 5 * 60 * 1000) loadSchoolData(); }));
+      $$('[data-today-page]').forEach(button => button.addEventListener('click', () => {
+        const next = button.dataset.todayPage;
+        if (next !== 'music' && (todayHubPage === 'music' || todayHubPage === next)) { todayHubTracksToday = true; todayHubDate = schoolTodayDate(); }
+        todayHubPage = next; renderTodayHub();
+        if (todayHubPage !== 'music') loadSchoolData();
+      }));
       $('.today-hub-tabs').addEventListener('keydown', e => {
         if (koreanInput.isComposing(e)) return;
         if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
@@ -2138,7 +2162,7 @@
       });
       $$('[data-school-day]').forEach(button => button.addEventListener('click', () => { const date = new Date(`${todayHubDate}T12:00:00Z`); date.setUTCDate(date.getUTCDate() + Number(button.dataset.schoolDay)); todayHubDate = date.toISOString().slice(0,10); todayHubTracksToday = false; renderTodayHub(); }));
       $('#school-hub-date').addEventListener('change', e => { if (!/^\d{4}-\d{2}-\d{2}$/.test(e.target.value) || Number.isNaN(Date.parse(e.target.value))) { renderTodayHub(); return; } todayHubDate = e.target.value; todayHubTracksToday = false; renderTodayHub(); });
-      $('#school-day-today').addEventListener('click', () => { todayHubTracksToday = true; renderTodayHub(); });
+      $('#school-day-today').addEventListener('click', () => { todayHubTracksToday = true; renderTodayHub(); loadSchoolData(); });
       $('#school-data-refresh').addEventListener('click', () => loadSchoolData());
       $('#school-class-open').addEventListener('click', () => { const profile = data.schoolClass || { grade:activeGrade, room:'1' }; $('#school-class-grade').value = profile.grade; populateSchoolRooms(profile.grade, profile.room); openModal('school-class-modal'); });
       $('#school-class-grade').addEventListener('change', e => populateSchoolRooms(e.target.value));
