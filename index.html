@@ -483,6 +483,9 @@
     .timer-subject { max-width: 220px; min-height: 36px; margin-top: 16px; padding: 0 8px; font-size: 12px; }
     .timer-btn { width: 48px; height: 48px; background: #434a53; }
     .timer-btn:hover { background: #58616d; }
+    .timer-actions { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+    .timer-save { min-height: 40px; padding: 8px 16px; border: 1px solid #ffffff40; border-radius: 10px; background: transparent; color: white; font-size: 12px; }
+    .timer-save:disabled { opacity: .4; cursor: default; }
     .screen-section, .assessment-detail-panel, .report-detail-panel { margin-top: 24px; }
     .planner-toolbar, .semester-toolbar, .club-filters, .admissions-filters { gap: 8px; margin-bottom: 16px; }
     .semester-toolbar { margin-top: 0; }
@@ -701,7 +704,7 @@
             <div class="today-hub-page" id="today-page-timetable" role="tabpanel" aria-labelledby="today-tab-timetable"><div class="school-today-card"><div class="school-today-head"><div><h2 class="school-today-title" id="school-timetable-title">오늘의 시간표</h2><p class="school-today-subtitle" id="school-timetable-date">운호고등학교</p></div><button class="small-action" id="school-class-open">학년·반 설정</button></div><div id="school-timetable-content" aria-live="polite"></div><p class="school-source-status" id="school-timetable-status"></p><a class="school-source-link" href="http://comci.net:4082/st" target="_blank" rel="noopener">컴시간 학생용 원문 ↗</a></div></div>
           </section>
           <div class="stats-grid">
-            <article class="stat-card"><div class="stat-top"><span>오늘 공부 시간</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="stat-value" id="today-hours">0분</div><div class="stat-note">집중 타이머 기록</div></article>
+            <article class="stat-card"><div class="stat-top"><span>오늘 공부 시간</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="stat-value" id="today-hours">0분</div><div class="stat-note">저장된 순공 시간</div></article>
             <article class="stat-card"><div class="stat-top"><span>이번 주 공부</span><span class="stat-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></svg></span></div><div class="stat-value" id="week-hours">0시간</div><div class="stat-note" id="week-note">이번 주 누적 시간</div></article>
             <article class="stat-card"><div class="stat-top"><span>완료한 할 일</span><span class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/><circle cx="12" cy="12" r="9"/></svg></span></div><div class="stat-value" id="done-count">0개</div><div class="stat-note" id="task-note">오늘의 계획</div></article>
             <article class="stat-card"><div class="stat-top"><span>연속 학습</span><span class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.4 0 7-3 7-7 0-3-2-5-3-6-.5 2-1.2 2.5-2 3-1-4-4-7-6-9 0 5-1.5 6.5-2.5 8C4.5 13 5 18 7 20c1.2 1.2 2.8 2 5 2Z"/><path d="M10 17.5c0-1.5 1-2.5 2-3.5 1 1 2 2 2 3.5a2 2 0 0 1-4 0Z"/></svg></span></div><div class="stat-value" id="streak-count">0일</div><div class="stat-note">작은 꾸준함이 큰 실력이 돼요</div></article>
@@ -716,7 +719,7 @@
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">오늘의 학습 계획</h2><p class="panel-subtitle" id="today-task-subtitle">오늘 할 일을 하나씩 완료해봐요</p></div><button class="link-btn" data-goto="planner">전체 계획 →</button></div><div class="task-list" id="today-tasks"></div></section>
             </div>
             <div class="column">
-              <section class="panel timer-panel"><div class="panel-head"><div><h2 class="panel-title">집중 타이머</h2><p class="panel-subtitle">짧게 몰입하고, 기록으로 남겨요</p></div></div><div class="timer-inner"><div><div class="timer-display" id="timer-display">01:10:00</div><div class="timer-state" id="timer-state">포모도로 · 1시간 10분</div><select class="timer-subject" id="timer-subject" aria-label="집중 과목"></select></div><button class="timer-btn" id="timer-toggle" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button></div></section>
+              <section class="panel timer-panel"><div class="panel-head"><div><h2 class="panel-title">집중 타이머</h2><p class="panel-subtitle">짧게 몰입하고, 기록으로 남겨요</p></div></div><div class="timer-inner"><div><div class="timer-display" id="timer-display">01:10:00</div><div class="timer-state" id="timer-state">포모도로 · 1시간 10분</div><div class="timer-state" id="timer-elapsed">중간에 멈춰도 공부한 시간이 기록돼요.</div><select class="timer-subject" id="timer-subject" aria-label="집중 과목"></select></div><div class="timer-actions"><button class="timer-btn" id="timer-toggle" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><button class="timer-save" id="timer-finish" type="button" disabled>종료·저장</button></div></div></section>
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">과목별 학습</h2><p class="panel-subtitle">이번 주 공부 시간</p></div><button class="link-btn" data-goto="subjects">관리 →</button></div><div class="subject-list" id="subject-summary"></div></section>
             </div>
           </div>
@@ -729,7 +732,7 @@
           <section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title" id="assessment-agenda-title">수행 평가 목록</h2><p class="panel-subtitle">일정을 누르면 상세 내용을 확인할 수 있어요.</p></div></div><div class="assessment-agenda" id="assessment-agenda"></div></section>
           <section class="panel assessment-detail-panel" id="assessment-detail-panel" hidden><div id="assessment-detail"></div></section>
         </section>
-        <section class="screen" id="screen-records"><div class="page-heading"><div><h1>학습 기록</h1><p class="subtitle">꾸준히 쌓인 시간을 확인해봐요.</p></div></div><section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">이번 주의 집중 시간</p></div></div><div class="week-chart" id="records-chart"></div></section><section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">이번 주 과목별 시간</h2><p class="panel-subtitle">타이머로 기록한 학습량</p></div></div><div class="subject-list" id="record-subjects"></div></section></section>
+        <section class="screen" id="screen-records"><div class="page-heading"><div><h1>학습 기록</h1><p class="subtitle">꾸준히 쌓인 시간을 확인해봐요.</p></div><button class="primary-btn" id="add-study-time">공부 시간 추가</button></div><section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">이번 주의 집중 시간</p></div></div><div class="week-chart" id="records-chart"></div></section><section class="panel screen-section"><div class="panel-head"><div><h2 class="panel-title">이번 주 과목별 시간</h2><p class="panel-subtitle">타이머와 직접 추가한 공부 시간</p></div></div><div class="subject-list" id="record-subjects"></div></section></section>
         <section class="screen" id="screen-extras">
           <div class="page-heading"><div><h1>부가 활동</h1><p class="subtitle">보고서 마감과 방송부 활동을 한곳에 정리해요.</p></div></div>
           <div class="extra-tabs" role="tablist" aria-label="부가 활동 페이지">
@@ -775,10 +778,12 @@
   <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title"><section class="modal" style="width:min(100%,480px)"><div class="modal-head"><h2 id="sync-modal-title">기기 간 동기화</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="sync-help">Supabase 프로젝트를 한 번 연결하면 맥과 iPad에서 같은 이메일로 로그인해 학습 데이터를 동기화할 수 있어요. 학습 데이터와 첨부파일은 로그인한 본인 계정에만 저장돼요. <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase 열기 ↗</a></div><div class="field"><label for="sync-url">Project URL</label><input id="sync-url" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></div><div class="field"><label for="sync-key">Publishable key</label><input id="sync-key" type="password" placeholder="sb_publishable_…" autocomplete="off"></div><button class="secondary-btn" type="button" id="sync-save-config">프로젝트 연결 저장</button><div class="field"><label for="sync-email">이메일</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field"><label for="sync-password">비밀번호</label><input id="sync-password" type="password" placeholder="8자 이상" autocomplete="current-password"></div><div class="sync-account" id="sync-account" hidden><span id="sync-account-email"></span><button class="secondary-btn" type="button" id="sync-signout">로그아웃</button></div><div class="sync-actions" id="sync-auth-actions"><button class="primary-btn" type="button" id="sync-signin">로그인</button><button class="secondary-btn" type="button" id="sync-signup">계정 만들기</button></div><div class="sync-actions" id="sync-data-actions" hidden><button class="primary-btn" type="button" id="sync-now">지금 동기화</button></div><div class="sync-status" id="sync-status" role="status" aria-live="polite">연결 설정이 필요해요.</div><div class="sync-help">새 계정은 이메일 인증 후 로그인해야 할 수 있어요. 비밀번호 재설정과 이메일 인증 주소는 Supabase Auth 설정을 따라요. 공개용 Publishable key만 입력하세요. Secret key는 입력하지 마세요.</div></div></section></div>
   <div class="modal-backdrop" id="admissions-unlock-modal" role="dialog" aria-modal="true" aria-labelledby="admissions-unlock-title" aria-describedby="admissions-unlock-copy"><form class="modal" id="admissions-unlock-form" autocomplete="off"><div class="modal-head"><h2 id="admissions-unlock-title">입시 공간 잠금 해제</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="admissions-lock-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></div><p class="admissions-lock-copy" id="admissions-unlock-copy">교과 성적·모의고사 성적·학생부를 보려면 4자리 암호 코드를 입력해 주세요.</p><div class="form-grid"><div class="field"><label for="admissions-passcode">암호 코드</label><input class="admissions-passcode" id="admissions-passcode" name="passcode" type="password" inputmode="numeric" pattern="[0-9]{4}" minlength="4" maxlength="4" autocomplete="off" required aria-describedby="admissions-unlock-error"></div><p class="admissions-lock-error" id="admissions-unlock-error" role="alert"></p><p class="admissions-lock-note">입시 공간을 나가거나 새로고침하면 자동으로 잠겨요.</p><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="admissions-unlock-submit">잠금 해제</button></div></div></form></div>
   <div class="modal-backdrop" id="school-class-modal" role="dialog" aria-modal="true" aria-labelledby="school-class-modal-title"><form class="modal" id="school-class-form"><div class="modal-head"><h2 id="school-class-modal-title">시간표 학년·반</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><p class="school-today-empty">운호고등학교의 내 학년·반을 선택해 주세요. 학년이 바뀌면 여기에서 수정할 수 있어요.</p><div class="form-row"><div class="field"><label for="school-class-grade">학년</label><select id="school-class-grade" name="grade"><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option></select></div><div class="field"><label for="school-class-room">반</label><select id="school-class-room" name="room"></select></div></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">학년·반 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="study-time-modal" role="dialog" aria-modal="true" aria-labelledby="study-time-title"><form class="modal" id="study-time-form"><div class="modal-head"><h2 id="study-time-title">공부 시간 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><p class="subtitle">타이머에 빠진 공부 시간을 날짜와 과목에 맞게 추가해요.</p><div class="form-row"><div class="field"><label for="study-time-grade">학년</label><select id="study-time-grade" required><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="study-time-date">공부한 날짜</label><input id="study-time-date" type="date" required></div></div><div class="field"><label for="study-time-subject">공부한 과목</label><select id="study-time-subject"></select></div><div class="field"><label for="study-time-minutes">공부한 시간 (분)</label><input id="study-time-minutes" type="number" min="1" max="1440" step="1" value="30" required><small class="assessment-file-hint">이미 기록된 시간과 중복되지 않게, 누락된 시간만 입력해 주세요.</small></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">공부 시간 저장</button></div></div></form></div>
   <div class="toast" id="toast" role="status"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="attachment-transfer.js"></script>
   <script src="korean-input.js"></script>
+  <script src="study-timer.js"></script>
   <script>
     (() => {
       const koreanInput = globalThis.OndoKoreanInput;
@@ -787,6 +792,9 @@
       const LEGACY_STORAGE_KEY = 'ondo-study-v1';
       const ATTACHMENT_DB = 'ondo-study-assessment-files-v1';
       const TIMER_MINUTES = 70;
+      const StudyTimer = globalThis.OndoStudyTimer;
+      const TIMER_STATE_KEY = 'ondo-focus-timer-v1';
+      const STUDY_OUTBOX_KEY = 'ondo-study-time-outbox-v1';
       const MAX_ATTACHMENT_BYTES = 200 * 1024 * 1024;
       const ADMISSIONS_PASSCODE_DIGEST = '091943436a6273fb665375735e716ba2d5c12fac19c232df2e27e5e023735a81';
       const DDAY_DATE = '2026-12-07';
@@ -932,8 +940,10 @@
       let timerRunning = false;
       let timerInterval = null;
       let timerSubject = null;
-      let timerGrade = null;
-      let timerSessionSubject = null;
+      let timerState = readTimerState();
+      let studyOutbox = readStudyOutbox();
+      let timerLastCheckpoint = 0;
+      let timerSaveFailed = false;
       let assessmentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
       let selectedAssessmentDate = null;
       let selectedAssessmentId = null;
@@ -968,7 +978,7 @@
       let cloudSyncAgain = false;
       let cloudInitializedUser = null;
       let cloudLastUpdatedAt = null;
-      let cloudPendingLocalChanges = false;
+      let cloudPendingLocalChanges = studyOutbox.length > 0;
       let cloudLocalRevision = 0;
       let cloudConfig = loadCloudConfig();
       const $ = (q, root = document) => root.querySelector(q);
@@ -1042,8 +1052,9 @@
           } else {
             applyCloudPayload(remote.payload);
             cloudLastUpdatedAt = remote.updated_at;
-            cloudPendingLocalChanges = false;
-            showSyncChecked('최신 자료를 불러왔어요.');
+            if (studyOutbox.length) {
+              if (!await pushCloudData(true)) throw new Error('기기에 저장된 공부 시간을 아직 업로드하지 못했어요. 다시 동기화해 주세요.');
+            } else { cloudPendingLocalChanges = false; showSyncChecked('최신 자료를 불러왔어요.'); }
           }
           localStorage.setItem(`ondo-cloud-linked:${userId}`, '1');
         } catch (error) {
@@ -1079,7 +1090,7 @@
         for (const grade of ['1','2','3']) {
           remote.grades[grade].subjects = mergeRows(remote.grades[grade].subjects, local.grades[grade].subjects);
           remote.grades[grade].tasks = mergeRows(remote.grades[grade].tasks, local.grades[grade].tasks);
-          remote.grades[grade].sessions = mergeRows(remote.grades[grade].sessions, local.grades[grade].sessions);
+          remote.grades[grade].sessions = StudyTimer.mergeSessions(remote.grades[grade].sessions, local.grades[grade].sessions);
           remote.grades[grade].assessments = mergeRows(remote.grades[grade].assessments, local.grades[grade].assessments);
           remote.grades[grade].examScopes = mergeRows(remote.grades[grade].examScopes, local.grades[grade].examScopes);
           remote.grades[grade].materials = mergeRows(remote.grades[grade].materials, local.grades[grade].materials);
@@ -1097,7 +1108,18 @@
         return remote;
       }
       function applyCloudPayload(payload) {
+        // Study time is append-only. Keep local sessions absent from an older
+        // device snapshot, and queue them until the server acknowledges them.
+        studyOutbox = readStudyOutbox();
+        for (const grade of ['1','2','3']) for (const row of data.grades[grade].sessions) {
+          const remote = (payload?.grades?.[grade]?.sessions || []).find(saved => saved.id === row.id);
+          if (!remote || row.source === 'pomodoro' && Number(remote.minutes) < Number(row.minutes)) studyOutbox = StudyTimer.mergeSessions(studyOutbox,[{...row,grade}]);
+        }
+        localStorage.setItem(STUDY_OUTBOX_KEY,JSON.stringify(studyOutbox));
+        acknowledgeStudyRows(payload);
         data = normalizeStudyData(payload);
+        for (const grade of ['1','2','3']) data.grades[grade].sessions = StudyTimer.mergeSessions(data.grades[grade].sessions, studyOutbox.filter(row => row.grade === grade));
+        if (studyOutbox.length) cloudPendingLocalChanges = true;
         activeGrade = data.activeGrade;
         gradeData = data.grades[activeGrade];
         if (!timerRunning) timerSubject = null;
@@ -1122,7 +1144,8 @@
           const { data: saved, error } = await cloudClient.from('ondo_user_data').upsert({ user_id:userId, payload, updated_at:new Date().toISOString() }, { onConflict:'user_id' }).select('updated_at').single();
           if (error) throw error;
           cloudLastUpdatedAt = saved?.updated_at || new Date().toISOString();
-          cloudPendingLocalChanges = attachmentWarnings > 0 || cloudLocalRevision !== revision;
+          acknowledgeStudyRows(payload);
+          cloudPendingLocalChanges = attachmentWarnings > 0 || cloudLocalRevision !== revision || studyOutbox.length > 0;
           if (cloudLocalRevision !== revision) cloudSyncAgain = true;
           localStorage.setItem(`ondo-cloud-linked:${userId}`, '1');
           if (attachmentWarnings) setSyncStatus(`기록 저장 완료 · 첨부파일 ${attachmentWarnings}개 업로드 대기 · 지금 동기화로 이어 올릴 수 있어요`, 'error');
@@ -1180,7 +1203,8 @@
             applyCloudPayload(remote.payload);
             cloudLastUpdatedAt = remote.updated_at;
           }
-          showSyncChecked(changed ? '최신 자료를 불러왔어요.' : '이미 최신 상태예요.');
+          if (studyOutbox.length) { cloudSyncAgain = true; cloudPendingLocalChanges = true; setSyncStatus('기기에 저장된 공부 시간을 클라우드에 반영하고 있어요…'); }
+          else showSyncChecked(changed ? '최신 자료를 불러왔어요.' : '이미 최신 상태예요.');
         } catch (error) { setSyncStatus(`동기화 확인 실패: ${error.message || '네트워크를 확인해 주세요.'}`, 'error'); }
         finally { setCloudBusy(false); if (cloudSyncAgain) { cloudSyncAgain = false; scheduleCloudPush(); } }
       }
@@ -1281,7 +1305,7 @@
       const minsForDate = (date) => gradeData.sessions.filter(s => s.date === date).reduce((n, s) => n + s.minutes, 0);
       const weekDates = () => { const now = new Date(); const mon = new Date(now); const day = (now.getDay() + 6) % 7; mon.setDate(now.getDate() - day); return Array.from({ length: 7 }, (_, i) => { const d = new Date(mon); d.setDate(mon.getDate() + i); return localDate(d); }); };
       const weekMins = (dateList = weekDates()) => gradeData.sessions.filter(s => dateList.includes(s.date)).reduce((n, s) => n + s.minutes, 0);
-      const fmtDuration = (mins) => mins >= 60 ? `${Math.floor(mins / 60)}시간${mins % 60 ? ` ${mins % 60}분` : ''}` : `${mins}분`;
+      const fmtDuration = (mins) => { const total = Math.max(0, Math.round(Number(mins) * 60)); const hours = Math.floor(total / 3600), minutes = Math.floor(total % 3600 / 60), seconds = total % 60; return [hours ? `${hours}시간` : '', minutes ? `${minutes}분` : '', seconds ? `${seconds}초` : ''].filter(Boolean).join(' ') || '0분'; };
       const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>';
       function taskMarkup(task) { const semester = subjectSemester(task.subject); const course = semester && semester !== '학년 과정' ? `${semester} · ` : ''; return `<div class="task-item ${task.done ? 'completed' : ''}"><button class="check-btn ${task.done ? 'done' : ''}" data-task-toggle="${task.id}" aria-label="${task.done ? '완료 취소' : '완료 표시'}">${checkIcon}</button><div class="task-copy"><div class="task-name">${escapeHtml(task.title)}</div><div class="task-meta"><span class="subject-dot" style="background:${subjectColor(task.subject)}"></span>${escapeHtml(course + subjectName(task.subject))}<span>·</span>${fmtDate(task.date, { month:'numeric', day:'numeric' })}</div></div><span class="task-duration">${task.minutes}분</span></div>`; }
       function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
@@ -1831,9 +1855,7 @@
         const subjects = gradeData.subjects.filter(s => activeSemester === 'all' || s.semester === activeSemester);
         $('#subject-grid').innerHTML = subjects.length ? subjects.map(s => { const m = gradeData.sessions.filter(x => x.subject === s.id && weekDates().includes(x.date)).reduce((a, x) => a + x.minutes, 0); const pct = Math.min(100, m / (s.goal * 60) * 100); const taskCount = gradeData.tasks.filter(t => t.subject === s.id && !t.done).length; const badge = s.semester ? `<span class="semester-badge">${escapeHtml(semesterText(s.semester))}</span>` : ''; return `<article class="subject-card" style="--subject-color:${s.color}"><div class="subject-card-top"><span class="subject-color" style="background:${s.color}"></span><h3 style="flex:1">${escapeHtml(s.name)}</h3>${badge}</div><p>이번 주 ${fmtDuration(m)} 학습 · 목표 ${s.goal}시간</p><div class="progress-track"><span style="width:${pct}%"></span></div><p style="margin-bottom:0">남은 계획 ${taskCount}개</p></article>`; }).join('') : emptyMarkup('과목을 추가해보세요', '과목별로 학습 시간을 관리할 수 있어요.');
         $('#task-subject').innerHTML = gradeData.subjects.map(s => `<option value="${s.id}">${escapeHtml(semesterSubjectLabel(s))}</option>`).join('') || '<option value="">기타</option>';
-        const selectedTimerSubject = gradeData.subjects.some(s => s.id === timerSubject) ? timerSubject : (gradeData.subjects[0]?.id || '');
-        $('#timer-subject').innerHTML = gradeData.subjects.map(s => `<option value="${s.id}" ${s.id === selectedTimerSubject ? 'selected' : ''}>${escapeHtml(semesterSubjectLabel(s))} 집중</option>`).join('') || '<option value="">기타</option>';
-        timerSubject = selectedTimerSubject || null;
+        renderTimer();
         const semesters = semesterOptions();
         $('#subject-semester-field').hidden = semesters.length < 2;
         $('#subject-semester-input').innerHTML = semesters.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(semesterText(s))}</option>`).join('');
@@ -1842,8 +1864,8 @@
       }
       function streak() { const studied = new Set(gradeData.sessions.map(s => s.date)); let d = new Date(); let count = 0; if (!studied.has(localDate(d))) d.setDate(d.getDate() - 1); while (studied.has(localDate(d)) && count < 366) { count++; d.setDate(d.getDate() - 1); } return count; }
       function renderStats() {
-        const now = localDate(today); const todays = gradeData.tasks.filter(t => t.date === now); const done = todays.filter(t => t.done).length; const mins = minsForDate(now); const weeklyMins = weekMins();
-        $('#today-hours').textContent = fmtDuration(mins); $('#week-hours').textContent = weeklyMins >= 60 ? `${(weeklyMins / 60).toFixed(1)}시간` : `${weeklyMins}분`;
+        const now = localDate(new Date()); const todays = gradeData.tasks.filter(t => t.date === now); const done = todays.filter(t => t.done).length; const mins = minsForDate(now); const weeklyMins = weekMins();
+        $('#today-hours').textContent = fmtDuration(mins); $('#week-hours').textContent = weeklyMins >= 60 ? `${(weeklyMins / 60).toFixed(1)}시간` : fmtDuration(weeklyMins);
         $('#done-count').textContent = `${done}개`; $('#task-note').textContent = todays.length ? `오늘 ${todays.length}개 중 ${done}개 완료` : '오늘의 계획'; $('#streak-count').textContent = `${streak()}일`;
         const goalPct = Math.min(100, Math.round(mins / gradeData.goalMinutes * 100)); $('#goal-mini').textContent = `${goalPct}%`; $('#goal-progress').style.width = `${goalPct}%`; $('#goal-caption').textContent = `${fmtDuration(mins)} 공부했어요 · 목표 ${fmtDuration(gradeData.goalMinutes)}`;
         $('#week-note').textContent = `${weekDates().filter(d => minsForDate(d) > 0).length}일 학습 기록`;
@@ -1898,13 +1920,95 @@
         renderAssessmentDraftFiles();
         openModal('assessment-modal');
       }
-      function updateTimerDisplay() { const h = Math.floor(timerSeconds / 3600); const m = Math.floor((timerSeconds % 3600) / 60); const s = timerSeconds % 60; $('#timer-display').textContent = h ? `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}` : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+      function readTimerState() { try { return StudyTimer.restore(JSON.parse(localStorage.getItem(TIMER_STATE_KEY))); } catch { return null; } }
+      function readStudyOutbox() { try { const rows = JSON.parse(localStorage.getItem(STUDY_OUTBOX_KEY)); return Array.isArray(rows) ? rows.filter(row => row && ['1','2','3'].includes(row.grade) && typeof row.id === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(row.date) && Number.isFinite(row.minutes) && row.minutes > 0 && row.minutes <= 1440) : []; } catch { return []; } }
+      function acknowledgeStudyRows(payload) {
+        studyOutbox = readStudyOutbox().filter(row => !(payload?.grades?.[row.grade]?.sessions || []).some(saved => saved.id === row.id && Number(saved.minutes) >= row.minutes));
+        localStorage.setItem(STUDY_OUTBOX_KEY, JSON.stringify(studyOutbox));
+      }
+      function restoreStudyRows() {
+        studyOutbox = readStudyOutbox();
+        for (const grade of ['1','2','3']) data.grades[grade].sessions = StudyTimer.mergeSessions(data.grades[grade].sessions, studyOutbox.filter(row => row.grade === grade));
+      }
+      function stageStudyRows(rows) {
+        studyOutbox = readStudyOutbox();
+        let changed = false;
+        for (const row of rows) {
+          if (data.grades[row.grade].sessions.some(saved => saved.id === row.id && Number(saved.minutes) >= row.minutes)) continue;
+          studyOutbox = StudyTimer.mergeSessions(studyOutbox,[row]); changed = true;
+        }
+        if (!changed) return false;
+        // Persist an outbox first; a reload or an older cloud snapshot cannot erase it.
+        localStorage.setItem(STUDY_OUTBOX_KEY, JSON.stringify(studyOutbox));
+        restoreStudyRows(); save(); return true;
+      }
+      function refreshStudyTime() { renderStats(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); }
+      function checkpointTimer(now = Date.now()) {
+        if (!timerState) return true;
+        try {
+          localStorage.setItem(TIMER_STATE_KEY, JSON.stringify(timerState));
+          const changed = stageStudyRows(StudyTimer.records(timerState,now));
+          timerLastCheckpoint = now; timerSaveFailed = false;
+          if (changed) refreshStudyTime();
+          return true;
+        } catch { timerSaveFailed = true; timerState = StudyTimer.pause(timerState,now); showToast('공부 시간을 기기에 저장하지 못했어요. 저장 공간을 확인하고 다시 저장해 주세요.'); return false; }
+      }
+      function renderTimer() {
+        const now = Date.now(), progress = StudyTimer.measure(timerState,now), active = timerState && !timerState.finished;
+        timerRunning = progress.running;
+        timerSeconds = active ? progress.remainingSeconds : TIMER_MINUTES * 60;
+        const hours = Math.floor(timerSeconds / 3600), minutes = Math.floor(timerSeconds % 3600 / 60), seconds = timerSeconds % 60;
+        $('#timer-display').textContent = `${hours ? `${String(hours).padStart(2,'0')}:` : ''}${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        const owner = active ? timerState.grade : activeGrade, subjects = data.grades[owner].subjects;
+        if (active) timerSubject = timerState.subject;
+        else if (!subjects.some(subject => subject.id === timerSubject)) timerSubject = subjects[0]?.id || '';
+        const choices = subjects.some(subject => subject.id === timerSubject) || !timerSubject ? subjects : [...subjects,{id:timerSubject,name:'기존 과목'}];
+        const signature = JSON.stringify([owner,timerSubject,choices]);
+        if ($('#timer-subject').dataset.signature !== signature) {
+          $('#timer-subject').innerHTML = choices.map(subject => `<option value="${escapeHtml(subject.id)}" ${subject.id === timerSubject ? 'selected' : ''}>${escapeHtml(semesterSubjectLabel(subject))} 집중</option>`).join('') || '<option value="">기타</option>';
+          $('#timer-subject').dataset.signature = signature;
+        }
+        $('#timer-subject').disabled = Boolean(active);
+        const name = subjects.find(subject => subject.id === timerSubject)?.name || '기타';
+        $('#timer-state').textContent = timerSaveFailed ? '저장 오류 · 다시 저장해 주세요' : active ? `${timerRunning ? '집중 중' : '일시정지 · 저장됨'} · 고${owner} ${name}` : timerState?.finished ? `기록 완료 · ${fmtDuration(progress.elapsedMs / 60000)}` : '포모도로 · 1시간 10분';
+        $('#timer-elapsed').textContent = active ? `이번 집중 ${fmtDuration(progress.elapsedMs / 60000)} · 자동 저장` : '중간에 멈춰도 공부한 시간이 기록돼요.';
+        $('#timer-icon').innerHTML = timerRunning ? '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
+        $('#timer-toggle').setAttribute('aria-label',timerRunning ? '타이머 일시 정지' : active ? '타이머 계속하기' : '타이머 시작');
+        $('#timer-finish').disabled = !active;
+      }
+      function timerHeartbeat() {
+        if (!timerSaveFailed) timerState = readTimerState();
+        const now = Date.now(), progress = StudyTimer.measure(timerState,now);
+        if (timerState && !timerState.finished && progress.complete) {
+          timerState = StudyTimer.finish(timerState,now);
+          if (checkpointTimer(now)) showToast('공부한 시간 1시간 10분을 기록했어요.');
+        } else if (progress.running && now - timerLastCheckpoint >= 10000 && !timerSaveFailed) checkpointTimer(now);
+        renderTimer();
+      }
       function toggleTimer() {
-        if (timerRunning) { clearInterval(timerInterval); timerRunning = false; $('#timer-state').textContent = '일시 정지됨'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 시작'); return; }
-        if (!timerSubject && gradeData.subjects.length) { timerSubject = gradeData.subjects[0].id; }
-        timerGrade = activeGrade; timerSessionSubject = timerSubject;
-        timerRunning = true; $('#timer-state').textContent = `집중 중 · ${subjectName(timerSubject || '')}`; $('#timer-icon').innerHTML = '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>'; $('#timer-toggle').setAttribute('aria-label','타이머 일시 정지');
-        timerInterval = setInterval(() => { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false; const mins = TIMER_MINUTES; const now = localDate(new Date()); data.grades[timerGrade].sessions.push({ id: uid(), date: now, minutes: mins, subject: timerSessionSubject }); save(); timerSeconds = TIMER_MINUTES * 60; updateTimerDisplay(); $('#timer-state').textContent = '1시간 10분 집중 완료!'; $('#timer-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; render(); showToast('집중 시간 1시간 10분을 기록했어요 🎉'); } }, 1000);
+        if (!timerSaveFailed) timerState = readTimerState();
+        const now = Date.now(), progress = StudyTimer.measure(timerState,now);
+        if (timerState && !timerState.finished && progress.complete) timerState = StudyTimer.finish(timerState,now);
+        else if (progress.running) timerState = StudyTimer.pause(timerState,now);
+        else if (timerState && !timerState.finished) timerState = StudyTimer.resume(timerState,now);
+        else timerState = StudyTimer.create(`${now.toString(36)}-${uid()}`,activeGrade,timerSubject || gradeData.subjects[0]?.id || '',now);
+        checkpointTimer(now); renderTimer();
+      }
+      function finishTimer() {
+        if (!timerSaveFailed) timerState = readTimerState();
+        if (!timerState || timerState.finished) return;
+        const now = Date.now(); timerState = StudyTimer.finish(timerState,now);
+        if (checkpointTimer(now)) showToast(`${fmtDuration(StudyTimer.measure(timerState,now).elapsedMs / 60000)} 공부 시간을 기록했어요.`);
+        renderTimer();
+      }
+      function populateStudyTimeSubjects() {
+        const grade = $('#study-time-grade').value;
+        $('#study-time-subject').innerHTML = data.grades[grade].subjects.map(subject => `<option value="${escapeHtml(subject.id)}">${escapeHtml(semesterSubjectLabel(subject))}</option>`).join('') || '<option value="">기타</option>';
+      }
+      function openStudyTimeModal() {
+        $('#study-time-form').reset(); $('#study-time-grade').value = activeGrade;
+        $('#study-time-date').value = localDate(new Date()); $('#study-time-date').max = localDate(new Date());
+        populateStudyTimeSubjects(); openModal('study-time-modal');
       }
       function setGrade(grade, updateHash = true) {
         if (!['1', '2', '3'].includes(String(grade)) || String(grade) === activeGrade) return;
@@ -2299,10 +2403,26 @@
       });
       $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
       $('#timer-toggle').addEventListener('click', toggleTimer);
-      $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; if (!timerRunning) $('#timer-state').textContent = `포모도로 · ${subjectName(timerSubject)}`; });
+      $('#timer-finish').addEventListener('click', finishTimer);
+      $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; renderTimer(); });
+      $('#add-study-time').addEventListener('click', openStudyTimeModal);
+      $('#study-time-grade').addEventListener('change', populateStudyTimeSubjects);
+      $('#study-time-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const grade = $('#study-time-grade').value, date = $('#study-time-date').value, subject = $('#study-time-subject').value, minutes = Number($('#study-time-minutes').value);
+        if (!data.grades[grade] || !/^\d{4}-\d{2}-\d{2}$/.test(date) || date > localDate(new Date()) || !Number.isInteger(minutes) || minutes < 1 || minutes > 1440 || subject && !data.grades[grade].subjects.some(item => item.id === subject)) { showToast('날짜·과목·공부한 시간을 확인해 주세요.'); return; }
+        try {
+          stageStudyRows([{id:`manual-${Date.now().toString(36)}-${uid()}`,grade,date,subject,minutes,seconds:minutes * 60,source:'manual'}]);
+          closeModal(e.currentTarget); refreshStudyTime(); showToast(`공부 시간 ${minutes}분을 추가했어요.`);
+        } catch { showToast('공부 시간을 저장하지 못했어요. 저장 공간을 확인해 주세요.'); }
+      });
+      document.addEventListener('visibilitychange', () => { if (timerState && !timerState.finished) { timerState = readTimerState() || timerState; checkpointTimer(); } if (document.visibilityState === 'visible') timerHeartbeat(); });
+      window.addEventListener('pagehide', () => { if (timerState && !timerState.finished) checkpointTimer(); });
+      window.addEventListener('pageshow', () => timerHeartbeat());
+      window.addEventListener('storage', e => { if (e.key === TIMER_STATE_KEY) timerHeartbeat(); });
       document.addEventListener('keydown', e => { if (!koreanInput.isComposing(e) && e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => closeModal(el)); });
       window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
-      render(); scheduleAssessmentExpiry(); scheduleExtrasRefresh(); loadSchoolData();
+      restoreStudyRows(); render(); timerHeartbeat(); timerInterval = setInterval(timerHeartbeat,1000); scheduleAssessmentExpiry(); scheduleExtrasRefresh(); loadSchoolData();
       setInterval(() => { if (document.visibilityState === 'visible' && screen === 'home') loadSchoolData(); }, 10 * 60 * 1000);
       document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && Date.now() - schoolDataLastLoaded > 5 * 60 * 1000) loadSchoolData(); });
     })();
