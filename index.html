@@ -662,6 +662,60 @@
       .assessment-chip { font-size: 8px; }
       .agenda-item { padding: 16px 8px; }
     }
+    .focus-entry { display: flex; flex-direction: column; width: 100%; padding: 24px; border: 1px solid #22252a; border-radius: 16px; text-align: left; color: #fff; background: #22252a; transition: background .2s, transform .2s; }
+    .focus-entry:hover { background: #30343a; transform: translateY(-2px); }
+    .focus-entry-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #c4c8ce; }
+    .focus-entry-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: #ffffff10; }
+    .focus-entry-icon svg { width: 24px; height: 24px; }
+    .focus-entry-arrow { margin-left: auto; color: #fff; font-size: 24px; }
+    .focus-entry-time { margin-top: 24px; font-size: 48px; line-height: 1; letter-spacing: -.04em; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .focus-entry-time > span { margin-left: 8px; font-size: 16px; font-weight: 500; }
+    .focus-entry-status { margin-top: 16px; color: #c4c8ce; font-size: 12px; line-height: 24px; }
+    .focus-entry-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #ffffff20; font-size: 14px; }
+    .focus-entry-bottom > span { font-size: 24px; }
+    body.focus-mode .sidebar, body.focus-mode .topbar { display: none; }
+    body.focus-mode .app { padding: 0; }
+    body.focus-mode main { width: 100%; padding: 0; }
+    body.focus-mode .content { max-width: none; padding: 0; }
+    .focus-shell { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; padding: 24px 48px; background: #f7f8fa; }
+    .focus-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; max-width: 1440px; margin: 0 auto; }
+    .focus-back { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border: 1px solid var(--line); border-radius: 16px; color: #4d535b; background: #fff; font-size: 13px; font-weight: 600; }
+    .focus-back:hover { background: #eef0f3; }
+    .focus-back > span { font-size: 24px; }
+    .focus-wordmark { font-size: 20px; font-weight: 800; letter-spacing: -.04em; }
+    .focus-wordmark > span { margin-left: 8px; color: #939aa3; font-size: 11px; letter-spacing: .16em; font-weight: 600; }
+    .focus-stage { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 32px; padding: 32px 0; text-align: center; }
+    .focus-eyebrow { color: #818892; font-size: 12px; letter-spacing: .08em; }
+    #focus-title { margin-top: 8px; font-size: 24px; line-height: 32px; letter-spacing: -.04em; }
+    #focus-title:focus { outline: none; }
+    .focus-duration { margin: 8px 0 0; color: #848b94; font-size: 12px; line-height: 16px; }
+    .focus-clock { width: min(100%, 640px); }
+    .focus-clock-label { color: #969da6; font-size: 12px; line-height: 16px; }
+    .focus-clock .timer-display { margin-top: 16px; color: #22252a; font-size: clamp(56px, 12vw, 128px); line-height: 1.1; letter-spacing: -.055em; font-weight: 650; white-space: nowrap; }
+    .focus-progress { height: 4px; max-width: 400px; margin: 24px auto; overflow: hidden; border-radius: 8px; background: #e3e6ea; }
+    .focus-progress > span { display: block; height: 100%; width: 0; border-radius: inherit; background: #333840; transition: width .3s linear; }
+    .focus-clock .timer-state { margin: 0; min-height: 24px; color: #727a84; font-size: 13px; line-height: 24px; }
+    .focus-controls { width: min(100%, 360px); }
+    .focus-subject-field { display: flex; align-items: center; gap: 16px; }
+    .focus-subject-field label { flex-shrink: 0; color: #838b95; font-size: 12px; }
+    .focus-controls .timer-subject { flex: 1; min-width: 0; max-width: none; min-height: 48px; margin: 0; padding: 0 16px; border: 1px solid #e1e5e9; border-radius: 16px; color: #3c434c; background: #fff; font-size: 13px; }
+    .focus-controls .timer-subject:disabled { opacity: 1; color: #747c86; background: #eef0f3; -webkit-text-fill-color: #747c86; }
+    .focus-controls .timer-actions { flex-direction: row; gap: 8px; margin-top: 16px; }
+    .focus-controls .timer-btn { display: flex; flex: 1; justify-content: center; gap: 8px; width: auto; height: 56px; padding: 0 24px; border-radius: 16px; background: #22252a; font-size: 14px; font-weight: 650; }
+    .focus-controls .timer-btn:hover { background: #3b4149; }
+    .focus-controls .timer-btn svg { width: 24px; height: 24px; }
+    .focus-controls .timer-save { min-height: 56px; padding: 0 24px; border: 1px solid #dfe3e8; border-radius: 16px; color: #505862; background: #fff; font-size: 13px; }
+    .focus-controls .timer-save:hover:not(:disabled) { background: #eef0f3; }
+    .focus-controls #timer-elapsed { margin: 16px 0 0; color: #838b95; font-size: 12px; line-height: 24px; }
+    .focus-footnote { margin: 0; color: #959ca5; font-size: 11px; line-height: 24px; text-align: center; }
+    @media (max-width: 740px) {
+      .focus-shell { padding: 16px 24px; }
+      .focus-stage { gap: 24px; padding: 24px 0; }
+      .focus-clock .timer-display { font-size: clamp(48px, 17vw, 88px); }
+      .focus-controls .timer-btn, .focus-controls .timer-save { padding: 0 16px; }
+      .focus-wordmark > span { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { .focus-entry, .focus-progress > span { transition: none; } }
   </style>
 </head>
 <body>
@@ -719,9 +773,25 @@
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">오늘의 학습 계획</h2><p class="panel-subtitle" id="today-task-subtitle">오늘 할 일을 하나씩 완료해봐요</p></div><button class="link-btn" data-goto="planner">전체 계획 →</button></div><div class="task-list" id="today-tasks"></div></section>
             </div>
             <div class="column">
-              <section class="panel timer-panel"><div class="panel-head"><div><h2 class="panel-title">집중 타이머</h2><p class="panel-subtitle">짧게 몰입하고, 기록으로 남겨요</p></div></div><div class="timer-inner"><div><div class="timer-display" id="timer-display">01:10:00</div><div class="timer-state" id="timer-state">포모도로 · 1시간 10분</div><div class="timer-state" id="timer-elapsed">중간에 멈춰도 공부한 시간이 기록돼요.</div><select class="timer-subject" id="timer-subject" aria-label="집중 과목"></select></div><div class="timer-actions"><button class="timer-btn" id="timer-toggle" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><button class="timer-save" id="timer-finish" type="button" disabled>종료·저장</button></div></div></section>
+              <button class="focus-entry" id="focus-entry" type="button" data-goto="pomodoro" aria-label="뽀모도로 들어가기">
+                <span class="focus-entry-top"><span class="focus-entry-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6M12 2v3M18 6l2-2"/></svg></span><span>나만의 집중 시간</span><span class="focus-entry-arrow" aria-hidden="true">↗</span></span>
+                <span class="focus-entry-time" id="focus-entry-time">70<span>분</span></span>
+                <span class="focus-entry-status" id="focus-entry-status">과목을 고르고, 한 가지에 몰입해요.</span>
+                <span class="focus-entry-bottom"><strong>뽀모도로 들어가기</strong><span aria-hidden="true">→</span></span>
+              </button>
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">과목별 학습</h2><p class="panel-subtitle">이번 주 공부 시간</p></div><button class="link-btn" data-goto="subjects">관리 →</button></div><div class="subject-list" id="subject-summary"></div></section>
             </div>
+          </div>
+        </section>
+        <section class="screen" id="screen-pomodoro" aria-labelledby="focus-title">
+          <div class="focus-shell">
+            <header class="focus-header"><button class="focus-back" type="button" data-goto="home"><span aria-hidden="true">←</span> 대시보드로</button><span class="focus-wordmark">온도 <span>/ FOCUS</span></span></header>
+            <div class="focus-stage">
+              <div class="focus-intro"><span class="focus-eyebrow">한 번에 한 가지, 온전히</span><h1 id="focus-title" tabindex="-1">뽀모도로</h1><p class="focus-duration" id="focus-duration">고1 · 70분 집중</p></div>
+              <div class="focus-clock"><div class="focus-clock-label">남은 집중 시간</div><div class="timer-display" id="timer-display" role="timer" aria-label="남은 집중 시간" aria-live="off">01:10:00</div><div class="focus-progress" aria-hidden="true"><span id="focus-progress-fill"></span></div><div class="timer-state" id="timer-state">뽀모도로 · 1시간 10분</div></div>
+              <div class="focus-controls"><div class="focus-subject-field"><label for="timer-subject">집중할 과목</label><select class="timer-subject" id="timer-subject"></select></div><div class="timer-actions"><button class="timer-btn" id="timer-toggle" type="button" aria-label="타이머 시작"><svg id="timer-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span id="timer-toggle-label">집중 시작</span></button><button class="timer-save" id="timer-finish" type="button" disabled>종료·저장</button></div><p id="timer-elapsed">중간에 멈춰도 공부한 시간이 기록돼요.</p></div>
+            </div>
+            <p class="focus-footnote">대시보드로 돌아가도 집중 시간은 계속 이어져요.</p>
           </div>
         </section>
         <section class="screen" id="screen-planner"><div class="page-heading"><div><h1 id="planner-title">고1 학습 계획</h1><p class="subtitle">해야 할 일을 정리하고 하나씩 끝내봐요.</p></div></div><div class="panel"><div class="planner-toolbar"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="today">오늘</button><button class="filter-btn" data-filter="upcoming">예정</button><button class="filter-btn" data-filter="done">완료</button></div><div class="semester-toolbar" id="planner-semesters" hidden></div><div class="task-list" id="all-tasks"></div></div></section>
@@ -1917,7 +1987,7 @@
         $('#admissions-lock-now').hidden = !admissions || !admissionsUnlocked;
       }
       function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderTodayHub(); renderAdmissionGrades(); renderMockExams(); renderStudentRecords(); updateSpaceHeader(); }
-      function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); screen = id; $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === id)); const names = { home:'대시보드', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'mock-exams':'모의고사 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'mock-exams') renderMockExams(); if (id === 'student-records') renderStudentRecords(); }
+      function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); const previous = screen; screen = id; document.body.classList.toggle('focus-mode', id === 'pomodoro'); $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === (id === 'pomodoro' ? 'home' : id))); const names = { home:'대시보드', pomodoro:'뽀모도로', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'mock-exams':'모의고사 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'mock-exams') renderMockExams(); if (id === 'student-records') renderStudentRecords(); if (id === 'pomodoro') { timerHeartbeat(); $('#focus-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (previous === 'pomodoro') { if (id === 'home') $('#focus-entry').focus(); else window.scrollTo(0,0); } }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { const modal = document.getElementById(id); modal.classList.add('open'); const input = $('input', modal); if (input) input.focus({ preventScroll:true }); }
       function closeModal(el) { const backdrop = el.closest('.modal-backdrop'); backdrop.classList.remove('open'); if (backdrop.id === 'admissions-unlock-modal') { admissionLockVersion++; $('#admissions-unlock-form').reset(); $('#admissions-unlock-error').textContent = ''; $('#admissions-passcode').removeAttribute('aria-invalid'); } }
@@ -1977,7 +2047,8 @@
         timerRunning = progress.running;
         timerSeconds = active ? progress.remainingSeconds : TIMER_MINUTES * 60;
         const hours = Math.floor(timerSeconds / 3600), minutes = Math.floor(timerSeconds % 3600 / 60), seconds = timerSeconds % 60;
-        $('#timer-display').textContent = `${hours ? `${String(hours).padStart(2,'0')}:` : ''}${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        const display = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        $('#timer-display').textContent = display;
         const owner = active ? timerState.grade : activeGrade, subjects = data.grades[owner].subjects;
         if (active) timerSubject = timerState.subject;
         else if (!subjects.some(subject => subject.id === timerSubject)) timerSubject = subjects[0]?.id || '';
@@ -1989,11 +2060,16 @@
         }
         $('#timer-subject').disabled = Boolean(active);
         const name = subjects.find(subject => subject.id === timerSubject)?.name || '기타';
-        $('#timer-state').textContent = timerSaveFailed ? '저장 오류 · 다시 저장해 주세요' : active ? `${timerRunning ? '집중 중' : '일시정지 · 저장됨'} · 고${owner} ${name}` : timerState?.finished ? `기록 완료 · ${fmtDuration(progress.elapsedMs / 60000)}` : '포모도로 · 1시간 10분';
+        $('#timer-state').textContent = timerSaveFailed ? '저장 오류 · 다시 저장해 주세요' : active ? `${timerRunning ? '집중 중' : '일시정지 · 저장됨'} · 고${owner} ${name}` : timerState?.finished ? `기록 완료 · ${fmtDuration(progress.elapsedMs / 60000)}` : '준비되면 집중을 시작해요.';
         $('#timer-elapsed').textContent = active ? `이번 집중 ${fmtDuration(progress.elapsedMs / 60000)} · 자동 저장` : '중간에 멈춰도 공부한 시간이 기록돼요.';
         $('#timer-icon').innerHTML = timerRunning ? '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
         $('#timer-toggle').setAttribute('aria-label',timerRunning ? '타이머 일시 정지' : active ? '타이머 계속하기' : '타이머 시작');
+        $('#timer-toggle-label').textContent = timerRunning ? '일시정지' : active ? '계속 집중하기' : '집중 시작';
         $('#timer-finish').disabled = !active;
+        $('#focus-duration').textContent = `고${owner} · 70분 집중`;
+        $('#focus-progress-fill').style.width = `${active ? Math.min(100, progress.elapsedMs / (TIMER_MINUTES * 60000) * 100) : 0}%`;
+        $('#focus-entry-time').innerHTML = active ? `${display}<span>남음</span>` : '70<span>분</span>';
+        $('#focus-entry-status').textContent = timerSaveFailed ? '저장 오류 · 들어가서 다시 저장해 주세요.' : active ? `${timerRunning ? '집중 중' : '일시정지'} · 고${owner} ${name}` : '과목을 고르고, 한 가지에 몰입해요.';
       }
       function timerHeartbeat() {
         if (!timerSaveFailed) timerState = readTimerState();
