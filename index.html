@@ -716,6 +716,79 @@
       .focus-wordmark > span { display: none; }
     }
     @media (prefers-reduced-motion: reduce) { .focus-entry, .focus-progress > span { transition: none; } }
+    .dashboard-shortcuts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-bottom: 24px; }
+    .today-entry { display: flex; flex-direction: column; width: 100%; padding: 24px; border: 1px solid var(--line); border-radius: 16px; text-align: left; color: #252930; background: #fff; transition: background .2s, transform .2s; }
+    .today-entry:hover { background: #fafbfc; transform: translateY(-2px); }
+    .today-entry-top { display: flex; align-items: center; gap: 8px; color: #737b85; font-size: 12px; }
+    .today-entry-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: #f0f2f5; color: #535c68; }
+    .today-entry-icon svg { width: 24px; height: 24px; }
+    .today-entry-arrow { margin-left: auto; font-size: 24px; }
+    .today-entry-count { display: flex; align-items: baseline; gap: 8px; margin-top: 24px; line-height: 1; }
+    .today-entry-count strong { font-size: 48px; letter-spacing: -.04em; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .today-entry-count > span { font-size: 16px; color: #757d87; }
+    .today-entry-status { margin-top: 16px; color: #737b85; font-size: 12px; line-height: 24px; }
+    .today-entry-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; }
+    .today-entry-bottom > span { font-size: 24px; }
+    .daily-shell { min-height: 100vh; min-height: 100svh; padding: 24px 48px 48px; }
+    .daily-content { width: min(100%,880px); margin: 48px auto 0; }
+    .daily-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+    .daily-date { margin: 0 0 8px; color: #858d97; font-size: 13px; }
+    #daily-title { font-size: 40px; line-height: 48px; letter-spacing: -.05em; }
+    #daily-title:focus { outline: none; }
+    .daily-heading .primary-btn { min-height: 48px; gap: 8px; padding: 0 24px; border-radius: 16px; }
+    .daily-heading .primary-btn > span { font-size: 24px; font-weight: 400; }
+    .daily-summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 32px; border: 1px solid var(--line); border-radius: 24px; background: #fff; }
+    .daily-summary-label { margin: 0 0 8px; color: #7f8791; font-size: 12px; }
+    .daily-summary-count { display: flex; align-items: baseline; gap: 8px; line-height: 1; }
+    .daily-summary-count strong { font-size: 48px; font-weight: 750; letter-spacing: -.04em; }
+    .daily-summary-count > span { color: #818994; font-size: 16px; }
+    .daily-summary-message { margin: 16px 0 0; color: #737b85; font-size: 13px; line-height: 24px; word-break: keep-all; }
+    .daily-progress { --daily-progress: 0%; display: grid; place-items: center; flex: 0 0 104px; width: 104px; height: 104px; padding: 8px; border-radius: 50%; background: conic-gradient(#303640 var(--daily-progress),#edf0f3 0); }
+    .daily-progress > span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; color: #424a55; background: #fff; font-size: 20px; font-weight: 750; font-variant-numeric: tabular-nums; }
+    .daily-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 32px 0 16px; }
+    .daily-filters { display: flex; gap: 8px; }
+    .daily-filters button { min-height: 40px; padding: 0 16px; border: 1px solid var(--line); border-radius: 16px; background: #fff; color: #737b85; font-size: 13px; }
+    .daily-filters button[aria-pressed="true"] { border-color: #303640; color: #fff; background: #303640; }
+    #daily-list-count { color: #89919b; font-size: 12px; }
+    .task-actions { display: flex; flex-shrink: 0; gap: 8px; }
+    .task-actions .small-action { min-height: 40px; padding: 0 8px; }
+    .task-item .task-name { white-space: normal; overflow-wrap: anywhere; line-height: 24px; }
+    .task-item .task-meta { flex-wrap: wrap; }
+    .daily-task-list { gap: 8px; }
+    .daily-task-list .task-item { padding: 24px; border-color: var(--line); border-radius: 16px; background: #fff; }
+    .daily-task-list .task-item.completed { background: #f0f2f4; }
+    .daily-task-list .task-name { font-size: 15px; font-weight: 650; }
+    .daily-task-list .check-btn { width: 32px; height: 32px; border-radius: 16px; }
+    .daily-task-list .check-btn svg { width: 16px; height: 16px; }
+    .daily-task-list .empty-state { padding: 48px 24px; border-style: solid; border-color: var(--line); border-radius: 16px; background: #fff; }
+    .daily-empty-add { min-height: 48px; padding: 0 24px; border: 1px dashed #cbd0d7; border-radius: 16px; color: #606975; background: transparent; font-size: 13px; }
+    .daily-footnote { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; color: #89919b; font-size: 12px; }
+    .task-undo { padding: 8px; border: 0; border-radius: 8px; color: #fff; background: #ffffff20; font-weight: 650; }
+    .toast.show .task-undo { pointer-events: auto; }
+    @media (max-width: 740px) {
+      .dashboard-shortcuts { gap: 16px; }
+      .today-entry, .dashboard-shortcuts .focus-entry { padding: 16px; }
+      .today-entry-top, .focus-entry-top { flex-wrap: wrap; }
+      .today-entry-top > span:nth-child(2), .dashboard-shortcuts .focus-entry-top > span:nth-child(2) { display: none; }
+      .today-entry-bottom, .dashboard-shortcuts .focus-entry-bottom { gap: 8px; font-size: 12px; }
+      .dashboard-shortcuts .focus-entry-time { font-size: clamp(24px,6vw,40px); min-height: 48px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+      .dashboard-shortcuts .focus-entry-time > span { margin-left: 0; font-size: 13px; }
+      .today-entry-status, .dashboard-shortcuts .focus-entry-status { flex: 1; }
+      .daily-shell { padding: 16px 24px 32px; }
+      .daily-content { margin-top: 32px; }
+      .daily-heading { flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+      #daily-title { font-size: 32px; line-height: 40px; }
+      .daily-summary { padding: 24px; gap: 16px; }
+      .daily-progress { flex-basis: 80px; width: 80px; height: 80px; }
+      .daily-summary-count strong { font-size: 40px; }
+      .daily-summary-count > span { font-size: 13px; }
+      .daily-summary-message { font-size: 12px; }
+      .daily-task-list .task-item { display: grid; grid-template-columns: 32px minmax(0,1fr); gap: 16px; padding: 24px 16px; }
+      .daily-task-list .task-actions { grid-column: 2; justify-content: flex-end; }
+      .daily-footnote { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 370px) { .dashboard-shortcuts { grid-template-columns: 1fr; } .daily-shell { padding-left: 16px; padding-right: 16px; } }
+    @media (prefers-reduced-motion: reduce) { .today-entry { transition: none; } }
   </style>
 </head>
 <body>
@@ -767,19 +840,39 @@
             <div><div class="dday-title">다가오는 시험</div><div class="dday-name">제 2차 정기고사</div><div class="dday-date" id="dday-date">2026년 12월 7일</div></div>
             <div class="dday-count" id="dday-count">D-37</div>
           </section>
-          <div class="main-grid">
-            <div class="column">
-              <section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">매일의 집중을 한눈에 확인해요</p></div><button class="link-btn" data-goto="records">기록 보기 →</button></div><div class="week-chart" id="week-chart"></div></section>
-              <section class="panel"><div class="panel-head"><div><h2 class="panel-title">오늘의 학습 계획</h2><p class="panel-subtitle" id="today-task-subtitle">오늘 할 일을 하나씩 완료해봐요</p></div><button class="link-btn" data-goto="planner">전체 계획 →</button></div><div class="task-list" id="today-tasks"></div></section>
-            </div>
-            <div class="column">
+          <div class="dashboard-shortcuts">
+            <button class="today-entry" id="today-entry" type="button" data-goto="today-tasks" aria-label="오늘의 할 일 들어가기">
+              <span class="today-entry-top"><span class="today-entry-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 9 1.5 1.5L12 8M14 9h3m-9 6 1.5 1.5L12 14M14 15h3"/></svg></span><span>오늘, 하나씩 차근차근</span><span class="today-entry-arrow" aria-hidden="true">↗</span></span>
+              <span class="today-entry-count"><strong id="today-entry-count">0</strong><span>개 남음</span></span>
+              <span class="today-entry-status" id="today-task-subtitle">오늘 할 일을 가볍게 적어봐요.</span>
+              <span class="today-entry-bottom"><strong>오늘의 할 일 들어가기</strong><span aria-hidden="true">→</span></span>
+            </button>
               <button class="focus-entry" id="focus-entry" type="button" data-goto="pomodoro" aria-label="뽀모도로 들어가기">
                 <span class="focus-entry-top"><span class="focus-entry-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6M12 2v3M18 6l2-2"/></svg></span><span>나만의 집중 시간</span><span class="focus-entry-arrow" aria-hidden="true">↗</span></span>
                 <span class="focus-entry-time" id="focus-entry-time">70<span>분</span></span>
                 <span class="focus-entry-status" id="focus-entry-status">과목을 고르고, 한 가지에 몰입해요.</span>
                 <span class="focus-entry-bottom"><strong>뽀모도로 들어가기</strong><span aria-hidden="true">→</span></span>
               </button>
+          </div>
+          <div class="main-grid">
+            <div class="column">
+              <section class="panel"><div class="panel-head"><div><h2 class="panel-title">주간 학습 시간</h2><p class="panel-subtitle">매일의 집중을 한눈에 확인해요</p></div><button class="link-btn" data-goto="records">기록 보기 →</button></div><div class="week-chart" id="week-chart"></div></section>
+            </div>
+            <div class="column">
+
               <section class="panel"><div class="panel-head"><div><h2 class="panel-title">과목별 학습</h2><p class="panel-subtitle">이번 주 공부 시간</p></div><button class="link-btn" data-goto="subjects">관리 →</button></div><div class="subject-list" id="subject-summary"></div></section>
+            </div>
+          </div>
+        </section>
+        <section class="screen" id="screen-today-tasks" aria-labelledby="daily-title">
+          <div class="daily-shell">
+            <header class="focus-header"><button class="focus-back" type="button" data-goto="home"><span aria-hidden="true">←</span> 대시보드로</button><span class="focus-wordmark">온도 <span>/ TODAY</span></span></header>
+            <div class="daily-content">
+              <div class="daily-heading"><div><p class="daily-date" id="daily-date"></p><h1 id="daily-title" tabindex="-1">오늘의 할 일</h1><p class="subtitle">하나씩 마칠 때마다, 오늘이 쌓여요.</p></div><button class="primary-btn" id="add-task-today" type="button"><span aria-hidden="true">＋</span> 할 일 추가</button></div>
+              <section class="daily-summary" aria-label="오늘의 완료 현황"><div><p class="daily-summary-label">오늘의 진행 상황</p><div class="daily-summary-count"><strong id="daily-done-count">0</strong><span id="daily-total-count">/ 0개 완료</span></div><p class="daily-summary-message" id="daily-summary-message">오늘의 첫 할 일을 추가해봐요.</p></div><div class="daily-progress" id="daily-progress" role="progressbar" aria-label="오늘 할 일 완료율" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="daily-percent">0%</span></div></section>
+              <div class="daily-toolbar"><div class="daily-filters" role="group" aria-label="오늘 할 일 필터"><button type="button" data-today-task-filter="all" aria-pressed="true">전체</button><button type="button" data-today-task-filter="remaining" aria-pressed="false">할 일</button><button type="button" data-today-task-filter="done" aria-pressed="false">완료</button></div><span id="daily-list-count"></span></div>
+              <div class="task-list daily-task-list" id="today-tasks"></div>
+              <p class="daily-footnote">오늘 날짜의 학습 계획과 함께 관리돼요. <button type="button" class="link-btn" data-goto="planner">전체 학습 계획 보기 →</button></p>
             </div>
           </div>
         </section>
@@ -834,7 +927,7 @@
       </div>
     </main>
   </div>
-  <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">계획 저장</button></div></div></form></div>
+  <div class="modal-backdrop" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><form class="modal" id="task-form"><div class="modal-head"><h2 id="modal-title">새 학습 계획</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="task-title">할 일</label><input id="task-title" name="title" placeholder="예: 영어 단어 20개 외우기" required maxlength="80"></div><div class="form-row"><div class="field"><label for="task-subject">과목</label><select id="task-subject" name="subject"></select></div><div class="field"><label for="task-date">날짜</label><input id="task-date" name="date" type="date" required></div></div><div class="field"><label for="task-minutes">예상 시간</label><select id="task-minutes" name="minutes"><option value="15">15분</option><option value="25" selected>25분</option><option value="30">30분</option><option value="45">45분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="task-save">할 일 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="subject-modal" role="dialog" aria-modal="true" aria-labelledby="subject-modal-title"><form class="modal" id="subject-form"><div class="modal-head"><h2 id="subject-modal-title">새 과목</h2><button class="close-btn" type="button" data-close>×</button></div><div class="form-grid"><div class="field"><label for="subject-name-input">과목 이름</label><input id="subject-name-input" name="name" placeholder="예: 영어" required maxlength="30"></div><div class="field" id="subject-semester-field"><label for="subject-semester-input">학기</label><select id="subject-semester-input" name="semester"></select></div><div class="field"><label for="subject-goal-input">주간 목표</label><select id="subject-goal-input" name="goal"><option value="2">주 2시간</option><option value="3" selected>주 3시간</option><option value="5">주 5시간</option><option value="7">주 7시간</option><option value="10">주 10시간</option></select></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit">과목 추가</button></div></div></form></div>
   <div class="modal-backdrop" id="assessment-modal" role="dialog" aria-modal="true" aria-labelledby="assessment-modal-title"><form class="modal" id="assessment-form"><div class="modal-head"><h2 id="assessment-modal-title">수행 평가 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="assessment-title">수행 평가 이름</label><input id="assessment-title" name="title" placeholder="예: 사회 탐구 발표" required maxlength="80"></div><div class="form-row"><div class="field"><label for="assessment-subject">과목</label><select id="assessment-subject" name="subject"></select></div><div class="field"><label for="assessment-date">일정 날짜</label><input id="assessment-date" name="date" type="date" required></div></div><div class="form-row"><div class="field"><label for="assessment-topic">주제</label><input id="assessment-topic" name="topic" placeholder="예: 기후 변화와 도시" maxlength="100"></div><div class="field"><label for="assessment-time">시간 (선택)</label><input id="assessment-time" name="time" type="time"></div></div><div class="field"><label for="assessment-references">참고자료</label><textarea id="assessment-references" name="references" rows="3" placeholder="링크, 교과서 페이지, 준비물 등을 적어두세요." maxlength="1200"></textarea><div class="assessment-file-list" id="assessment-file-drafts"></div></div><div class="field"><label for="assessment-files">파일 첨부 (선택)</label><input id="assessment-files" type="file" multiple><small class="assessment-file-hint">계정 연결 후 다른 기기에서도 파일을 열 수 있어요. 파일 하나당 최대 200MB예요.</small></div><div class="field"><label for="assessment-cautions">주의사항</label><textarea id="assessment-cautions" name="cautions" rows="3" placeholder="제출 형식, 분량, 발표 시간 등 주의할 점을 적어두세요." maxlength="1200"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="assessment-save-btn">수행 평가 저장</button></div></div></form></div>
   <div class="modal-backdrop" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title"><form class="modal" id="report-form"><div class="modal-head"><h2 id="report-modal-title">보고서 추가</h2><button class="close-btn" type="button" data-close aria-label="닫기">×</button></div><div class="form-grid"><div class="field"><label for="report-title">보고서 이름</label><input id="report-title" name="title" placeholder="예: 도시 문제 탐구 보고서" required maxlength="100"></div><div class="field"><label for="report-kind">보고서 분류</label><select id="report-kind" name="kind"><option value="subject">과목 보고서</option><option value="career">진로 보고서</option></select></div><div class="report-course-fields" id="report-course-fields"><div class="form-row"><div class="field"><label for="report-grade">학년</label><select id="report-grade" name="grade"><option value="1">고1</option><option value="2">고2</option><option value="3">고3</option></select></div><div class="field"><label for="report-semester">학기</label><select id="report-semester" name="semester"></select></div></div><div class="field"><label for="report-subject">과목</label><select id="report-subject" name="subject"></select></div></div><div class="field"><label for="report-deadline">마감일</label><input id="report-deadline" name="deadline" type="date"><small class="assessment-file-hint">마감일을 입력하면 목록에 D-day가 표시돼요.</small></div><div class="field"><label for="report-details">작성할 내용</label><textarea id="report-details" name="details" rows="5" placeholder="무슨 내용을 조사하고 작성해야 하는지, 제출 형식과 준비할 일을 적어두세요." maxlength="3000"></textarea></div><div class="field"><label for="report-memo">참고자료·메모</label><textarea id="report-memo" name="memo" rows="3" placeholder="참고할 링크, 교과서 쪽수, 선생님 안내 등을 적어두세요." maxlength="1500"></textarea></div><div class="form-actions"><button class="secondary-btn" type="button" data-close>취소</button><button class="primary-btn" type="submit" id="report-save-btn">보고서 저장</button></div></div></form></div>
@@ -1008,6 +1101,11 @@
       let schoolDataError = false;
       let schoolDataLastLoaded = 0;
       let taskFilter = 'all';
+      let todayTaskFilter = 'all';
+      let taskEditingId = null;
+      let taskFormGrade = activeGrade;
+      let taskDay = localDate(new Date());
+      let deletedTask = null;
       let timerSeconds = TIMER_MINUTES * 60;
       let timerRunning = false;
       let timerInterval = null;
@@ -1379,7 +1477,10 @@
       const weekMins = (dateList = weekDates()) => gradeData.sessions.filter(s => dateList.includes(s.date)).reduce((n, s) => n + s.minutes, 0);
       const fmtDuration = (mins) => { const total = Math.max(0, Math.round(Number(mins) * 60)); const hours = Math.floor(total / 3600), minutes = Math.floor(total % 3600 / 60), seconds = total % 60; return [hours ? `${hours}시간` : '', minutes ? `${minutes}분` : '', seconds ? `${seconds}초` : ''].filter(Boolean).join(' ') || '0분'; };
       const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>';
-      function taskMarkup(task) { const semester = subjectSemester(task.subject); const course = semester && semester !== '학년 과정' ? `${semester} · ` : ''; return `<div class="task-item ${task.done ? 'completed' : ''}"><button class="check-btn ${task.done ? 'done' : ''}" data-task-toggle="${task.id}" aria-label="${task.done ? '완료 취소' : '완료 표시'}">${checkIcon}</button><div class="task-copy"><div class="task-name">${escapeHtml(task.title)}</div><div class="task-meta"><span class="subject-dot" style="background:${subjectColor(task.subject)}"></span>${escapeHtml(course + subjectName(task.subject))}<span>·</span>${fmtDate(task.date, { month:'numeric', day:'numeric' })}</div></div><span class="task-duration">${task.minutes}분</span></div>`; }
+      function taskMarkup(task) {
+        const semester = subjectSemester(task.subject), course = semester && semester !== '학년 과정' ? `${semester} · ` : '';
+        return `<article class="task-item ${task.done ? 'completed' : ''}"><button class="check-btn ${task.done ? 'done' : ''}" data-task-toggle="${escapeHtml(task.id)}" aria-label="${escapeHtml(task.title)} ${task.done ? '완료 취소' : '완료 표시'}" aria-pressed="${Boolean(task.done)}">${checkIcon}</button><div class="task-copy"><div class="task-name">${escapeHtml(task.title)}</div><div class="task-meta"><span class="subject-dot" style="background:${subjectColor(task.subject)}"></span><span>${escapeHtml(course + subjectName(task.subject))}</span><span>·</span><span>${fmtDate(task.date, { month:'numeric', day:'numeric' })}</span><span>·</span><span>${Number(task.minutes) || 0}분 예상</span></div></div><div class="task-actions"><button class="small-action" data-task-edit="${escapeHtml(task.id)}" aria-label="${escapeHtml(task.title)} 수정">수정</button><button class="small-action" data-task-delete="${escapeHtml(task.id)}" aria-label="${escapeHtml(task.title)} 삭제">삭제</button></div></article>`;
+      }
       function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
       function renderChart(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); const values = dates.map(minsForDate); const max = Math.max(120, ...values); target.innerHTML = dates.map((d, i) => { const isToday = d === localDate(today); const h = Math.max(values[i] ? 8 : 4, values[i] / max * 100); return `<div class="day-column"><div class="bar-wrap"><div class="bar ${isToday ? 'today' : ''}" style="height:${h}%" data-hours="${(values[i] / 60).toFixed(1)}"></div></div><span class="day-label ${isToday ? 'today' : ''}">${new Intl.DateTimeFormat('ko-KR', { weekday:'short' }).format(new Date(d + 'T12:00:00'))}</span></div>`; }).join(''); }
       function renderSubjectList(targetId) { const target = document.getElementById(targetId); if (!target) return; const dates = weekDates(); target.innerHTML = gradeData.subjects.length ? gradeData.subjects.map(s => { const m = gradeData.sessions.filter(x => x.subject === s.id && dates.includes(x.date)).reduce((a, x) => a + x.minutes, 0); const percent = Math.min(100, m / (s.goal * 60) * 100); return `<div class="subject-row"><span class="subject-color" style="background:${s.color}"></span><div class="subject-info"><div style="display:flex;justify-content:space-between;gap:10px"><span class="subject-name">${escapeHtml(s.name)}</span><span class="subject-hours">${fmtDuration(m)} / 주 ${s.goal}시간</span></div><div class="subject-progress"><span style="width:${percent}%;background:${s.color}"></span></div></div></div>`; }).join('') : emptyMarkup('아직 등록된 과목이 없어요', '과목을 추가하고 학습 시간을 모아보세요.'); }
@@ -1920,16 +2021,53 @@
         extrasRefreshTimer = setTimeout(() => { renderExtras(); renderAcademy(); renderExamScopes(); renderDailySong(); renderTodayHub(); loadSchoolData(); scheduleExtrasRefresh(); }, Math.max(1000, midnight.getTime() - now.getTime()));
       }
       function renderTasks() {
-        const now = localDate(today);
+        const now = localDate(new Date());
         const todayTasks = gradeData.tasks.filter(t => t.date === now).sort((a, b) => Number(a.done) - Number(b.done));
-        $('#today-tasks').innerHTML = todayTasks.length ? todayTasks.map(taskMarkup).join('') : emptyMarkup('오늘 계획이 비어 있어요', '할 일을 추가해 오늘의 공부를 시작해봐요.');
-        $('#today-task-subtitle').textContent = todayTasks.length ? `${todayTasks.filter(t => t.done).length} / ${todayTasks.length}개 완료` : '오늘 할 일을 하나씩 완료해봐요';
+        const done = todayTasks.filter(t => t.done).length, remaining = todayTasks.length - done, percent = todayTasks.length ? Math.round(done / todayTasks.length * 100) : 0;
+        $('#today-entry-count').textContent = remaining;
+        $('#today-task-subtitle').textContent = todayTasks.length ? `${todayTasks.length}개 중 ${done}개 완료${remaining ? '' : ' · 오늘도 해냈어요!'}` : '오늘 할 일을 가볍게 적어봐요.';
+        $('#daily-date').textContent = `${fmtDate(now)} · ${gradeConfigs[activeGrade].label}`;
+        $('#daily-done-count').textContent = done;
+        $('#daily-total-count').textContent = `/ ${todayTasks.length}개 완료`;
+        $('#daily-summary-message').textContent = !todayTasks.length ? '오늘의 첫 할 일을 추가해봐요.' : remaining ? `${remaining}개 남았어요. 하나씩 해봐요.` : '오늘 할 일을 모두 마쳤어요. 수고했어요!';
+        $('#daily-progress').style.setProperty('--daily-progress', `${percent}%`);
+        $('#daily-progress').setAttribute('aria-valuenow', String(percent));
+        $('#daily-percent').textContent = `${percent}%`;
+        $$('[data-today-task-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.todayTaskFilter === todayTaskFilter)));
+        const dailyFiltered = todayTasks.filter(t => todayTaskFilter === 'all' || (todayTaskFilter === 'done' ? t.done : !t.done));
+        $('#daily-list-count').textContent = `${dailyFiltered.length}개`;
+        $('#today-tasks').innerHTML = dailyFiltered.length ? dailyFiltered.map(taskMarkup).join('') : todayTasks.length ? emptyMarkup(todayTaskFilter === 'done' ? '아직 완료한 할 일이 없어요' : '오늘 할 일을 모두 마쳤어요', todayTaskFilter === 'done' ? '할 일을 마치고 왼쪽 체크를 눌러보세요.' : '완료한 일은 전체 또는 완료에서 볼 수 있어요.') : `${emptyMarkup('오늘은 무엇부터 해볼까요?', '공부할 내용이나 챙길 일을 적고 하나씩 체크해요.')}<button class="daily-empty-add" type="button" data-add-today-task>＋ 오늘의 첫 할 일 추가</button>`;
         let filtered = [...gradeData.tasks].sort((a, b) => a.date.localeCompare(b.date));
         if (activeSemester !== 'all') filtered = filtered.filter(t => subjectSemester(t.subject) === activeSemester);
         if (taskFilter === 'today') filtered = filtered.filter(t => t.date === now);
         if (taskFilter === 'upcoming') filtered = filtered.filter(t => t.date > now && !t.done);
         if (taskFilter === 'done') filtered = filtered.filter(t => t.done);
         $('#all-tasks').innerHTML = filtered.length ? filtered.map(taskMarkup).join('') : emptyMarkup('표시할 계획이 없어요', '새 학습 계획을 추가해보세요.');
+      }
+      function refreshTaskDay() {
+        const now = localDate(new Date());
+        if (now === taskDay) return;
+        taskDay = now; todayTaskFilter = 'all';
+        $('#today-date').textContent = fmtDate(now);
+        renderGradeHeader(); renderTasks(); renderStats(); renderDday(); renderChart('week-chart'); renderChart('records-chart');
+      }
+      function openTaskModal(task = null) {
+        const form = $('#task-form'); form.reset();
+        taskEditingId = task?.id || null; taskFormGrade = activeGrade;
+        $('#modal-title').textContent = task ? '할 일 수정' : screen === 'today-tasks' ? '오늘의 할 일 추가' : '새 학습 계획';
+        $('#task-save').textContent = task ? '수정 내용 저장' : '할 일 저장';
+        const subjects = data.grades[taskFormGrade].subjects;
+        const options = [{id:'',name:'기타 · 생활',semester:''}, ...subjects];
+        if (task?.subject && !options.some(s => s.id === task.subject)) options.push({id:task.subject,name:'기존 과목',semester:''});
+        $('#task-subject').innerHTML = options.map(s => `<option value="${escapeHtml(s.id)}">${escapeHtml(semesterSubjectLabel(s))}</option>`).join('');
+        $('#task-title').value = task?.title || '';
+        $('#task-subject').value = task ? task.subject : subjects[0]?.id || '';
+        $('#task-date').value = task?.date || localDate(new Date());
+        const minutes = String(task?.minutes || 25);
+        $('#task-minutes').querySelector('[data-legacy-minutes]')?.remove();
+        if (!Array.from($('#task-minutes').options).some(option => option.value === minutes)) { const option = document.createElement('option'); option.value = minutes; option.textContent = `${minutes}분`; option.dataset.legacyMinutes = ''; $('#task-minutes').append(option); }
+        $('#task-minutes').value = minutes;
+        openModal('task-modal');
       }
       function renderSemesterControls() {
         const semesters = semesterOptions();
@@ -1943,7 +2081,6 @@
       function renderSubjects() {
         const subjects = gradeData.subjects.filter(s => activeSemester === 'all' || s.semester === activeSemester);
         $('#subject-grid').innerHTML = subjects.length ? subjects.map(s => { const m = gradeData.sessions.filter(x => x.subject === s.id && weekDates().includes(x.date)).reduce((a, x) => a + x.minutes, 0); const pct = Math.min(100, m / (s.goal * 60) * 100); const taskCount = gradeData.tasks.filter(t => t.subject === s.id && !t.done).length; const badge = s.semester ? `<span class="semester-badge">${escapeHtml(semesterText(s.semester))}</span>` : ''; return `<article class="subject-card" style="--subject-color:${s.color}"><div class="subject-card-top"><span class="subject-color" style="background:${s.color}"></span><h3 style="flex:1">${escapeHtml(s.name)}</h3>${badge}</div><p>이번 주 ${fmtDuration(m)} 학습 · 목표 ${s.goal}시간</p><div class="progress-track"><span style="width:${pct}%"></span></div><p style="margin-bottom:0">남은 계획 ${taskCount}개</p></article>`; }).join('') : emptyMarkup('과목을 추가해보세요', '과목별로 학습 시간을 관리할 수 있어요.');
-        $('#task-subject').innerHTML = gradeData.subjects.map(s => `<option value="${s.id}">${escapeHtml(semesterSubjectLabel(s))}</option>`).join('') || '<option value="">기타</option>';
         renderTimer();
         const semesters = semesterOptions();
         $('#subject-semester-field').hidden = semesters.length < 2;
@@ -1975,7 +2112,7 @@
         $('#subjects-title').textContent = `${cfg.label} 과목`;
         $('#exam-scopes-title').textContent = `${cfg.label} 시험범위`;
         $('#materials-title').textContent = `${cfg.label} 교재 및 학습 자료`;
-        $('#greeting-date').textContent = `${fmtDate(localDate(today))} · ${cfg.description}`;
+        $('#greeting-date').textContent = `${fmtDate(localDate(new Date()))} · ${cfg.description}`;
       }
       function updateSpaceHeader() {
         const admissions = isAdmissionScreen(screen);
@@ -1987,7 +2124,7 @@
         $('#admissions-lock-now').hidden = !admissions || !admissionsUnlocked;
       }
       function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('week-chart'); renderChart('records-chart'); renderSubjectList('subject-summary'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderTodayHub(); renderAdmissionGrades(); renderMockExams(); renderStudentRecords(); updateSpaceHeader(); }
-      function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); const previous = screen; screen = id; document.body.classList.toggle('focus-mode', id === 'pomodoro'); $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === (id === 'pomodoro' ? 'home' : id))); const names = { home:'대시보드', pomodoro:'뽀모도로', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'mock-exams':'모의고사 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'mock-exams') renderMockExams(); if (id === 'student-records') renderStudentRecords(); if (id === 'pomodoro') { timerHeartbeat(); $('#focus-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (previous === 'pomodoro') { if (id === 'home') $('#focus-entry').focus(); else window.scrollTo(0,0); } }
+      function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); const previous = screen; screen = id; document.body.classList.toggle('focus-mode', ['pomodoro','today-tasks'].includes(id)); $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === (['pomodoro','today-tasks'].includes(id) ? 'home' : id))); const names = { home:'대시보드', pomodoro:'뽀모도로', 'today-tasks':'오늘의 할 일', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'mock-exams':'모의고사 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'mock-exams') renderMockExams(); if (id === 'student-records') renderStudentRecords(); if (id === 'today-tasks') { refreshTaskDay(); renderTasks(); $('#daily-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (id === 'pomodoro') { timerHeartbeat(); $('#focus-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (['pomodoro','today-tasks'].includes(previous)) { if (id === 'home') $(previous === 'pomodoro' ? '#focus-entry' : '#today-entry').focus(); else window.scrollTo(0,0); } }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { const modal = document.getElementById(id); modal.classList.add('open'); const input = $('input', modal); if (input) input.focus({ preventScroll:true }); }
       function closeModal(el) { const backdrop = el.closest('.modal-backdrop'); backdrop.classList.remove('open'); if (backdrop.id === 'admissions-unlock-modal') { admissionLockVersion++; $('#admissions-unlock-form').reset(); $('#admissions-unlock-error').textContent = ''; $('#admissions-passcode').removeAttribute('aria-invalid'); } }
@@ -2072,6 +2209,7 @@
         $('#focus-entry-status').textContent = timerSaveFailed ? '저장 오류 · 들어가서 다시 저장해 주세요.' : active ? `${timerRunning ? '집중 중' : '일시정지'} · 고${owner} ${name}` : '과목을 고르고, 한 가지에 몰입해요.';
       }
       function timerHeartbeat() {
+        refreshTaskDay();
         if (!timerSaveFailed) timerState = readTimerState();
         const now = Date.now(), progress = StudyTimer.measure(timerState,now);
         if (timerState && !timerState.finished && progress.complete) {
@@ -2213,7 +2351,8 @@
       });
       $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.screen)));
       $$('[data-goto]').forEach(btn => btn.addEventListener('click', () => setScreen(btn.dataset.goto)));
-      $('#add-task-top').addEventListener('click', () => { $('#task-date').value = localDate(new Date()); openModal('task-modal'); });
+      $('#add-task-top').addEventListener('click', () => openTaskModal());
+      $('#add-task-today').addEventListener('click', () => openTaskModal());
       $('#add-subject').addEventListener('click', () => { renderSubjects(); openModal('subject-modal'); });
       $('#add-assessment').addEventListener('click', () => openAssessmentModal());
       $('#add-report').addEventListener('click', () => openReportModal());
@@ -2286,7 +2425,20 @@
       });
       $$('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn)));
       $$('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(backdrop); }));
-      $('#task-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const task = { id: uid(), title: String(f.get('title')).trim(), subject: String(f.get('subject')), date: String(f.get('date')), minutes: Number(f.get('minutes')), done: false }; if (!task.title || !task.date) return; gradeData.tasks.push(task); save(); render(); e.currentTarget.reset(); $('#task-date').value = localDate(new Date()); closeModal(e.currentTarget); showToast('새 학습 계획을 추가했어요'); });
+      $('#task-form').addEventListener('submit', e => {
+        e.preventDefault(); const form = e.currentTarget, fields = new FormData(form), owner = data.grades[taskFormGrade];
+        const previous = taskEditingId ? owner.tasks.find(t => t.id === taskEditingId) : null;
+        if (taskEditingId && !previous) { showToast('이 할 일이 다른 기기에서 삭제됐어요. 닫고 다시 추가해 주세요.'); return; }
+        const task = { ...previous, id:previous?.id || uid(), title:String(fields.get('title')).trim(), subject:String(fields.get('subject')), date:String(fields.get('date')), minutes:Number(fields.get('minutes')), done:Boolean(previous?.done) };
+        if (!task.title || !/^\d{4}-\d{2}-\d{2}$/.test(task.date) || !Number.isFinite(task.minutes) || task.minutes <= 0) return;
+        const before = owner.tasks;
+        owner.tasks = previous ? owner.tasks.map(t => t.id === task.id ? task : t) : [...owner.tasks, task];
+        try { save(); } catch { owner.tasks = before; showToast('저장하지 못했어요. 저장 공간을 확인하고 다시 시도해 주세요.'); return; }
+        const editing = Boolean(previous); taskEditingId = null;
+        if (!editing && task.date === localDate(new Date())) todayTaskFilter = 'all';
+        closeModal(form); render();
+        showToast(task.date === localDate(new Date()) ? editing ? '할 일을 수정했어요.' : '오늘의 할 일을 추가했어요.' : '선택한 날짜의 학습 계획에 저장했어요.');
+      });
       $('#subject-form').addEventListener('submit', e => { e.preventDefault(); const f = new FormData(e.currentTarget); const name = String(f.get('name')).trim(); if (!name) return; const semester = String(f.get('semester') || gradeConfigs[activeGrade].period); gradeData.subjects.push({ id: uid(), name, semester, goal: Number(f.get('goal')), color: colors[gradeData.subjects.length % colors.length] }); save(); render(); e.currentTarget.reset(); closeModal(e.currentTarget); showToast(`${name} 과목을 추가했어요`); });
       $('#report-form').addEventListener('submit', e => {
         e.preventDefault();
@@ -2427,6 +2579,25 @@
         renderAssessments(); setScreen('assessments'); form.reset(); closeModal(form); assessmentDraftFiles = []; assessmentExistingFiles = []; assessmentRemovedFileIds.clear(); showToast(wasEditing ? '수행 평가 내용을 수정했어요' : '수행 평가를 추가했어요'); assessmentEditingId = null;
       });
       document.addEventListener('click', e => {
+        const todayFilter = e.target.closest('[data-today-task-filter]');
+        if (todayFilter) { todayTaskFilter = todayFilter.dataset.todayTaskFilter; renderTasks(); return; }
+        if (e.target.closest('[data-add-today-task]')) { openTaskModal(); return; }
+        const taskEdit = e.target.closest('[data-task-edit]');
+        if (taskEdit) { const task = gradeData.tasks.find(t => t.id === taskEdit.dataset.taskEdit); if (task) openTaskModal(task); return; }
+        const taskDelete = e.target.closest('[data-task-delete]');
+        if (taskDelete) {
+          const task = gradeData.tasks.find(t => t.id === taskDelete.dataset.taskDelete); if (!task) return;
+          const before = gradeData.tasks; gradeData.tasks = before.filter(t => t.id !== task.id);
+          try { save(); } catch { gradeData.tasks = before; showToast('삭제 내용을 저장하지 못했어요.'); return; }
+          deletedTask = {grade:activeGrade,task}; render();
+          const toast = $('#toast'); toast.textContent = '할 일을 삭제했어요. '; const undo = document.createElement('button'); undo.type = 'button'; undo.className = 'task-undo'; undo.textContent = '되돌리기'; undo.dataset.taskUndo = ''; toast.append(undo); toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => { toast.classList.remove('show'); toast.replaceChildren(); deletedTask = null; },10000); return;
+        }
+        if (e.target.closest('[data-task-undo]') && deletedTask) {
+          const {grade,task} = deletedTask, owner = data.grades[grade]; const before = owner.tasks;
+          if (!owner.tasks.some(t => t.id === task.id)) owner.tasks = [...owner.tasks,task];
+          try { save(); } catch { owner.tasks = before; showToast('복원 내용을 저장하지 못했어요.'); return; }
+          deletedTask = null; render(); showToast('할 일을 복원했어요.'); return;
+        }
         const mockFilter = e.target.closest('[data-mock-exam-grade-filter]');
         if (mockFilter) { if (!admissionsUnlocked) { requestAdmissionAccess('mock-exams'); return; } mockExamGradeFilter = mockFilter.dataset.mockExamGradeFilter; renderMockExams(); return; }
         if (!admissionsUnlocked && e.target.closest('[data-admission-grade-filter], [data-student-record-add], [data-student-record-edit], [data-student-record-delete]')) { requestAdmissionAccess('student-records'); return; }
@@ -2499,9 +2670,9 @@
         if (deleteBtn) { const removedId = deleteBtn.dataset.assessmentDelete; const removedItem = gradeData.assessments.find(assessment => assessment.id === removedId); const attachmentIds = removedItem?.attachments?.map(file => file.id) || []; gradeData.assessments = gradeData.assessments.filter(assessment => assessment.id !== removedId); selectedAssessmentId = null; save(); renderAssessments(); deleteAssessmentFilesFor(activeGrade, removedId, attachmentIds, removedItem?.attachments || []).catch(() => {}); showToast('수행 평가를 삭제했어요'); return; }
         const assessmentBtn = e.target.closest('[data-assessment-open]');
         if (assessmentBtn) { const item = gradeData.assessments.find(assessment => assessment.id === assessmentBtn.dataset.assessmentOpen); if (item) { selectedAssessmentId = item.id; selectedAssessmentDate = item.date; renderAssessments(); } return; }
-        const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = gradeData.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; save(); render(); showToast(task.done ? '계획을 완료했어요' : '완료 표시를 취소했어요');
+        const btn = e.target.closest('[data-task-toggle]'); if (!btn) return; const task = gradeData.tasks.find(t => t.id === btn.dataset.taskToggle); if (!task) return; task.done = !task.done; try { save(); } catch { task.done = !task.done; showToast('완료 상태를 저장하지 못했어요.'); return; } render(); showToast(task.done ? '할 일을 완료했어요' : '완료 표시를 취소했어요');
       });
-      $$('.filter-btn').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
+      $$('[data-filter]').forEach(btn => btn.addEventListener('click', () => { taskFilter = btn.dataset.filter; $$('[data-filter]').forEach(b => b.classList.toggle('active', b === btn)); renderTasks(); }));
       $('#timer-toggle').addEventListener('click', toggleTimer);
       $('#timer-finish').addEventListener('click', finishTimer);
       $('#timer-subject').addEventListener('change', e => { timerSubject = e.target.value; renderTimer(); });
