@@ -924,7 +924,72 @@
     @media(max-width:740px) { .music-toggle { gap:8px; padding:0; } .music-island { border-radius:24px; } }
     @media(prefers-reduced-motion:reduce) { .music-island,.music-drawer,.music-chevron { transition:none; } }
   </style>
+<style>
+.exam-nav,.exam-home { display:none }
+body.exam-mode .exam-nav { display:grid }
+body.exam-mode .sidebar .nav:not(.exam-nav),body.exam-mode .admissions-label,body.exam-mode .basic-settings,body.exam-mode #basic-home,body.exam-mode #add-task-top { display:none }
+body.exam-mode .exam-home, .screen.exam-stack.active { display:grid }
+.exam-stack {gap:16px} #exam-unlock-shortcut[hidden] {display:none} #exam-unlock-shortcut {margin-bottom:12px}
+.exam-box {background:var(--panel,#fff);border:1px solid var(--line,#ddd);border-radius:18px;padding:clamp(12px,3vw,24px)}
+.exam-tools {display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.exam-form {display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+.exam-form label {display:grid;gap:6px;font-size:13px}
+.exam-form input,.exam-form select {min-height:38px;padding:7px;border:1px solid #9096a1;border-radius:8px;background:transparent;color:inherit;max-width:100%}
+.exam-calendar {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin-top:12px}
+.exam-day {min-height:clamp(50px,8vw,100px);padding:5px;border:1px solid #8993a144;border-radius:8px;overflow-wrap:anywhere;font-size:12px}
+.exam-day span {display:block;margin-top:4px}
+.exam-day.today {outline:2px solid #628bd5;outline-offset:-2px}
+.exam-weekday {text-align:center;font-size:12px}
+.exam-dock {position:sticky;top:0;z-index:4;width:min(100%,500px);margin:0 auto 16px}
+.exam-dock .daily-song {margin:0;width:100%;max-width:none;background:transparent}
+.exam-countdown {margin:0 auto;padding:10px 18px;border-radius:40px;background:#202328;color:white;text-align:center;animation:exam-arrive .55s ease-out both}
+@keyframes exam-arrive {from{opacity:0;transform:scale(.9) translateY(-7px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.exam-countdown{animation:none}}
+body.black-edition {color-scheme:dark;--panel:#181a20;--paper:#181a20;--bg:#101217;--ink:#edf0f6;--text:#edf0f6;--muted:#b7becb;--line:#3b4150;background:#101217;color:#edf0f6}
+body.black-edition :is(.sidebar,.topbar,.panel,.card,.modal,.school-today-card,.today-entry,.focus-entry,.goal-box,.stat-card,.grade-switch,.date-chip,.task-item,.subject-card,.subject-row) {background:#181a20;color:#edf0f6;border-color:#3b4150}
+body.black-edition :is(h1,h2,h3,.brand,.nav-btn,.subtitle,.task-title,.grade-btn,.stat-value,.today-entry-bottom,.focus-entry-bottom) {color:#edf0f6}
+body.black-edition :is(.secondary-btn,.calendar-day,.calendar-cell,.agenda-item,.assessment-detail-block,.school-period,.school-meal,.daily-shell,.focus-shell,.daily-summary,.field input,.field select,.field textarea,.filter-btn,.home-records-link) {background:#20242e;color:#edf0f6;border-color:#3b4150}
+body.black-edition :is(.task-name,.subject-name,.school-period-subject,.focus-clock .timer-display,.daily-summary-count strong) {color:#edf0f6}
+body.black-edition .nav-btn.active {background:#343b4b}
+body.black-edition .home-context strong {color:#e3e9f6}
+@media(max-width:740px){.exam-dock{top:8px} body.exam-mode .exam-nav{display:flex} .basic-settings{flex:0 0 auto}}
+</style>
+<style>
+#screen-settings {max-width:960px;margin-inline:auto}
+.settings-heading h1,.settings-layout h2 {margin:0}
+.settings-heading p,.settings-layout p {font-size:13px;color:var(--muted);line-height:1.6}
+.settings-layout {display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:16px;align-items:start}
+.settings-mode {grid-row:span 2}
+.settings-mode .exam-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.settings-mode .exam-form label:first-child,.settings-mode #exam-password-label {grid-column:1/-1}
+.settings-mode .exam-form button {justify-self:start}
+.settings-mode #exam-mode-status {display:table;border:1px solid var(--line);border-radius:20px;padding:6px 12px;color:inherit}
+.settings-edition [aria-pressed="true"] {outline:2px solid currentColor;outline-offset:2px}
+.settings-links {display:grid;gap:8px;margin-top:12px}
+body.exam-mode .exam-home {grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+.exam-home > :is(.exam-dock,.exam-countdown,.exam-plan-card) {grid-column:1/-1}
+.exam-plan-card {padding:clamp(12px,3vw,28px)}
+.exam-plan-card .exam-calendar {gap:6px;margin-top:16px}
+.exam-plan-card .exam-day {padding:8px;background:var(--bg)}
+.exam-home .exam-countdown {font-variant-numeric:tabular-nums}
+.exam-lessons-card h2 {margin:0 0 12px}
+@media(max-width:950px){.settings-layout {grid-template-columns:1fr}.settings-mode {grid-row:auto}}
+@media(max-width:740px){body.exam-mode .exam-home {grid-template-columns:1fr}.exam-plan-card .exam-calendar {gap:3px}.exam-plan-card .exam-day {padding:4px}}
+</style>
+<style>
+body.exam-mode .exam-home {gap:24px;align-items:stretch}
+.exam-plan-actions {display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.exam-plan-actions .exam-countdown {margin:0;padding:6px 12px;font-size:12px}
+.exam-plan-card > .exam-tools {margin-bottom:24px;gap:16px}
+:is(#exam-home-calendar,#exam-edit-calendar) > .exam-tools > strong {font-size:clamp(20px,3vw,28px)}
+.exam-plan-card .exam-calendar {margin-top:24px;row-gap:8px}
+.exam-assessment-card {min-width:0}
+.exam-assessment-card h2 {margin:0 0 12px}
+.exam-assessment-card .deadline-island {box-shadow:none;border-radius:16px}
+.exam-assessment-card .deadline-toggle {min-height:72px;padding:12px}
+</style>
 </head>
+
 <body>
   <div class="app">
     <aside class="sidebar">
@@ -941,7 +1006,7 @@
         <button class="nav-btn" data-screen="exam-scopes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5zM8 8h8M8 12h8M8 16h5"/></svg><span>시험범위</span></button>
         <button class="nav-btn" data-screen="materials"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h12l4 4v14H4zM16 3v5h4M8 12h8M8 16h8"/></svg><span>교재·자료</span></button>
       </nav>
-      <div class="nav-label admissions-label">입시 공간</div>
+      <nav class="nav exam-nav" aria-label="시험 모드 메뉴"><button class="nav-btn" data-screen="home">대시보드</button><button class="nav-btn" data-screen="exam-scopes">시험범위</button><button class="nav-btn" data-screen="exam-progress">시험진도현황</button><button class="nav-btn" data-screen="exam-timetable">시험 시간표</button><button class="nav-btn" data-screen="assessments">수행평가</button><button class="nav-btn" data-screen="academy">영어학원</button><button class="nav-btn" data-screen="settings">설정</button></nav><button class="nav-btn basic-settings" data-screen="settings">⚙ 설정</button><div class="nav-label admissions-label">입시 공간</div>
       <nav class="nav admissions-nav" aria-label="입시 공간 메뉴">
         <button class="nav-btn" data-screen="admission-grades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4zM8 8h8M8 12h3M14 12h2M8 16h3M14 16h2"/></svg><span>교과 성적 입력</span></button>
         <button class="nav-btn" data-screen="mock-exams"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4zM8 8h8M8 12h8M8 16h4"/><path d="m15 16 1 1 2-3"/></svg><span>모의고사 성적 입력</span></button>
@@ -955,7 +1020,7 @@
     <main>
       <header class="topbar"><div class="top-left"><div class="grade-switch" role="tablist" aria-label="학년 선택"><button class="grade-btn active" data-grade="1" role="tab" aria-selected="true">고1</button><button class="grade-btn" data-grade="2" role="tab" aria-selected="false">고2</button><button class="grade-btn" data-grade="3" role="tab" aria-selected="false">고3</button></div><div class="breadcrumb"><span id="crumb-space">나의 학습 공간</span> <span style="color:#c3c6d0"> / </span> <strong id="crumb-grade" style="color:#5f6476;font-weight:650">고1</strong> <span style="color:#c3c6d0"> / </span> <strong id="crumb-current" style="color:#5f6476;font-weight:650">대시보드</strong></div></div><div class="top-actions"><div class="date-chip" id="today-date"></div><button class="secondary-btn" id="admissions-lock-now" aria-label="입시 공간 다시 잠그기" hidden>잠그기</button><button class="secondary-btn" id="sync-open"><span id="sync-button-label">동기화</span></button><button class="primary-btn" id="add-task-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>할 일 추가</button></div></header>
       <div class="content">
-        <section class="screen active" id="screen-home">
+        <section class="screen active" id="screen-home"><div id="basic-home"><button class="secondary-btn" id="exam-unlock-shortcut" data-goto="settings" hidden>시험 기간 · 비밀번호로 시험 모드 열기</button>
           <div class="page-heading"><div><h1 id="page-title">고1 대시보드</h1><p class="subtitle" id="greeting-date">오늘도 한 걸음씩 채워볼까요?</p></div><button class="home-records-link" data-goto="records">학습 기록 <span aria-hidden="true">↗</span></button></div>
           <div class="home-context"><span>오늘 순공 <strong id="home-study-time">0분</strong></span><span class="home-exam" aria-label="시험 디데이"><span>제 2차 정기고사</span><span id="dday-date"></span><strong id="dday-count"></strong></span></div>
           <div class="home-islands">
@@ -988,8 +1053,37 @@
             <div class="school-section-heading"><div><h2>오늘의 학교생활</h2><p>급식과 시간표를 한눈에.</p></div><div class="school-today-toolbar" id="school-today-toolbar"><div class="school-date-nav"><button type="button" data-school-day="-1" aria-label="이전 날짜">‹</button><input id="school-hub-date" type="date" aria-label="학교 정보 날짜"><button type="button" data-school-day="1" aria-label="다음 날짜">›</button></div><div class="school-date-actions"><button class="small-action" id="school-day-today">오늘</button><button class="small-action" id="school-data-refresh">새로고침</button></div></div></div>
             <div class="school-grid"><section id="today-page-meals" aria-label="급식"><div class="school-today-card"><div class="school-today-head"><div><h2 class="school-today-title">오늘의 중식·석식</h2><p class="school-today-subtitle" id="school-meal-date">운호고등학교</p></div><a class="school-source-link" id="school-meal-source" href="https://school.cbe.go.kr/unho-h/M01080301/list" target="_blank" rel="noopener">학교 원문 ↗</a></div><div class="school-meal-grid" id="school-meal-content" aria-live="polite"></div><p class="school-source-status" id="school-meal-status"></p></div></section><section id="today-page-timetable" aria-label="시간표"><div class="school-today-card"><div class="school-today-head"><div><h2 class="school-today-title" id="school-timetable-title">오늘의 시간표</h2><p class="school-today-subtitle" id="school-timetable-date">운호고등학교</p></div><button class="small-action" id="school-class-open">학년·반 설정</button></div><div id="school-timetable-content" aria-live="polite"></div><p class="school-source-status" id="school-timetable-status"></p><a class="school-source-link" href="http://comci.net:4082/st" target="_blank" rel="noopener">컴시간 학생용 원문 ↗</a></div></section></div>
           </section>
-        </section>
-        <section class="screen" id="screen-today-tasks" aria-labelledby="daily-title">
+        </div><div class="exam-home exam-stack">
+  <section class="exam-box exam-plan-card">
+    <div class="exam-tools"><h1>2차고사 대비 Plan</h1><div class="exam-plan-actions"><div class="exam-countdown">제 2차 정기고사 · <strong id="exam-dday"></strong></div><button class="primary-btn" data-goto="exam-plan">등록·수정</button></div></div>
+    <div id="exam-home-calendar"></div>
+  </section>
+  <section class="exam-box exam-assessment-card"><h2>다음 수행평가</h2><div id="exam-assessments"></div></section>
+  <section class="exam-box exam-lessons-card"><h2>오늘의 시간표</h2><div id="exam-today-lessons"></div></section>
+</div>
+</section>
+        <section class="screen exam-stack" id="screen-settings"><header class="settings-heading"><h1>설정</h1><p>온도를 내 공부 방식에 맞춰요.</p></header><div class="settings-layout">
+
+  <section class="exam-box settings-mode"><h2>시험 모드</h2>
+    <p id="exam-mode-status"></p>
+    <form class="exam-form" id="exam-settings-form">
+      <label>전환 방식<select name="mode"><option value="auto">기간에 따라 자동</option><option value="basic">기본 모드</option><option value="exam">시험 모드</option></select></label>
+      <label>시작일<input type="date" name="start"></label><label>종료일<input type="date" name="end"></label>
+      <label id="exam-password-label">시험 모드 비밀번호<input type="password" name="password" minlength="4" autocomplete="off"></label>
+      <button class="primary-btn">저장 및 적용</button>
+    </form>
+    <p>처음 저장하는 비밀번호로 이 기기의 시험 모드를 잠급니다. 자동 전환 기간에는 브라우저를 새로 열 때 잠금을 한 번 해제하세요.</p>
+    <button class="secondary-btn" id="exam-lock">시험 모드 잠그기</button>
+  </section>
+  <section class="exam-box settings-edition"><h2>화면</h2><p>사용할 에디션을 선택하세요.</p><div class="exam-tools"><button class="secondary-btn" data-edition="white">화이트 에디션</button><button class="secondary-btn" data-edition="black">블랙 에디션</button></div></section>
+  <section class="exam-box settings-data"><h2>데이터·학교</h2><div class="settings-links"><button class="secondary-btn" id="settings-sync">기기 간 동기화</button><button class="secondary-btn" id="settings-class">시간표 학년·반</button></div><p>시험 계획, 자습 지정, 모드와 에디션은 이 브라우저에 저장돼요.</p></section>
+</div></section>
+<section class="screen" id="screen-exam-plan"><section class="exam-box"><h1>2차고사 대비 Plan</h1><div id="exam-edit-calendar"></div>
+  <form class="exam-form" id="exam-plan-form"><input type="hidden" name="id"><label>날짜<input name="date" type="date" required></label><label>계획<input name="title" maxlength="100" required></label><button class="primary-btn">저장</button><button type="reset" class="secondary-btn">새 일정</button></form><div id="exam-plan-list"></div></section></section>
+<section class="screen" id="screen-exam-progress"><section class="exam-box"><h1>시험진도현황</h1><p>진도가 끝난 과목을 날짜별로 지정하면 시험 모드 시간표에 자습으로 표시돼요.</p>
+  <form class="exam-form" id="exam-progress-form"><label>날짜<input name="date" type="date" required></label><label>컴시간에 표시되는 과목명<input name="subject" maxlength="60" required></label><button class="primary-btn">자습 지정</button></form><div id="exam-progress-list"></div></section></section>
+<section class="screen" id="screen-exam-timetable"><section class="exam-box"><h1>시험 시간표</h1><form class="exam-form" id="exam-timetable-form"><label>날짜<input type="date" name="date" required></label><label>교시<input type="number" name="period" min="1" max="12" required></label><label>시험 과목<input name="subject" maxlength="60" required></label><button class="primary-btn">등록·수정</button></form><div id="exam-timetable-list"></div></section></section>
+<section class="screen" id="screen-today-tasks" aria-labelledby="daily-title">
           <div class="daily-shell">
             <header class="focus-header"><button class="focus-back" type="button" data-goto="home"><span aria-hidden="true">←</span> 대시보드로</button><span class="focus-wordmark">온도 <span>/ TODAY</span></span></header>
             <div class="daily-content">
@@ -1720,7 +1814,7 @@
         $('#music-drawer').setAttribute('aria-hidden',String(!open));
       }
       function setDeadlineIslandOpen(open, linkMusic = false) {
-        if (linkMusic && open) setMusicIslandOpen(true);
+        if (linkMusic && open && !examActive) setMusicIslandOpen(true);
         deadlineIslandOpen = open;
         $('#deadline-island').classList.toggle('is-open', open);
         $('#deadline-toggle').setAttribute('aria-expanded', String(open));
@@ -1967,7 +2061,7 @@
         const stale = source.status === 'stale' || schoolDataError || Date.now() - time.getTime() > 2 * 60 * 60 * 1000;
         return `${schoolDataError ? '저장된 자료 · 현재 연결을 확인해 주세요 · ' : stale ? '이전 자료 · 최신 확인이 필요해요 · ' : ''}${stamp} 수집${source.status === 'partial' ? ' · 일부 기간은 확인 중이에요' : ''}`;
       }
-      function renderTodayHub() {
+      function renderTodayHub() { if (examActive) renderExamLessons();
         if (todayHubTracksToday) todayHubDate = schoolTodayDate();
         $('#school-hub-date').value = todayHubDate;
         $('#school-data-refresh').disabled = schoolDataLoading;
@@ -2301,8 +2395,8 @@
         $('#add-task-top').hidden = admissions;
         $('#admissions-lock-now').hidden = !admissions || !admissionsUnlocked;
       }
-      function render() { renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('records-chart'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderTodayHub(); renderAdmissionGrades(); renderMockExams(); renderStudentRecords(); updateSpaceHeader(); }
-      function setScreen(id) { if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); const previous = screen; screen = id; if (id === 'home') { refreshTaskDay(); renderDeadlineIsland(); renderTodayHub(); } document.body.classList.toggle('focus-mode', ['pomodoro','today-tasks'].includes(id)); $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === (['pomodoro','today-tasks'].includes(id) ? 'home' : id))); const names = { home:'대시보드', pomodoro:'뽀모도로', 'today-tasks':'오늘의 할 일', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'mock-exams':'모의고사 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'mock-exams') renderMockExams(); if (id === 'student-records') renderStudentRecords(); if (id === 'today-tasks') { refreshTaskDay(); renderTasks(); $('#daily-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (id === 'pomodoro') { timerHeartbeat(); $('#focus-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (['pomodoro','today-tasks'].includes(previous)) { if (id === 'home') $(previous === 'pomodoro' ? '#focus-entry' : '#today-entry').focus(); else window.scrollTo(0,0); } }
+      function render() { if (examActive) renderExam(); renderGradeHeader(); renderStats(); renderDday(); renderTasks(); renderChart('records-chart'); renderSubjectList('record-subjects'); renderSubjects(); renderAssessments(); renderExtras(); renderAcademy(); renderExamScopes(); renderMaterials(); renderDailySong(); renderTodayHub(); renderAdmissionGrades(); renderMockExams(); renderStudentRecords(); updateSpaceHeader(); }
+      function setScreen(id) { if (examScreens.includes(id) && !examActive) id = "settings"; if (isAdmissionScreen(id) && !admissionsUnlocked) { requestAdmissionAccess(id); return; } if (admissionsUnlocked && !isAdmissionScreen(id)) lockAdmissions(false); const previous = screen; screen = id; if (id === 'home') { refreshTaskDay(); renderDeadlineIsland(); renderTodayHub(); } document.body.classList.toggle('focus-mode', ['pomodoro','today-tasks'].includes(id)); $$('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${id}`)); $$('.nav-btn').forEach(el => el.classList.toggle('active', el.dataset.screen === (['pomodoro','today-tasks'].includes(id) ? 'home' : id))); const names = { settings:'설정', 'exam-plan':'시험 계획', 'exam-progress':'시험진도현황', 'exam-timetable':'시험 시간표', home:'대시보드', pomodoro:'뽀모도로', 'today-tasks':'오늘의 할 일', planner:'학습 계획', subjects:'과목 관리', assessments:'수행 평가', records:'학습 기록', extras:'부가 활동', academy:'영어 학원', 'exam-scopes':'시험범위', materials:'교재 및 학습 자료', 'admission-grades':'교과 성적 입력', 'mock-exams':'모의고사 성적 입력', 'student-records':'학생부 입력' }; $('#crumb-current').textContent = names[id]; if (id === 'settings') renderExamSettings(); if (examScreens.includes(id) || id === 'home' && examActive) renderExam(); updateSpaceHeader(); if (id === 'extras') { setExtraPage(extraPage); renderExtras(); } if (id === 'academy') renderAcademy(); if (id === 'exam-scopes') renderExamScopes(); if (id === 'materials') renderMaterials(); if (id === 'admission-grades') renderAdmissionGrades(); if (id === 'mock-exams') renderMockExams(); if (id === 'student-records') renderStudentRecords(); if (id === 'today-tasks') { refreshTaskDay(); renderTasks(); $('#daily-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (id === 'pomodoro') { timerHeartbeat(); $('#focus-title').focus({preventScroll:true}); window.scrollTo(0,0); } else if (['pomodoro','today-tasks'].includes(previous)) { if (id === 'home') $(previous === 'pomodoro' ? '#focus-entry' : '#today-entry').focus(); else window.scrollTo(0,0); } }
       function showToast(msg) { const toast = $('#toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200); }
       function openModal(id) { const modal = document.getElementById(id); modal.classList.add('open'); const input = $('input', modal); if (input) input.focus({ preventScroll:true }); }
       function closeModal(el) { const backdrop = el.closest('.modal-backdrop'); backdrop.classList.remove('open'); if (backdrop.id === 'admissions-unlock-modal') { admissionLockVersion++; $('#admissions-unlock-form').reset(); $('#admissions-unlock-error').textContent = ''; $('#admissions-passcode').removeAttribute('aria-invalid'); } }
@@ -2386,7 +2480,174 @@
         $('#focus-entry-time').innerHTML = active ? `${display}<span>남음</span>` : '70<span>분</span>';
         $('#focus-entry-status').textContent = timerSaveFailed ? '저장 오류 · 들어가서 다시 저장해 주세요.' : active ? `${timerRunning ? '집중 중' : '일시정지'} · 고${owner} ${name}` : '한 가지에 집중하는 70분.';
       }
-      function timerHeartbeat() {
+      const examScreens = ['exam-plan','exam-progress','exam-timetable'];
+      const examStorage = 'ondo-exam-mode-v1';
+      let examData = { mode:'auto', start:'', end:'', digest:'', edition:'white', plans:[], progress:[], timetable:[] };
+      try { Object.assign(examData, JSON.parse(localStorage.getItem(examStorage))); } catch {}
+      let examUnlocked = false, examActive = false;
+      let examMonth = localDate(new Date()).slice(0,7);
+      let examRenderedDay = '';
+      const examAssessmentHome = document.createComment('assessment position');
+
+      function saveExam(next) {
+        try { localStorage.setItem(examStorage, JSON.stringify(next)); examData = next; return true; }
+        catch { showToast('시험 모드 설정을 저장하지 못했어요.'); return false; }
+      }
+      function examRequested(date = localDate(new Date())) {
+        return examData.mode === 'exam' || examData.mode === 'auto' && Boolean(examData.start && examData.end && examData.start <= date && date <= examData.end);
+      }
+      function refreshExamMode() {
+        const active = examUnlocked && examRequested();
+        if (active !== examActive) {
+          examActive = active;
+          document.body.classList.toggle('exam-mode', active);
+          if (active) {
+            $('#exam-assessments').append($('#deadline-island'));
+            setDeadlineIslandOpen(true);
+          } else {
+            examAssessmentHome.after($('#deadline-island'));
+            setDeadlineIslandOpen(false);
+          }
+          setScreen('home');
+        }
+        const date = localDate(new Date());
+        if (examActive && examRenderedDay !== date) {
+          examRenderedDay = date;
+          renderExam();
+        }
+        $('#exam-unlock-shortcut').hidden = active || !examRequested();
+        const status = $('#exam-mode-status');
+        const label = active ? '시험 모드 사용 중' : examRequested() ? '시험 모드 잠김 · 비밀번호를 입력하세요' : '기본 모드 사용 중';
+        if (status.textContent !== label) status.textContent = label;
+      }
+      function renderExamSettings() {
+        const form = $('#exam-settings-form');
+        for (const key of ['mode','start','end']) form.elements[key].value = examData[key];
+        form.elements.password.value = '';
+        $$('[data-edition]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.edition === examData.edition)));
+      }
+      async function examDigest(password) {
+        const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
+        return Array.from(new Uint8Array(bytes), byte => byte.toString(16).padStart(2,'0')).join('');
+      }
+      function renderExamCalendar(target, rows) {
+        const first = new Date(examMonth + '-01T12:00:00');
+        const count = new Date(first.getFullYear(), first.getMonth()+1, 0).getDate();
+        const cells = ['일','월','화','수','목','금','토'].map(day => '<div class="exam-weekday">'+day+'</div>');
+        for (let i=0; i<first.getDay(); i++) cells.push('<div></div>');
+        for (let day=1; day<=count; day++) {
+          const date = examMonth + '-' + String(day).padStart(2,'0');
+          const plans = rows.filter(row => row.date === date);
+          cells.push('<div class="exam-day'+(date === localDate(new Date()) ? ' today' : '')+'"><strong>'+day+'</strong>'+plans.map(row => '<span>'+escapeHtml(row.title)+'</span>').join('')+'</div>');
+        }
+        target.innerHTML = '<div class="exam-tools"><button class="secondary-btn" data-exam-month="-1" aria-label="이전 달">‹</button><strong>'+first.getFullYear()+'년 '+(first.getMonth()+1)+'월</strong><button class="secondary-btn" data-exam-month="1" aria-label="다음 달">›</button></div><div class="exam-calendar">'+cells.join('')+'</div>';
+      }
+      function renderExamLessons() {
+        const date = schoolTodayDate();
+        const profile = data.schoolClass;
+        const lessons = profile && schoolSnapshot?.timetable?.days?.[date]?.[profile.grade+'-'+profile.room];
+        const overrides = examData.progress.filter(row => row.grade === activeGrade && row.date === date);
+        $('#exam-today-lessons').innerHTML = lessons?.length
+          ? '<div class="school-periods">'+lessons.map(lesson => {
+            const subject = String(lesson.subject);
+            const selfStudy = overrides.some(row => row.subject.replace(/\s/g,'') === subject.replace(/\s/g,''));
+            return '<div class="school-period"><div class="school-period-meta">'+escapeHtml(String(lesson.period))+'교시 '+escapeHtml(lesson.time || '')+'</div><div class="school-period-subject">'+escapeHtml(selfStudy ? '자습('+subject+')' : subject)+'</div></div>';
+          }).join('')+'</div>'
+          : '<p>'+ (profile ? '오늘 표시할 컴시간 수업이 없어요.' : '설정에서 시간표 학년·반을 지정하세요.') +'</p>';
+      }
+      function renderExam() {
+        if (!examActive) return;
+        const plans = examData.plans.filter(row => row.grade === activeGrade);
+        renderExamCalendar($('#exam-home-calendar'), plans);
+        renderExamCalendar($('#exam-edit-calendar'), plans);
+        renderDday();
+        $('#exam-dday').textContent = $('#dday-count').textContent;
+        renderExamLessons();
+        for (const [kind, target] of [['plans','exam-plan-list'],['progress','exam-progress-list'],['timetable','exam-timetable-list']]) {
+          const rows = examData[kind].filter(row => row.grade === activeGrade).sort((a,b) => a.date.localeCompare(b.date) || (a.period || 0)-(b.period || 0));
+          $('#'+target).innerHTML = rows.length ? rows.map(row => '<div class="exam-tools exam-box"><span>'+escapeHtml(row.date)+' · '+(row.period ? row.period+'교시 · ' : '')+escapeHtml(row.title || row.subject)+'</span><div>'+(kind === 'plans' ? '<button class="secondary-btn" data-exam-edit="'+escapeHtml(row.id)+'">수정</button> ' : '')+'<button class="secondary-btn" data-exam-remove="'+kind+'" data-id="'+escapeHtml(row.id)+'">삭제</button></div></div>').join('') : '<p>아직 등록한 항목이 없어요.</p>';
+        }
+      }
+      function initializeExam() {
+        $('#deadline-island').before(examAssessmentHome);
+        document.body.classList.toggle('black-edition', examData.edition === 'black');
+        $('#settings-sync').onclick = () => $('#sync-open').click();
+        $('#settings-class').onclick = () => $('#school-class-open').click();
+        $('#exam-lock').onclick = () => { examUnlocked = false; refreshExamMode(); setScreen('settings'); };
+        $('#exam-settings-form').onsubmit = async event => {
+          event.preventDefault();
+          const form = event.currentTarget;
+          const {mode,start,end,password} = Object.fromEntries(new FormData(form));
+          if (Boolean(start) !== Boolean(end) || start > end) { showToast('시작일과 종료일을 올바르게 입력하세요.'); return; }
+          if (!password && (!examUnlocked || !examData.digest)) { showToast('시험 모드 비밀번호를 입력하세요.'); return; }
+          const submit = form.querySelector('button');
+          submit.disabled = true;
+          try {
+            const digest = password ? await examDigest(password) : examData.digest;
+            if (examData.digest && digest !== examData.digest) { showToast('시험 모드 비밀번호가 맞지 않아요.'); return; }
+            if (!saveExam({...examData, mode,start,end,digest})) return;
+            examUnlocked = true;
+            form.elements.password.value = '';
+            refreshExamMode();
+            if (examActive && screen !== 'home') setScreen('home');
+            showToast('시험 모드 설정을 저장했어요.');
+          } catch { showToast('비밀번호를 확인할 수 없어요. 안전한 웹 주소에서 열어 주세요.'); }
+          finally { submit.disabled = false; }
+        };
+        for (const [id,kind] of [['exam-plan-form','plans'],['exam-progress-form','progress'],['exam-timetable-form','timetable']]) {
+          $('#'+id).onsubmit = event => {
+            event.preventDefault();
+            if (!examActive) return;
+            const form = event.currentTarget;
+            const fields = Object.fromEntries(new FormData(form));
+            const label = (fields.title || fields.subject || '').trim();
+            if (!label) { showToast('내용을 입력하세요.'); return; }
+            const period = Number(fields.period);
+            const rows = examData[kind];
+            const existing = rows.find(row => row.grade === activeGrade && (kind === 'plans' ? row.id === fields.id : row.date === fields.date && (kind === 'progress' ? row.subject === label : row.period === period)));
+            const row = { id:existing?.id || uid(), grade:activeGrade, date:fields.date };
+            if (kind === 'plans') row.title = label;
+            else row.subject = label;
+            if (kind === 'timetable') row.period = period;
+            if (!saveExam({...examData,[kind]:[...rows.filter(item => item !== existing),row]})) return;
+            if (kind === 'plans') examMonth = row.date.slice(0,7);
+            form.reset();
+            renderExam();
+          };
+        }
+        document.addEventListener('click', event => {
+          const edition = event.target.closest('[data-edition]');
+          if (edition && saveExam({...examData,edition:edition.dataset.edition})) {
+            document.body.classList.toggle('black-edition',examData.edition === 'black');
+            renderExamSettings();
+          }
+          if (!examActive) return;
+          const month = event.target.closest('[data-exam-month]');
+          if (month) {
+            const date = new Date(examMonth+'-01T12:00:00');
+            date.setMonth(date.getMonth()+Number(month.dataset.examMonth));
+            examMonth = localDate(date).slice(0,7);
+            renderExam();
+          }
+          const edit = event.target.closest('[data-exam-edit]');
+          if (edit) {
+            const row = examData.plans.find(item => item.id === edit.dataset.examEdit && item.grade === activeGrade);
+            if (row) {
+              const form = $('#exam-plan-form');
+              for (const key of ['id','date','title']) form.elements[key].value = row[key];
+              form.elements.title.focus();
+            }
+          }
+          const remove = event.target.closest('[data-exam-remove]');
+          if (remove) {
+            const kind = remove.dataset.examRemove;
+            if (saveExam({...examData,[kind]:examData[kind].filter(row => row.id !== remove.dataset.id || row.grade !== activeGrade)})) renderExam();
+          }
+        });
+        refreshExamMode();
+      }
+
+      function timerHeartbeat() { refreshExamMode();
         refreshTaskDay();
         if (!timerSaveFailed) timerState = readTimerState();
         const now = Date.now(), progress = StudyTimer.measure(timerState,now);
@@ -2868,7 +3129,7 @@
       window.addEventListener('storage', e => { if (e.key === TIMER_STATE_KEY) timerHeartbeat(); });
       document.addEventListener('keydown', e => { if (!koreanInput.isComposing(e) && e.key === 'Escape') $$('.modal-backdrop.open').forEach(el => closeModal(el)); });
       window.addEventListener('hashchange', () => { const grade = /^#g([1-3])$/.exec(location.hash)?.[1]; if (grade && grade !== activeGrade) setGrade(grade, false); });
-      restoreStudyRows(); render(); timerHeartbeat(); timerInterval = setInterval(timerHeartbeat,1000); scheduleAssessmentExpiry(); scheduleExtrasRefresh(); loadSchoolData();
+      initializeExam(); restoreStudyRows(); render(); timerHeartbeat(); timerInterval = setInterval(timerHeartbeat,1000); scheduleAssessmentExpiry(); scheduleExtrasRefresh(); loadSchoolData();
       setInterval(() => { if (document.visibilityState === 'visible' && screen === 'home') loadSchoolData(); }, 10 * 60 * 1000);
       document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && Date.now() - schoolDataLastLoaded > 5 * 60 * 1000) loadSchoolData(); });
     })();
