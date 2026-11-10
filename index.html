@@ -988,7 +988,27 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
 .exam-assessment-card .deadline-island {box-shadow:none;border-radius:16px}
 .exam-assessment-card .deadline-toggle {min-height:72px;padding:12px}
 </style>
+<style>
+#screen-exam-timetable h1 {margin:0 0 18px}
+#exam-timetable-form {gap:12px;margin-bottom:24px}
+#exam-timetable-form input {width:100%;min-width:0;box-sizing:border-box}
+#exam-timetable-form label:nth-child(2) {width:72px}
+#exam-timetable-list {display:grid;gap:10px}
+#exam-timetable-list .exam-box {padding:14px 16px;min-width:0}
+.exam-date-badge {display:inline-block;margin-inline-start:8px;padding:3px 8px;border:1px solid var(--line);border-radius:20px;font-weight:700;font-size:12px;white-space:nowrap}
+</style><style>
+#exam-progress-form {margin:16px 0 24px}
+#exam-progress-form input {width:min(100%,320px)}
+#exam-progress-list {display:grid;gap:12px}
+.exam-study-subject h2 {margin:0;font-size:17px}
+.exam-study-subject progress {display:block;width:100%;height:12px;margin:12px 0;accent-color:#628bd5}
+.exam-study-subject p {margin:0;color:var(--muted)}
+.exam-study-task {padding:8px 0;border-top:1px solid var(--line)}
+.exam-study-task label {display:flex;align-items:center;gap:8px;min-width:0;overflow-wrap:anywhere}
+.exam-study-task input {flex:none}
+</style>
 </head>
+
 
 <body>
   <div class="app">
@@ -1076,12 +1096,13 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
     <button class="secondary-btn" id="exam-lock">시험 모드 잠그기</button>
   </section>
   <section class="exam-box settings-edition"><h2>화면</h2><p>사용할 에디션을 선택하세요.</p><div class="exam-tools"><button class="secondary-btn" data-edition="white">화이트 에디션</button><button class="secondary-btn" data-edition="black">블랙 에디션</button></div></section>
-  <section class="exam-box settings-data"><h2>데이터·학교</h2><div class="settings-links"><button class="secondary-btn" id="settings-sync">기기 간 동기화</button><button class="secondary-btn" id="settings-class">시간표 학년·반</button></div><p>시험 계획, 자습 지정, 모드와 에디션은 이 브라우저에 저장돼요.</p></section>
+  <section class="exam-box settings-data"><h2>데이터·학교</h2><div class="settings-links"><button class="secondary-btn" id="settings-sync">기기 간 동기화</button><button class="secondary-btn" id="settings-class">시간표 학년·반</button></div><p>시험 계획, 시험공부 할 일, 모드와 에디션은 이 브라우저에 저장돼요.</p></section>
 </div></section>
 <section class="screen" id="screen-exam-plan"><section class="exam-box"><h1>2차고사 대비 Plan</h1><div id="exam-edit-calendar"></div>
   <form class="exam-form" id="exam-plan-form"><input type="hidden" name="id"><label>날짜<input name="date" type="date" required></label><label>계획<input name="title" maxlength="100" required></label><button class="primary-btn">저장</button><button type="reset" class="secondary-btn">새 일정</button></form><div id="exam-plan-list"></div></section></section>
-<section class="screen" id="screen-exam-progress"><section class="exam-box"><h1>시험진도현황</h1><p>진도가 끝난 과목을 날짜별로 지정하면 시험 모드 시간표에 자습으로 표시돼요.</p>
-  <form class="exam-form" id="exam-progress-form"><label>날짜<input name="date" type="date" required></label><label>컴시간에 표시되는 과목명<input name="subject" maxlength="60" required></label><button class="primary-btn">자습 지정</button></form><div id="exam-progress-list"></div></section></section>
+<section class="screen" id="screen-exam-progress"><section class="exam-box"><h1>시험진도현황</h1><p>과목별 시험공부 할 일을 추가하고, 끝낸 항목을 체크하세요.</p>
+  <form class="exam-form" id="exam-progress-form"><label>과목<select name="subject" required></select></label><label>해야 할 공부<input name="title" maxlength="100" placeholder="예: 교과서 3단원 문제 풀기" required></label><button class="primary-btn">할 일 추가</button></form>
+  <div id="exam-progress-list"></div></section></section>
 <section class="screen" id="screen-exam-timetable"><section class="exam-box"><h1>시험 시간표</h1><form class="exam-form" id="exam-timetable-form"><label>날짜<input type="date" name="date" required></label><label>교시<input type="number" name="period" min="1" max="12" required></label><label>시험 과목<input name="subject" maxlength="60" required></label><button class="primary-btn">등록·수정</button></form><div id="exam-timetable-list"></div></section></section>
 <section class="screen" id="screen-today-tasks" aria-labelledby="daily-title">
           <div class="daily-shell">
@@ -2482,7 +2503,7 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
       }
       const examScreens = ['exam-plan','exam-progress','exam-timetable'];
       const examStorage = 'ondo-exam-mode-v1';
-      let examData = { mode:'auto', start:'', end:'', digest:'', edition:'white', plans:[], progress:[], timetable:[] };
+      let examData = { mode:'auto', start:'', end:'', digest:'', edition:'white', plans:[], studyTasks:[], timetable:[] };
       try { Object.assign(examData, JSON.parse(localStorage.getItem(examStorage))); } catch {}
       let examUnlocked = false, examActive = false;
       let examMonth = localDate(new Date()).slice(0,7);
@@ -2546,16 +2567,44 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
         const date = schoolTodayDate();
         const profile = data.schoolClass;
         const lessons = profile && schoolSnapshot?.timetable?.days?.[date]?.[profile.grade+'-'+profile.room];
-        const overrides = examData.progress.filter(row => row.grade === activeGrade && row.date === date);
         $('#exam-today-lessons').innerHTML = lessons?.length
           ? '<div class="school-periods">'+lessons.map(lesson => {
             const subject = String(lesson.subject);
-            const selfStudy = overrides.some(row => row.subject.replace(/\s/g,'') === subject.replace(/\s/g,''));
-            return '<div class="school-period"><div class="school-period-meta">'+escapeHtml(String(lesson.period))+'교시 '+escapeHtml(lesson.time || '')+'</div><div class="school-period-subject">'+escapeHtml(selfStudy ? '자습('+subject+')' : subject)+'</div></div>';
+            return '<div class="school-period"><div class="school-period-meta">'+escapeHtml(String(lesson.period))+'교시 '+escapeHtml(lesson.time || '')+'</div><div class="school-period-subject">'+escapeHtml(subject)+'</div></div>';
           }).join('')+'</div>'
           : '<p>'+ (profile ? '오늘 표시할 컴시간 수업이 없어요.' : '설정에서 시간표 학년·반을 지정하세요.') +'</p>';
       }
+      function examDateBadge(date) {
+        const today = localDate(new Date());
+        const days = Math.round((Date.parse(date) - Date.parse(today)) / 86400000);
+        const label = days === 0 ? 'D-Day' : days > 0 ? 'D-' + days : 'D+' + Math.abs(days);
+        return '<span class="exam-date-badge">' + label + '</span>';
+      }
+      function renderExamProgress() {
+        const form = $('#exam-progress-form');
+        const selected = form.elements.subject.value;
+        const subjects = gradeData.subjects;
+        form.elements.subject.innerHTML = subjects.map(subject =>
+          '<option value="'+escapeHtml(subject.id)+'">'+escapeHtml(semesterSubjectLabel(subject))+'</option>'
+        ).join('');
+        if (subjects.some(subject => subject.id === selected)) form.elements.subject.value = selected;
+        form.querySelector('button').disabled = !subjects.length;
+        const list = $('#exam-progress-list');
+        const focused = list.contains(document.activeElement) ? document.activeElement.dataset.studyToggle : null;
+        list.innerHTML = subjects.map(subject => {
+          const tasks = examData.studyTasks.filter(task => task.grade === activeGrade && task.subject === subject.id);
+          const done = tasks.filter(task => task.done).length;
+          const percent = tasks.length ? Math.round(done / tasks.length * 100) : 0;
+          return '<article class="exam-box exam-study-subject"><div class="exam-tools"><h2>'+escapeHtml(semesterSubjectLabel(subject))+'</h2><strong>'+done+' / '+tasks.length+' 완료 · '+percent+'%</strong></div>'+
+            '<progress max="'+(tasks.length || 1)+'" value="'+done+'" aria-label="'+escapeHtml(subject.name)+' 시험공부 진도"></progress>'+
+            (tasks.length ? tasks.map(task =>
+              '<div class="exam-tools exam-study-task"><label><input type="checkbox" data-study-toggle="'+escapeHtml(task.id)+'" '+(task.done ? 'checked' : '')+'> '+escapeHtml(task.title)+'</label><button type="button" class="secondary-btn" data-exam-remove="studyTasks" data-id="'+escapeHtml(task.id)+'">삭제</button></div>'
+            ).join('') : '<p>등록한 할 일이 없어요.</p>')+'</article>';
+        }).join('') || '<p>과목을 먼저 등록하세요.</p>';
+        if (focused) Array.from(list.querySelectorAll('[data-study-toggle]')).find(input => input.dataset.studyToggle === focused)?.focus();
+      }
       function renderExam() {
+
         if (!examActive) return;
         const plans = examData.plans.filter(row => row.grade === activeGrade);
         renderExamCalendar($('#exam-home-calendar'), plans);
@@ -2563,12 +2612,35 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
         renderDday();
         $('#exam-dday').textContent = $('#dday-count').textContent;
         renderExamLessons();
-        for (const [kind, target] of [['plans','exam-plan-list'],['progress','exam-progress-list'],['timetable','exam-timetable-list']]) {
+        if (screen === 'exam-progress') renderExamProgress();
+        for (const [kind, target] of [['plans','exam-plan-list'],['timetable','exam-timetable-list']]) {
           const rows = examData[kind].filter(row => row.grade === activeGrade).sort((a,b) => a.date.localeCompare(b.date) || (a.period || 0)-(b.period || 0));
-          $('#'+target).innerHTML = rows.length ? rows.map(row => '<div class="exam-tools exam-box"><span>'+escapeHtml(row.date)+' · '+(row.period ? row.period+'교시 · ' : '')+escapeHtml(row.title || row.subject)+'</span><div>'+(kind === 'plans' ? '<button class="secondary-btn" data-exam-edit="'+escapeHtml(row.id)+'">수정</button> ' : '')+'<button class="secondary-btn" data-exam-remove="'+kind+'" data-id="'+escapeHtml(row.id)+'">삭제</button></div></div>').join('') : '<p>아직 등록한 항목이 없어요.</p>';
+          $('#'+target).innerHTML = rows.length ? rows.map(row => '<div class="exam-tools exam-box"><span>'+escapeHtml(row.date)+' · '+(row.period ? row.period+'교시 · ' : '')+escapeHtml(row.title || row.subject)+(kind === 'timetable' ? examDateBadge(row.date) : '')+'</span><div>'+(kind === 'plans' ? '<button class="secondary-btn" data-exam-edit="'+escapeHtml(row.id)+'">수정</button> ' : '')+'<button class="secondary-btn" data-exam-remove="'+kind+'" data-id="'+escapeHtml(row.id)+'">삭제</button></div></div>').join('') : '<p>아직 등록한 항목이 없어요.</p>';
         }
       }
       function initializeExam() {
+        $('#exam-progress-form').addEventListener('submit', event => {
+          event.preventDefault();
+          if (!examActive) return;
+          const form = event.currentTarget;
+          const subject = form.elements.subject.value;
+          const title = form.elements.title.value.trim();
+          if (!title || !gradeData.subjects.some(item => item.id === subject)) return;
+          const task = { id:uid(), grade:activeGrade, subject, title, done:false };
+          if (saveExam({...examData, studyTasks:[...examData.studyTasks, task]})) {
+            form.elements.title.value = '';
+            renderExamProgress();
+            form.elements.title.focus();
+          }
+        });
+        $('#exam-progress-list').addEventListener('change', event => {
+          const input = event.target.closest('[data-study-toggle]');
+          if (!examActive || !input) return;
+          const studyTasks = examData.studyTasks.map(task => task.grade === activeGrade && task.id === input.dataset.studyToggle ? {...task, done:input.checked} : task);
+          saveExam({...examData, studyTasks});
+          renderExamProgress();
+        });
+
         $('#deadline-island').before(examAssessmentHome);
         document.body.classList.toggle('black-edition', examData.edition === 'black');
         $('#settings-sync').onclick = () => $('#sync-open').click();
@@ -2594,7 +2666,7 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
           } catch { showToast('비밀번호를 확인할 수 없어요. 안전한 웹 주소에서 열어 주세요.'); }
           finally { submit.disabled = false; }
         };
-        for (const [id,kind] of [['exam-plan-form','plans'],['exam-progress-form','progress'],['exam-timetable-form','timetable']]) {
+        for (const [id,kind] of [['exam-plan-form','plans'],['exam-timetable-form','timetable']]) {
           $('#'+id).onsubmit = event => {
             event.preventDefault();
             if (!examActive) return;
@@ -2604,7 +2676,7 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
             if (!label) { showToast('내용을 입력하세요.'); return; }
             const period = Number(fields.period);
             const rows = examData[kind];
-            const existing = rows.find(row => row.grade === activeGrade && (kind === 'plans' ? row.id === fields.id : row.date === fields.date && (kind === 'progress' ? row.subject === label : row.period === period)));
+            const existing = rows.find(row => row.grade === activeGrade && (kind === 'plans' ? row.id === fields.id : row.date === fields.date && row.period === period));
             const row = { id:existing?.id || uid(), grade:activeGrade, date:fields.date };
             if (kind === 'plans') row.title = label;
             else row.subject = label;
