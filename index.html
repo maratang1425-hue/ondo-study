@@ -1007,7 +1007,25 @@ body.exam-mode .exam-home {gap:24px;align-items:stretch}
 .exam-study-task label {display:flex;align-items:center;gap:8px;min-width:0;overflow-wrap:anywhere}
 .exam-study-task input {flex:none}
 </style>
+<style>
+#screen-exam-plan > .exam-box {min-width:0;padding:clamp(16px,3vw,28px)}
+#screen-exam-plan h1 {margin:0 0 24px}
+#exam-edit-calendar .exam-calendar {margin-top:16px;gap:6px}
+#exam-edit-calendar .exam-day {padding:8px}
+#exam-plan-form {margin:24px 0 20px;padding-top:20px;border-top:1px solid var(--line)}
+#exam-plan-form label {min-width:0}
+#exam-plan-form label:has([name="title"]) {flex:1 1 220px}
+#exam-plan-form input {width:100%;min-width:0;box-sizing:border-box}
+#exam-plan-list {display:grid;gap:10px}
+#exam-plan-list .exam-box {padding:12px 16px;min-width:0;overflow-wrap:anywhere}
+#exam-plan-list .exam-box > div {display:flex;gap:8px}
+@media(max-width:540px){
+  #exam-edit-calendar .exam-calendar {gap:3px}
+  #exam-edit-calendar .exam-day {padding:4px}
+}
+</style>
 </head>
+
 
 
 <body>
